@@ -1,3 +1,11 @@
+---
+name: 기본 이슈 템플릿
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+---
+
 ## 📌 기능명
 
 <!-- 예: 회원가입 / 로그인 기능 -->
