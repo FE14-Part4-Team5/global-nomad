@@ -1,0 +1,108 @@
+/* global.css */
+
+/* Import font */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* Variables */
+:root {
+  --font-family: 'Pretendard', sans-serif;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Font Sizes */
+  --fs-11: 1.1rem;
+  --fs-12: 1.2rem;
+  --fs-13: 1.3rem;
+  --fs-14: 1.4rem;
+  --fs-16: 1.6rem;
+  --fs-18: 1.8rem;
+  --fs-20: 2rem;
+  --fs-24: 2.4rem;
+  --fs-32: 3.2rem;
+
+  /* Line Heights */
+  --lh-body-small: 1.8rem;
+  --lh-body-medium: 2.4rem;
+  --lh-body-large: 2.8rem;
+
+  /* Base Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-text-primary: var(--color-black);
+  --color-bg: var(--color-white);
+
+  /* Grayscale */
+  --gray-25:  #f8f8f8;
+  --gray-50:  #edeef2;
+  --gray-100: #e0e0e5;
+  --gray-200: #c6c8cf;
+  --gray-300: #b3b4bc;
+  --gray-400: #9fa0a7;
+  --gray-500: #84858c;
+  --gray-600: #707177;
+  --gray-700: #5d5d61;
+  --gray-800: #49494c;
+  --gray-900: #323236;
+  --gray-950: #1f1f22;
+
+  /* Brand Colors */
+  --primary-100: #e5f3ff;
+  --primary-500: #3d9ef2;
+
+  /* Alert Colors */
+  --alert-error: #ff2727;
+}
+
+/* Typography */
+
+.text-body {
+  font-size: var(--fs-14);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--lh-body-small);
+}
+
+.text-body-lg {
+  font-size: var(--fs-16);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--lh-body-small);
+}
+
+.text-heading-sm {
+  font-size: var(--fs-18);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-body-large);
+}
+
+.text-heading-md {
+  font-size: var(--fs-20);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-body-medium);
+}
+
+/* Utilities */
+
+/* Font Size Utility */
+.u-fs-11 { font-size: var(--fs-11); }
+.u-fs-12 { font-size: var(--fs-12); }
+.u-fs-13 { font-size: var(--fs-13); }
+.u-fs-14 { font-size: var(--fs-14); }
+.u-fs-16 { font-size: var(--fs-16); }
+.u-fs-18 { font-size: var(--fs-18); }
+.u-fs-20 { font-size: var(--fs-20); }
+.u-fs-24 { font-size: var(--fs-24); }
+.u-fs-32 { font-size: var(--fs-32); }
+
+/* Font Weight Utility */
+.u-fw-medium { font-weight: var(--font-weight-medium); }
+.u-fw-bold { font-weight: var(--font-weight-bold); }
+
+/* Responsive Sizes */
+
+@media (max-width: 768px) {
+  :root {
+    --fs-14: 1.3rem;
+    --fs-16: 1.4rem;
+    --fs-18: 1.6rem;
+    --fs-20: 1.8rem;
+  }
+}
