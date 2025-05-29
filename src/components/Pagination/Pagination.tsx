@@ -1,8 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
 import { clsx } from 'clsx';
 
-import ArrowLeft from '../assets/icons/icon_arrow-left.svg?react';
-import ArrowRight from '../assets/icons/icon_arrow-right.svg?react';
+import ArrowLeft from '../../assets/icons/icon_arrow-left.svg?react';
+import ArrowRight from '../../assets/icons/icon_arrow-right.svg?react';
 
 import styles from './Pagination.module.css';
 
