@@ -1,0 +1,50 @@
+.bedgeCommon {
+  width: 6.3rem;
+  height: 2.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.labelCommon {
+  font-family: var(--font-family);
+  font-size: var(--fs-13);
+  font-weight: bold;
+  width: 4.7rem;
+  height: 1.6rem;
+  white-space: nowrap;
+}
+
+.labelPending {
+  color: #2ba90d;
+}
+.labelConfirmed {
+  color: #1790a0;
+}
+.labelDeclined {
+  color: #f96767;
+}
+.labelCanceled {
+  color: var(--gray-600);
+}
+.labelCompleted {
+  color: #0d6cd1;
+}
+
+.bedgePending {
+  background-color: #e9fbe4;
+}
+.bedgeConfirmed {
+  background-color: #ddf9f9;
+}
+.bedgeDeclined {
+  background-color: #fcecea;
+}
+.bedgeCanceled {
+  background-color: var(--gray-100);
+}
+.bedgeCompleted {
+  background-color: #daf0ff;
+}
