@@ -1,16 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
 import { clsx } from 'clsx';
 
-import ArrowLeft from '../../assets/icons/icon_arrow-left.svg?react';
-import ArrowRight from '../../assets/icons/icon_arrow-right.svg?react';
+import ArrowLeft from '@/assets/icons/icon_arrow-left.svg?react';
+import ArrowRight from '@/assets/icons/icon_arrow-right.svg?react';
 
 import styles from './Pagination.module.css';
 
-interface PaginationProps {
-  totalItems: number;
-  itemsPerPage: number;
-  maxPageButtons?: number;
-}
+import type { PaginationProps } from '@/types/Pagination';
 
 const Pagination = ({ totalItems, itemsPerPage, maxPageButtons = 5 }: PaginationProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,10 +45,10 @@ const Pagination = ({ totalItems, itemsPerPage, maxPageButtons = 5 }: Pagination
         </li>
       )}
 
-      {pages.map((page, idx) => {
+      {pages.map(page => {
         const isActive = page === currentPage;
         return (
-          <li key={idx}>
+          <li key={page}>
             <button
               onClick={() => goToPage(page)}
               disabled={isActive}
