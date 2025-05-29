@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  user-select: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.pageButton,
+.arrowButton {
+  display: grid;
+  place-content: center;
+  width: 4rem;
+  height: 4rem;
+  background-color: transparent;
+  border: none;
+  color: var(--gray-300);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.pageButton {
+  font-size: var(--fs-14);
+  line-height: var(--lh-body-medium);
+}
+
+.pageButton:hover:not(:disabled),
+.arrowButton:hover:not(:disabled) {
+  color: var(--color-black);
+}
+
+.pageButton:disabled,
+.arrowButton:disabled {
+  cursor: default;
+}
+
+.arrowButton:disabled {
+  opacity: 0.3;
+}
+
+.activePage {
+  color: var(--gray-950);
+  font-weight: bold;
+  border-bottom: 0.2rem solid var(--primary-500);
+}
+
+.arrow {
+  width: 0.7rem;
+  height: 1.1rem;
+}
+
+.arrow path {
+  fill: currentColor;
+}
