@@ -1,55 +1,50 @@
-.bedge-common {
-  width: 63px;
-  height: 24px;
-  padding: 4px 8px;
-  border-radius: 100px;
+.bedgeCommon {
+  width: 6.3rem;
+  height: 2.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.bedge-pending {
-  background-color: #e9fbe4;
-}
-
-.bedge-confirmed {
-  background-color: #ddf9f9;
-}
-
-.bedge-declined {
-  background-color: #fcecea;
-}
-
-.bedge-canceled {
-  background-color: var(--gray-100);
-}
-
-.bedge-completed {
-  background-color: #daf0ff;
-}
-
-.label-common {
+.labelCommon {
   font-family: var(--font-family);
   font-size: var(--fs-13);
   font-weight: bold;
-  width: 47px;
-  height: 16px;
+  width: 4.7rem;
+  height: 1.6rem;
   white-space: nowrap;
 }
 
-.pending {
+.labelPending {
   color: #2ba90d;
 }
-
-.confirmed {
+.labelConfirmed {
   color: #1790a0;
 }
-
-.declined {
+.labelDeclined {
   color: #f96767;
 }
-
-.canceled {
+.labelCanceled {
   color: var(--gray-600);
 }
-
-.completed {
+.labelCompleted {
   color: #0d6cd1;
+}
+
+.bedgePending {
+  background-color: #e9fbe4;
+}
+.bedgeConfirmed {
+  background-color: #ddf9f9;
+}
+.bedgeDeclined {
+  background-color: #fcecea;
+}
+.bedgeCanceled {
+  background-color: var(--gray-100);
+}
+.bedgeCompleted {
+  background-color: #daf0ff;
 }
