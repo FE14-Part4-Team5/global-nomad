@@ -1,0 +1,55 @@
+.bedge-common {
+  width: 63px;
+  height: 24px;
+  padding: 4px 8px;
+  border-radius: 100px;
+}
+
+.bedge-pending {
+  background-color: #e9fbe4;
+}
+
+.bedge-confirmed {
+  background-color: #ddf9f9;
+}
+
+.bedge-declined {
+  background-color: #fcecea;
+}
+
+.bedge-canceled {
+  background-color: var(--gray-100);
+}
+
+.bedge-completed {
+  background-color: #daf0ff;
+}
+
+.label-common {
+  font-family: var(--font-family);
+  font-size: var(--fs-13);
+  font-weight: bold;
+  width: 47px;
+  height: 16px;
+  white-space: nowrap;
+}
+
+.pending {
+  color: #2ba90d;
+}
+
+.confirmed {
+  color: #1790a0;
+}
+
+.declined {
+  color: #f96767;
+}
+
+.canceled {
+  color: var(--gray-600);
+}
+
+.completed {
+  color: #0d6cd1;
+}
