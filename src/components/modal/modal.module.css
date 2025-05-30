@@ -1,0 +1,59 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--color-black), 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  width: 40rem;
+  height: 17rem;
+  position: fixed;
+  left: calc(50% - 20rem);
+  top: calc(50% - 8.5rem - 0.05rem);
+  background: var(--color-white);
+  box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
+  border-radius: 3rem;
+  padding: var(--fs-20);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 추가 */
+}
+
+.modalTitle {
+  transform: translateY(-2rem);
+  font-family: var(--font-family);
+  font-size: var(--fs-20);
+  text-align: center;
+}
+
+.modalClose {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20rem;
+  height: 4.7rem;
+  border-radius: 1.4rem;
+  background: var(--primary-500);
+  border: 0.1rem solid var(--primary-500);
+  cursor: pointer;
+  color: var(--color-white);
+  font-size: var(--fs-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalClose:hover {
+  background-color: var(--primary-500);
+  color: var(--color-white);
+}
