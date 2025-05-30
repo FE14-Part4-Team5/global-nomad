@@ -7,7 +7,7 @@ const TestPage = () => {
   return (
     <div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h2>Text</h2>
+        <h2></h2>
       </Modal>
     </div>
   );
@@ -21,20 +21,16 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  isOpen = true, // 기본값을 true로 설정
-  onClose = () => {},
-  children,
-}) => {
+const Modal: React.FC<ModalProps> = ({ isOpen = true, onClose = () => {}, children }) => {
   if (!isOpen) return null;
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-        <div className={styles.modalTitle}>
-          <h2></h2>
-        </div>
-        <button className={styles.modalClose} onClick={onClose}></button>
+        <div className={styles.modalTitle}>Text</div>
+        <button className={styles.modalClose} onClick={onClose}>
+          확인
+        </button>
         {children}
       </div>
     </div>
