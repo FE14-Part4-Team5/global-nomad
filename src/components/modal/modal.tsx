@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styles from './modal.module.css'; // styles로 import 변경
+import styles from './modal.module.css';
 
 const TestPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true); // false에서 true로 변경
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   return (
     <div>
@@ -16,8 +16,8 @@ const TestPage = () => {
 export default TestPage;
 
 interface ModalProps {
-  isOpen?: boolean; // optional로 변경
-  onClose?: () => void; // optional로 변경
+  isOpen?: boolean;
+  onClose?: () => void;
   children: React.ReactNode;
 }
 
@@ -34,9 +34,7 @@ const Modal: React.FC<ModalProps> = ({
         <div className={styles.modalTitle}>
           <h2></h2>
         </div>
-        <button className={styles.modalClose} onClick={onClose}>
-          &times;
-        </button>
+        <button className={styles.modalClose} onClick={onClose}></button>
         {children}
       </div>
     </div>
