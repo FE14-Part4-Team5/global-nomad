@@ -32,15 +32,19 @@
   color: var(--gray-600);
 }
 
-.filter-white {
+.filterWhite {
   background-color: #d8d8d8;
   color: var(--gray-950);
   border: 0.1rem solid var(--color-white);
   border-radius: 10rem;
 }
 
-.filter-black {
+.filterBlack {
   background-color: #333333;
   color: var(--color-white);
   border-radius: 10rem;
+}
+
+.icon {
+  margin-right: 0.6rem;
 }

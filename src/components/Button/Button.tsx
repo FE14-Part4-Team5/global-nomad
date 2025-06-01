@@ -1,28 +1,28 @@
 import clsx from 'clsx';
 import styles from './Button.module.css';
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   icon?: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'filter-white' | 'filter-black';
   padding?: string;
   isActive?: boolean;
   className?: string;
-  onClick?: () => void;
+  marginRight?: string;
 }
 
-export default function Button({
+const Button = ({
   children,
   icon,
   variant = 'primary',
   padding,
   isActive = false,
   className,
-  onClick,
-}: ButtonProps) {
+  marginRight = '0.4rem',
+  ...rest
+}: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
       className={clsx(
         styles.button,
         isActive && styles[`${variant}`],
@@ -31,9 +31,11 @@ export default function Button({
       )}
       style={{ padding: padding }}
       disabled={!isActive}
+      {...rest}
     >
-      {icon}
-      {children}
+      {icon && <span style={{ marginRight: marginRight }}>{icon}</span>} {children}
     </button>
   );
-}
+};
+
+export default Button;
