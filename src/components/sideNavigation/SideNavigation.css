@@ -1,94 +1,93 @@
-.side-navigation {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 24px 14px;
-    gap: 24px;
-  
-    position: absolute;
-    width: 291px;
-    height: 450px;
-    left: 16px;
-    top: 16px;
-  
-    background: #FFFFFF;
-    border: 1px solid #EDEEF2;
-    box-shadow: 0px 4px 24px rgba(156, 180, 202, 0.2);
-    border-radius: 12px;
-  }
-  
-  .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .profile-image {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .user-name {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .navigation-items {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.sideNavigation {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 14px;
+  gap: 24px;
+
+  position: absolute;
+  width: 291px;
+  height: 450px;
+  left: 16px;
+  top: 16px;
+
+  background: #ffffff;
+  border: 1px solid #edeef2;
+  box-shadow: 0px 4px 24px rgba(156, 180, 202, 0.2);
+  border-radius: 12px;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.profileImage {
+  width: 80px;
+  height: 80px;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.menuButton {
+  width: 100%;
+  padding: 12px 16px;
+  background: #f9fafb;
+  border: 1px solid #edeef2;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.menuButton:hover {
+  background: #f1f3f5;
+}
+
+@media (max-width: 767px) {
+  .sideNavigation {
     width: 100%;
+    height: auto;
+    left: 0;
+    top: 0;
+    position: relative;
+    padding: 16px 12px;
+    gap: 16px;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
   }
-  
-  .navigation-button {
-    width: 100%;
-    padding: 12px 16px;
-    background: #F9FAFB;
-    border: 1px solid #EDEEF2;
-    border-radius: 8px;
-    text-align: left;
+
+  .profileImage {
+    width: 60px;
+    height: 60px;
+  }
+
+  .userName {
     font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.2s;
   }
-  
-  .navigation-button:hover {
-    background: #f1f3f5;
+
+  .menuButton {
+    font-size: 13px;
+    padding: 10px 14px;
   }
-  
-  /* 모바일 */
-  @media (max-width: 767px) {
-    .side-navigation {
-      width: 100%;
-      height: auto;
-      left: 0;
-      top: 0;
-      position: relative;
-      padding: 16px 12px;
-      gap: 16px;
-      box-shadow: none;
-      border-radius: 0;
-      border: none;
-    }
-  
-    .profile-image {
-      width: 60px;
-      height: 60px;
-    }
-  
-    .user-name {
-      font-size: 14px;
-    }
-  
-    .navigation-button {
-      font-size: 13px;
-      padding: 10px 14px;
-    }
-  }
-  
+}
