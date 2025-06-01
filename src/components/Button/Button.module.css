@@ -2,7 +2,7 @@
   white-space: nowrap;
   color: var(--gray_50);
   border: none;
-  border-radius: 1.6rem;
+  border-radius: var(--fs-16);
 }
 
 .active {
