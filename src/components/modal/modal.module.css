@@ -12,8 +12,8 @@
 }
 
 .modalContent {
-  width: 40rem;
-  height: 17rem;
+  width: 32rem;
+  height: 14rem;
   position: fixed;
   left: calc(50% - 20rem);
   top: calc(50% - 8.5rem - 0.05rem);
@@ -29,14 +29,14 @@
 }
 
 .modalContent2 {
-  width: 40rem;
-  height: 24.2rem;
+  width: 32rem;
+  height: 18.5rem;
   position: fixed;
   left: calc(50% - 20rem);
   top: calc(50% - 12.1rem - 0.05rem);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
-  border-radius: 3rem;
+  border-radius: 2.4rem;
   padding: var(--fs-20);
   font-family: var(--font-family);
   display: flex;
@@ -53,7 +53,7 @@
 }
 
 .modalTitle2 {
-  transform: translateY(1rem);
+  transform: translateY(-1rem);
   font-family: var(--font-family);
   font-size: var(--fs-20);
   text-align: center;
@@ -82,9 +82,43 @@
   color: var(--color-white);
 }
 
+.modalClose2 {
+  position: absolute;
+  bottom: 4rem;
+  right: 6rem;
+  width: 11.3rem;
+  height: 4.1rem;
+  border-radius: 1.4rem;
+  background: var(--primary-500);
+  border: 0.1rem solid var(--primary-500);
+  cursor: pointer;
+  color: var(--color-white);
+  font-size: var(--fs-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalClose3 {
+  position: absolute;
+  bottom: 4rem;
+  left: 6rem;
+  width: 11.3rem;
+  height: 4.1rem;
+  border-radius: 1.4rem;
+  background: var(--primary-200);
+  border: 0.1rem solid var(--gray-200);
+  cursor: pointer;
+  color: var(--gray-500);
+  font-size: var(--fs-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .warningIcon {
-  width: 8.8rem;
-  height: 8.8rem;
+  width: 5rem;
+  height: 5rem;
   position: absolute;
   left: 50%;
   top: 50%;

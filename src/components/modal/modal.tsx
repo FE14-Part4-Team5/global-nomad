@@ -24,9 +24,20 @@ const Modal: React.FC<ModalProps> = ({
         onClick={e => e.stopPropagation()}
       >
         <div className={isSecondary ? styles.modalTitle2 : styles.modalTitle}>Text</div>
-        <button className={styles.modalClose} onClick={onClose}>
-          확인
-        </button>
+        {isSecondary ? (
+          <>
+            <button className={styles.modalClose3} onClick={onClose}>
+              아니오
+            </button>
+            <button className={styles.modalClose2} onClick={onClose}>
+              취소하기
+            </button>
+          </>
+        ) : (
+          <button className={styles.modalClose} onClick={onClose}>
+            확인
+          </button>
+        )}
         {children}
       </div>
     </div>
