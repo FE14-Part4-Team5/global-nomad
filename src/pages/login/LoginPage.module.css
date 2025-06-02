@@ -1,0 +1,15 @@
+.loginDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginDivider::before,
+.loginDivider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.dividerText {
+}
