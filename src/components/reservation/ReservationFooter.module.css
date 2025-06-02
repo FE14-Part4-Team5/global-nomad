@@ -34,18 +34,16 @@
   cursor: pointer;
 }
 
-.confirmButton {
+.footerWrapper .confirmButton {
   font-size: 1.6rem;
   font-weight: 700;
   color: white;
   background-color: var(--primary-500);
   padding: 1.4rem 4rem;
-  border: none;
   border-radius: 1.4rem;
-  cursor: pointer;
   transition: background 0.2s;
 }
 
-.confirmButton:disabled {
+.footerWrapper .confirmButton:disabled {
   background-color: #c6c8cf;
 }

@@ -10,6 +10,7 @@ import { formatDateToYMD } from '@/utils/datetime';
 import styles from './Reservation.module.css';
 import CalendarSection from '../calendar/CalendarSection';
 import ReservationFooter from './ReservationFooter';
+import Button from '../Button/Button';
 
 interface ScheduleSlot {
   id: number;
@@ -114,15 +115,20 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
                   총 합계
                   <strong>₩ {total.toLocaleString()}</strong>
                 </div>
-                <button
-                  className={styles.inlineReserveButton}
-                  disabled={
-                    selectedTime === undefined || filteredSchedules.length === 0 || headCount === 0
+                <Button
+                  variant="primary"
+                  isActive={
+                    !(
+                      selectedTime === undefined ||
+                      filteredSchedules.length === 0 ||
+                      headCount === 0
+                    )
                   }
                   onClick={onReserve}
+                  className={styles.inlineReserveButton}
                 >
                   예약하기
-                </button>
+                </Button>
               </div>
             )}
           </div>
@@ -131,13 +137,14 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
 
       {viewportSize !== 'desktop' &&
         (calendarOpen ? (
-          <button
-            className={styles.reserveButton}
-            disabled={selectedTime === undefined || headCount === 0}
+          <Button
+            variant="primary"
+            isActive={!(selectedTime === undefined || headCount === 0)}
             onClick={() => setCalendarOpen(false)}
+            className={styles.reserveButton}
           >
             확인
-          </button>
+          </Button>
         ) : (
           <ReservationFooter
             price={price}

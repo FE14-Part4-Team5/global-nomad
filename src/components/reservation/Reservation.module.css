@@ -129,16 +129,13 @@
   border-top: 1px solid #dddddd;
 }
 
-.inlineReserveButton,
-.reserveButton {
+.totalRow .inlineReserveButton,
+.reservation .reserveButton {
   padding: 1.4rem 4rem;
   font-size: 1.6rem;
   font-weight: 700;
   color: white;
-  background-color: var(--primary-500);
-  border: none;
   border-radius: 1.4rem;
-  cursor: pointer;
 }
 
 .inlineReserveButton {
@@ -150,8 +147,8 @@
   transition: background 0.2s;
 }
 
-.inlineReserveButton:disabled,
-.reserveButton:disabled {
+.totalRow .inlineReserveButton:disabled,
+.reservation .reserveButton:disabled {
   background-color: var(--gray-300);
   color: var(--gray-50);
 }

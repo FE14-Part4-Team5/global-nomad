@@ -2,6 +2,7 @@ import styles from './ReservationFooter.module.css';
 
 import { formatDateTime } from '@/utils/datetime';
 import type { ReservationFooterProps } from '@/types/reservation';
+import Button from '../Button/Button';
 
 export const ReservationFooter = ({
   price,
@@ -24,13 +25,14 @@ export const ReservationFooter = ({
             : '날짜 선택하기'}
         </button>
       </div>
-      <button
-        className={styles.confirmButton}
-        disabled={selectedTime === undefined || headCount === 0}
+      <Button
+        variant="primary"
+        isActive={!(selectedTime === undefined || headCount === 0)}
         onClick={onClickReserve}
+        className={styles.confirmButton}
       >
         예약하기
-      </button>
+      </Button>
     </div>
   );
 };
