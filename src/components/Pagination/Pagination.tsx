@@ -78,3 +78,5 @@ const Pagination = ({ totalItems, itemsPerPage, maxPageButtons = 5 }: Pagination
 };
 
 export default Pagination;
+
+/*pagination dir 바꾸기용 주석*/
