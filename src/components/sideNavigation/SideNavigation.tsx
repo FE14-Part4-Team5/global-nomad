@@ -8,7 +8,7 @@ const SideNavigation: React.FC = () => {
     <aside className="sideNavigation">
       <div className="profileContainer">
         <ProfileImage />
-        <h2 className="userName">사용자 이름</h2>
+        <div className="userName">사용자 이름</div>
       </div>
       <nav className="menuItems">
         <Link to="/my-info" className="menuButton">내 정보</Link>
