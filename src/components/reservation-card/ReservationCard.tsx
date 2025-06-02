@@ -1,6 +1,6 @@
 import styles from './ReservationCard.module.css';
 
-import StateBadge from '../StateBedge/StateBadge';
+import StateBadge from '../state-badge/StateBadge';
 
 const ReservationCard = ({
   activity,
