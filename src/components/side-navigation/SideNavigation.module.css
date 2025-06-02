@@ -1,0 +1,26 @@
+.navigationCard {
+  width: 32.7rem;
+  height: 45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1.2rem;
+  padding: 2.4rem 1.4rem;
+  /*임시 마진*/
+  margin: 100px;
+}
+
+@media (min-width: 768px) {
+  .navigationCard {
+    width: 17.8rem;
+    height: 34.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navigationCard {
+    width: 29rem;
+    height: 45rem;
+  }
+}

@@ -1,0 +1,63 @@
+.contentsBox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 29.9rem;
+  height: 5.4rem;
+  cursor: pointer;
+}
+
+.activeContentsBox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 29.9rem;
+  height: 5.4rem;
+  background-color: #e5f3ff;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.icon {
+  margin-left: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.itemText {
+  color: var(--gray-600);
+}
+
+@media (min-width: 768px) {
+  .contentsBox {
+    width: 15rem;
+    height: 4.8rem;
+  }
+
+  .activeContentsBox {
+    width: 15rem;
+    height: 4.8rem;
+  }
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contentsBox {
+    width: 26.2rem;
+    height: 5.4rem;
+  }
+
+  .activeContentsBox {
+    width: 26.2rem;
+    height: 5.4rem;
+  }
+
+  .icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
