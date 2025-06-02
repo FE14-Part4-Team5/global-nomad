@@ -20,7 +20,7 @@ const MyExperienceCard = ({
           <div className={styles.title}>{title}</div>
           <div className={styles.ratingReview}>
             <img src={starIcon} alt="star icon" className={styles.star} />
-            <div className={styles.rating}>{(rating ?? 0).toFixed(1)}</div>
+            <div className={styles.rating}>{rating.toFixed(1)}</div>
             <div className={styles.reviewCount}>({reviewCount})</div>
           </div>
           <div className={styles.priceGroup}>
