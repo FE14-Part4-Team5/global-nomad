@@ -1,6 +1,6 @@
 import styles from './MainCard.module.css';
 
-import svg from '../../assets/icons/icon_active=0n.svg';
+import starIcon from '../../assets/icons/icon_active=0n.svg';
 
 const MainCard = ({
   bannerImageUrl,
@@ -18,7 +18,7 @@ const MainCard = ({
       <div className={styles.contentBox}>
         <div className={styles.title}>{title}</div>
         <div className={styles.ratingReview}>
-          <img src={svg} alt="star svg" className={styles.star} />
+          <img src={starIcon} alt="star icon" className={styles.star} />
           <div className={styles.rating}>{rating?.toFixed(1)}</div>
           <div className={styles.reviewCount}>({reviewCount})</div>
         </div>

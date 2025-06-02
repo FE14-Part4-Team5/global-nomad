@@ -1,6 +1,6 @@
 import styles from './MyExperienceCard.module.css';
 
-import svg from '../../assets/icons/icon_active=0n.svg';
+import starIcon from '../../assets/icons/icon_active=0n.svg';
 
 const MyExperienceCard = ({
   bannerImageUrl,
@@ -19,7 +19,7 @@ const MyExperienceCard = ({
         <div className={styles.contents}>
           <div className={styles.title}>{title}</div>
           <div className={styles.ratingReview}>
-            <img src={svg} alt="star svg" className={styles.star} />
+            <img src={starIcon} alt="star icon" className={styles.star} />
             <div className={styles.rating}>{(rating ?? 0).toFixed(1)}</div>
             <div className={styles.reviewCount}>({reviewCount})</div>
           </div>
