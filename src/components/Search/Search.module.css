@@ -1,0 +1,56 @@
+.searchContainer {
+  display: inline-block;
+  max-width: 112rem;
+  width: 100%;
+}
+
+.explainationContainer {
+  color: var(--color-black);
+  text-align: center;
+  font-size: var(--fs-32);
+  font-weight: var(--font-weight-bold);
+  margin: 3.2rem 4rem 3.6rem;
+  min-width: 40rem;
+}
+
+.searchInputContainer {
+  position: relative;
+}
+
+.searchInputContainer input {
+  border-radius: 2.4rem;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 3.2rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 2.3rem 0 2.3rem 6.6rem;
+  border-radius: 2.4rem;
+  border: 1px solid var(--gray-300);
+  font-size: var(--fs-18);
+  outline: none;
+  background-color: var(--color-white);
+}
+
+.searchInput:focus {
+  border-color: var(--primary-500);
+}
+
+.searchButton {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 1.5rem 3.2rem;
+  font-size: var(--fs-16);
+}
+
+/*반응형 코드 추가 예정*/

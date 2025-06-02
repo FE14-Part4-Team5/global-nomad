@@ -1,0 +1,29 @@
+.dropdownButton {
+  font-size: var(--fs-16);
+  color: var(--gray-950);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.dropdownMenu {
+  position: absolute;
+  margin-top: 0.5rem;
+  list-style: none;
+  background: var(--color-white);
+  border: 0.1rem solid var(--gray-300);
+  border-radius: 0.4rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  font-size: var(--fs-14);
+  color: var(--gray-950);
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: var(--gray-100);
+}
