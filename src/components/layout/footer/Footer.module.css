@@ -23,11 +23,9 @@
   gap: 2.4rem;
 }
 .footerMenu a {
-  text-decoration: none;
   font-size: var(--fs-13);
   font-weight: var(--font-weight-medium);
   color: var(--gray-600);
-  cursor: pointer;
 }
 
 .snsWrapper {
@@ -40,7 +38,6 @@
   width: 2rem;
   height: 2rem;
   display: inline-block;
-  cursor: pointer;
 }
 
 .snsIcon {

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Header.module.css';
 import smallLogo from '@/assets/icons/logo_earth.svg';
-import logo from '@/assets/icons/logo_vertical.svg';
+import gnbLogo from '@/assets/icons/logo_vertical.svg';
 import NotiIcon from '@/assets/icons/icon_bell.svg?react';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
 
@@ -47,13 +47,13 @@ const Header = () => {
       <div className={styles.gnbLogo}>
         <Link to="/">
           <picture>
-            <source srcSet={logo} media="(min-width:768px)" />
+            <source srcSet={gnbLogo} media="(min-width:768px)" />
             <img src={smallLogo} alt="logo" className={styles.gnbLogoIcon} />
           </picture>
         </Link>
       </div>
 
-      {auth ? (
+      {!auth ? (
         <div className={styles.authWrapper}>
           <Link to="/login" className={styles.authButton}>
             로그인
