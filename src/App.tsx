@@ -1,8 +1,12 @@
+import React from 'react';
+import ModalContainer from './components/modal/modal';
+import './styles/global.css';
+
 function App() {
   return (
-    <>
-      <div></div>
-    </>
+    <div>
+      <ModalContainer />
+    </div>
   );
 }
 
