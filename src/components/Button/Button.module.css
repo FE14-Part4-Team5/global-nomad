@@ -1,6 +1,6 @@
 .button {
   white-space: nowrap;
-  color: var(--gray_50);
+  color: var(--gray-50);
   border: none;
   border-radius: var(--fs-16);
 }
