@@ -1,0 +1,138 @@
+.container {
+  width: 100%;
+  height: 4.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 2.4rem;
+  position: fixed;
+  background-color: var(--color-white);
+}
+
+.gnbLogo {
+  width: 2.8rem;
+  height: 2.8rem;
+  flex-shrink: 0;
+  display: inline-block;
+  cursor: pointer;
+}
+.gnbLogoIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.authWrapper {
+  display: flex;
+  gap: 1rem;
+}
+.authButton {
+  padding: 0.8rem 1rem;
+  font-size: var(--fs-14);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-950);
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.notice path {
+  fill: var(--gray-600);
+}
+.notice.active path {
+  fill: var(--primary-500);
+}
+.notice.active rect {
+  display: none;
+}
+
+.divider {
+  border-left: 0.1rem solid var(--gray-100);
+  height: 1.4rem;
+}
+
+.userWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.userProfile {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 10rem;
+  overflow: hidden;
+  display: inline-block;
+}
+.userProfileIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dropdownMenu {
+  width: 10rem;
+  position: absolute;
+  top: 3.5rem;
+  right: 0;
+  background-color: white;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10%);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 999;
+}
+
+.dropdownMenu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  height: 3.5rem;
+  text-align: center;
+  padding: 0.8rem 1.2rem;
+  background: white;
+  border: none;
+  font-size: var(--fs-14);
+}
+
+.dropdownItem:hover {
+  background-color: var(--gray-50);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 1rem 3rem;
+  }
+
+  .gnbLogo {
+    width: 17.4rem;
+    height: 2.8rem;
+  }
+
+  .authWrapper {
+    gap: 1.2rem;
+  }
+  .authButton {
+    padding: 1.2rem 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 1rem 20rem;
+  }
+}
