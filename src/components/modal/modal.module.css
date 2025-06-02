@@ -1,0 +1,221 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--color-black), 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  width: 32rem;
+  height: 14rem;
+  position: fixed;
+  left: calc(50% - 20rem);
+  top: calc(50% - 8.5rem - 0.05rem);
+  background: var(--color-white);
+  box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
+  border-radius: 3rem;
+  padding: var(--fs-20);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent2 {
+  width: 32rem;
+  height: 18.5rem;
+  position: fixed;
+  left: calc(50% - 20rem);
+  top: calc(50% - 12.1rem - 0.05rem);
+  background: var(--color-white);
+  box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
+  border-radius: 2.4rem;
+  padding: var(--fs-20);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent3 {
+  width: 32.7rem;
+  height: 47.9rem;
+  position: fixed;
+  left: calc(50% - 20rem);
+  top: calc(50% - 23.95rem - 0.05rem);
+  background: var(--color-white);
+  box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
+  border-radius: 3rem;
+  padding: var(--fs-20);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalTitle {
+  transform: translateY(-2rem);
+  font-family: var(--font-family);
+  font-size: var(--fs-20);
+  text-align: center;
+}
+
+.modalTitle2 {
+  transform: translateY(-1rem);
+  font-family: var(--font-family);
+  font-size: var(--fs-20);
+  text-align: center;
+}
+
+.modalTitle3 {
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-family);
+  font-size: var(--fs-14);
+  text-align: center;
+}
+
+.modalClose {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20rem;
+  height: 4.7rem;
+  border-radius: 1.4rem;
+  background: var(--primary-500);
+  border: 0.1rem solid var(--primary-500);
+  cursor: pointer;
+  color: var(--color-white);
+  font-size: var(--fs-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalClose:hover {
+  background-color: var(--primary-500);
+  color: var(--color-white);
+}
+
+.modalClose2 {
+  position: absolute;
+  bottom: 4rem;
+  right: 6rem;
+  width: 11.3rem;
+  height: 4.1rem;
+  border-radius: 1.4rem;
+  background: var(--primary-500);
+  border: 0.1rem solid var(--primary-500);
+  cursor: pointer;
+  color: var(--color-white);
+  font-size: var(--fs-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalClose3 {
+  position: absolute;
+  bottom: 4rem;
+  left: 6rem;
+  width: 11.3rem;
+  height: 4.1rem;
+  border-radius: 1.4rem;
+  background: var(--primary-200);
+  border: 0.1rem solid var(--gray-200);
+  cursor: pointer;
+  color: var(--gray-500);
+  font-size: var(--fs-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalClose4 {
+  position: absolute;
+  bottom: 4rem;
+  transform: translateX(0%);
+  width: 27.9rem;
+  height: 4.1rem;
+  border-radius: 1.4rem;
+  background: var(--primary-500);
+  border: 0.1rem solid var(--primary-500);
+  cursor: pointer;
+  color: var(--primary-100);
+  font-size: var(--fs-14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.warningIcon {
+  width: 5rem;
+  height: 5rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% - 5rem));
+}
+
+.starContainer {
+  position: absolute;
+  top: 10.5rem;
+  left: 7rem;
+  display: flex;
+  gap: 1.3rem;
+}
+
+.star {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+.commentWrapper {
+  position: absolute;
+  width: 27rem;
+  top: 17rem;
+  left: 45%;
+  transform: translateX(-50%);
+}
+
+.commentLabel {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-family: var(--font-family);
+  font-size: var(--fs-18);
+  color: var(--color-black);
+}
+
+.commentbox {
+  position: relative;
+  width: 27rem;
+  height: 15rem;
+  border-radius: 1.2rem;
+  border: 0.1rem solid var(--gray-200);
+  background: var(--color-white);
+  padding: 1.6rem;
+  font-family: var(--font-family);
+  font-size: var(--fs-14);
+  resize: none;
+}
+
+.characterCount {
+  position: absolute;
+  bottom: -2.4rem;
+  right: -3rem;
+  font-size: var(--fs-12);
+  color: var(--gray-400);
+  pointer-events: none;
+}
