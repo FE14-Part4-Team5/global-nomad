@@ -1,0 +1,130 @@
+.calendarLabel {
+  margin-bottom: 0.8rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gray-950);
+}
+
+.scheduledDate {
+  border-radius: 10rem;
+  background: #e5f3ff;
+  font-weight: 700 !important;
+  color: var(--primary-500);
+}
+
+:global(.react-calendar) {
+  border: none;
+  font-family: inherit;
+}
+
+:global(.react-calendar__navigation) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  height: 24px;
+  margin-bottom: 0.8rem;
+}
+
+:global(.react-calendar__navigation__label) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--gray-950);
+}
+
+:global(.react-calendar__navigation__prev-button),
+:global(.react-calendar__navigation__next-button) {
+  position: absolute;
+  top: 0;
+  min-width: 0;
+}
+
+:global(.react-calendar__navigation__prev-button) {
+  right: 3.6rem;
+}
+
+:global(.react-calendar__navigation__next-button) {
+  right: 0;
+}
+
+:global(.react-calendar__navigation button:enabled:hover),
+:global(.react-calendar__navigation button:enabled:focus) {
+  background-color: transparent;
+}
+
+:global(.react-calendar__navigation button:disabled) {
+  background-color: transparent;
+  opacity: 0.3;
+  cursor: default;
+}
+
+:global(.react-calendar__month-view__weekdays) {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+:global(.react-calendar__month-view__days__day) {
+  width: 4.6rem;
+  height: 4.6rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #4b4b4b;
+}
+
+:global(.react-calendar__tile.react-calendar__month-view__days__day:hover) {
+  border-radius: 10rem;
+}
+
+:global(.react-calendar__month-view__days__day--neighboringMonth) {
+  color: var(--gray-300);
+}
+
+:global(.react-calendar__tile:disabled) {
+  background-color: transparent;
+}
+
+:global(.react-calendar__tile.react-calendar__tile--now) {
+  background-color: transparent;
+  color: black;
+  font-weight: 700;
+}
+
+:global(.react-calendar__tile--active:not(.react-calendar__tile--neighboringMonth)) {
+  background-color: var(--primary-500);
+  color: white;
+  font-weight: 700;
+  border-radius: 10rem;
+}
+
+:global(abbr[title]) {
+  text-decoration: none;
+  border-bottom: none;
+  cursor: default;
+}
+
+@media (min-width: 768px) {
+  .calendarLabel {
+    margin-bottom: 2.4rem;
+    font-size: 2rem;
+  }
+
+  :global(.react-calendar__tile.react-calendar__month-view__days__day) {
+    margin: 1.3rem 0rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .calendarLabel {
+    margin-bottom: 0.8rem;
+    font-size: 1.6rem;
+  }
+
+  :global(.react-calendar__tile.react-calendar__month-view__days__day) {
+    margin: 0rem;
+  }
+}
