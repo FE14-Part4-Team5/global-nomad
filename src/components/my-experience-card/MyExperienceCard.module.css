@@ -1,0 +1,132 @@
+.card {
+  width: 32.7rem;
+  display: flex;
+  gap: 2.2rem;
+  padding: 2.4rem;
+  background-color: var(--color-white);
+  border-radius: 2.4rem;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 17.5rem;
+}
+
+.title {
+  font-size: var(--fs-16);
+  color: var(--gray-950);
+  margin-bottom: 0.6rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.ratingReview {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.rating {
+  font-size: var(--fs-13);
+  color: var(--gray-500);
+}
+
+.reviewCount {
+  font-size: var(--fs-13);
+  color: var(--gray-500);
+}
+
+.priceGroup {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.currencySymbol {
+  font-size: var(--fs-16);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-950);
+}
+
+.price {
+  font-size: var(--fs-16);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-950);
+}
+
+.priceUnit {
+  font-size: var(--fs-14);
+  color: var(--gray-400);
+}
+
+.buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.img {
+  width: 8.2rem;
+  height: 8.2rem;
+  border-radius: 2rem;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 47.6rem;
+  }
+
+  .contents {
+    width: 32.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    width: 64rem;
+    gap: 13.4rem;
+    padding: 3.6rem;
+  }
+
+  .contents {
+    width: 30.4rem;
+  }
+
+  .title {
+    font-size: var(--fs-18);
+    margin-bottom: 0.8rem;
+  }
+
+  .ratingReview {
+    margin-bottom: 1.2rem;
+  }
+
+  .star {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .rating {
+    font-size: var(--fs-16);
+  }
+
+  .reviewCount {
+    font-size: var(--fs-16);
+  }
+
+  .priceGroup {
+    margin-bottom: 2rem;
+  }
+
+  .img {
+    width: 14.2rem;
+    height: 14.2rem;
+    border-radius: 3.2rem;
+  }
+}
