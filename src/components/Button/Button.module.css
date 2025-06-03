@@ -3,6 +3,9 @@
   color: var(--gray-50);
   border: none;
   border-radius: var(--fs-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .active {
@@ -20,6 +23,7 @@
 
 .secondary {
   background-color: var(--color-white);
+  border: 0.1rem solid var(--gray-200);
 }
 
 .tertiary {

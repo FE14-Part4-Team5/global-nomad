@@ -1,4 +1,4 @@
-.loginContainer {
+.signupContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,11 +12,11 @@
   margin-bottom: 2rem;
 }
 
-.loginLogo {
+.signupLogo {
   margin-bottom: 6.2rem;
 }
 
-.loginDivider {
+.signupDivider {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,8 +24,8 @@
   max-width: 64rem;
 }
 
-.loginDivider::before,
-.loginDivider::after {
+.signupDivider::before,
+.signupDivider::after {
   content: '';
   flex: 1;
   border-bottom: 1px solid var(--gray-100);
@@ -37,24 +37,24 @@
   margin: 0 1.4rem;
 }
 
-.loginContainer .loginButton {
+.signupContainer .signupButton {
   font-size: var(--fs-16);
   margin-top: 2rem;
   margin-bottom: 3rem;
 }
 
-.loginContainer .kakaoButton {
+.signupContainer .kakaoButton {
   color: var(--gray-600);
   font-size: var(--fs-16);
   margin-bottom: 3rem;
   margin-top: 3rem;
 }
 
-.signupContainer {
+.loginContainer {
   color: var(--gray-400);
   font-size: var(--fs-16);
 }
-.signupLink {
+.loginLink {
   text-decoration: underline;
   margin-left: 0.4rem;
 }
