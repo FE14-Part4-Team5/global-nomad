@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
-import MyExperiences from './pages/my-experiences/MyExperiences';
+import MyExperiencesPage from './pages/my-experiences/MyExperiencesPage';
 
 const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'my-experiences',
-        element: <MyExperiences />,
+        element: <MyExperiencesPage />,
       },
     ],
   },

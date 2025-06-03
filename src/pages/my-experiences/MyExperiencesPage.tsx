@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
 import MyExperiencesButton from './components/MyExperiencesButton';
+import ExampleLogin from './example/ExampleLogin';
 
 import { useMyProfile } from '@/hooks/useMyProfile';
 import { useMyActivities } from '@/hooks/useMyActivities';
 
-import styles from './MyExperiences.module.css';
-
 import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
 
-import ExampleLogin from './example/ExampleLogin';
+import styles from './MyExperiencesPage.module.css';
 
 const MyExperiences = () => {
   const teamId = 'team5';
