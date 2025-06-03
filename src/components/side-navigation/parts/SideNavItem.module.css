@@ -1,6 +1,6 @@
 .contentsBox {
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
   align-items: center;
   width: 29.9rem;
   height: 5.4rem;
@@ -9,12 +9,12 @@
 
 .activeContentsBox {
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
   align-items: center;
   width: 29.9rem;
   height: 5.4rem;
   background-color: #e5f3ff;
-  border-radius: 16px;
+  border-radius: 1.6rem;
   cursor: pointer;
 }
 
