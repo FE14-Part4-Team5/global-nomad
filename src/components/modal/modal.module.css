@@ -88,7 +88,7 @@
 
 .modalClose {
   position: absolute;
-  bottom: 4rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   width: 20rem;
@@ -112,7 +112,7 @@
 .modalClose2 {
   position: absolute;
   bottom: 4rem;
-  right: 6rem;
+  right: 4rem;
   width: 11.3rem;
   height: 4.1rem;
   border-radius: 1.4rem;
@@ -129,7 +129,7 @@
 .modalClose3 {
   position: absolute;
   bottom: 4rem;
-  left: 6rem;
+  left: 4rem;
   width: 11.3rem;
   height: 4.1rem;
   border-radius: 1.4rem;
@@ -172,9 +172,9 @@
 .starContainer {
   position: absolute;
   top: 10.5rem;
-  left: 7rem;
   display: flex;
-  gap: 1.3rem;
+  gap: 1rem;
+  transform: translateX(0%);
 }
 
 .star {
@@ -186,13 +186,13 @@
   position: absolute;
   width: 27rem;
   top: 17rem;
-  left: 45%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
 .commentLabel {
   display: block;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
   font-family: var(--font-family);
   font-size: var(--fs-18);
   color: var(--color-black);
@@ -212,9 +212,9 @@
 }
 
 .characterCount {
-  position: absolute;
-  bottom: -2.4rem;
-  right: -3rem;
+  position: relative;
+  bottom: -1rem;
+  right: -24rem;
   font-size: var(--fs-12);
   color: var(--gray-400);
   pointer-events: none;
