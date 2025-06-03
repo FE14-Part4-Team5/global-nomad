@@ -1,0 +1,85 @@
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .mainContent {
+    margin-left: 0;
+    padding: 1.6rem;
+    box-shadow: none;
+  }
+}
+
+.titleSection {
+  position: absolute;
+  left: calc(47rem + 33.1rem);
+  top: 13rem;
+}
+
+.title {
+  font-size: var(--fs-18);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-900);
+}
+
+.subtitle {
+  font-size: var(--fs-14);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-600);
+  margin-top: 1rem;
+}
+
+.badgeCommon {
+  width: 9rem;
+  height: 3.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid var(--gray-200);
+}
+
+.labelPending1 {
+  color: var(--color-black);
+}
+.labelConfirmed1 {
+  color: var(--color-black);
+}
+.labelDeclined1 {
+  color: var(--color-black);
+}
+.labelCanceled1 {
+  color: var(--color-black);
+}
+.labelCompleted1 {
+  color: var(--color-black);
+}
+
+.labelCommon1 {
+  font-size: var(--fs-16);
+  font-weight: var(--font-weight-medium);
+}
+
+.badgePending {
+  background-color: var(--color-white);
+}
+.badgeConfirmed {
+  background-color: var(--color-white);
+}
+.badgeDeclined {
+  background-color: var(--color-white);
+}
+.badgeCanceled {
+  background-color: var(--color-white);
+}
+.badgeCompleted {
+  background-color: var(--color-white);
+}
+
+.badgeWrapper {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 2.4rem;
+}
