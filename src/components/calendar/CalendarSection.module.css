@@ -118,7 +118,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   .calendarLabel {
     margin-bottom: 0.8rem;
     font-size: 1.6rem;

@@ -5,7 +5,7 @@ type ViewportSize = 'mobile' | 'tablet' | 'desktop';
 export default function useViewPortSize() {
   const getViewportType = (size: number): ViewportSize => {
     if (size < 768) return 'mobile';
-    if (size < 1200) return 'tablet';
+    if (size < 1024) return 'tablet';
     return 'desktop';
   };
 
