@@ -5,11 +5,6 @@ import styles from './ProfileImageUploader.module.css';
 import defaultImg from '@/assets/icons/profile_size=lg.svg';
 import editIcon from '@/assets/icons/icon_edit.svg';
 
-type Props = {
-  defaultImage: string;
-  onImageUpload: (file: File) => void;
-};
-
 const ProfileImageUploader = ({ defaultImage, onImageUpload }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string>(defaultImage || '');
@@ -53,3 +48,8 @@ const ProfileImageUploader = ({ defaultImage, onImageUpload }: Props) => {
 };
 
 export default ProfileImageUploader;
+
+type Props = {
+  defaultImage: string;
+  onImageUpload?: (file: File) => void;
+};

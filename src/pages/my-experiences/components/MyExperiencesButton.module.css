@@ -1,0 +1,14 @@
+Button {
+  width: 6.8rem;
+  height: 2.9rem;
+  color: var(--gray-600);
+  border-radius: 0.8rem;
+}
+
+.edit {
+  border: 1px solid var(--gray-50);
+}
+
+.delete {
+  background-color: var(--gray-50);
+}
