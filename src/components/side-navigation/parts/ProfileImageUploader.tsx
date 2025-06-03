@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import styles from './ProfileImageUploader.module.css';
 
@@ -9,9 +10,17 @@ const ProfileImageUploader = ({ defaultImage, onImageUpload }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string>(defaultImage || '');
 
-  const handleClick = () => inputRef.current?.click();
+  const location = useLocation();
+  const isMyProfilePage = location.pathname === '/my-profile';
+
+  const handleClick = () => {
+    if (!isMyProfilePage) return;
+    inputRef.current?.click();
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isMyProfilePage) return;
+
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -32,9 +41,11 @@ const ProfileImageUploader = ({ defaultImage, onImageUpload }: Props) => {
           alt="profile image"
           className={styles.defaultProfileImg}
         />
-        <div className={styles.editIconWrapper}>
-          <img src={editIcon} alt="edit icon" className={styles.editIcon} />
-        </div>
+        {isMyProfilePage && (
+          <div className={styles.editIconWrapper}>
+            <img src={editIcon} alt="edit icon" className={styles.editIcon} />
+          </div>
+        )}
         <input
           type="file"
           accept="image/*"
