@@ -22,6 +22,11 @@
   margin-left: 2rem;
   width: 2.4rem;
   height: 2.4rem;
+  color: var(--gray-600);
+}
+
+.activeIcon {
+  color: var(--primary-500);
 }
 
 .itemText {
