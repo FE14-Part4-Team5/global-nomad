@@ -43,21 +43,18 @@ const MyExperiences = () => {
           </div>
           <div className={styles.card}>
             {userActivities?.activities.map((item: MyExperienceCardProps) => (
-              <div key={item.id}>
-                <MyExperienceCard
-                  bannerImageUrl={item.bannerImageUrl}
-                  title={item.title}
-                  rating={item.rating}
-                  reviewCount={item.reviewCount}
-                  currencySymbol="₩"
-                  price={item.price}
-                  priceUnit="/인"
-                  editButton={<MyExperiencesButton varient="edit">수정하기</MyExperiencesButton>}
-                  deleteButton={
-                    <MyExperiencesButton varient="delete">삭제하기</MyExperiencesButton>
-                  }
-                />
-              </div>
+              <MyExperienceCard
+                key={item.id}
+                bannerImageUrl={item.bannerImageUrl}
+                title={item.title}
+                rating={item.rating}
+                reviewCount={item.reviewCount}
+                currencySymbol="₩"
+                price={item.price}
+                priceUnit="/인"
+                editButton={<MyExperiencesButton variant="edit">수정하기</MyExperiencesButton>}
+                deleteButton={<MyExperiencesButton variant="delete">삭제하기</MyExperiencesButton>}
+              />
             ))}
           </div>
         </div>

@@ -2,13 +2,13 @@ import styles from './MyExperiencesButton.module.css';
 
 const MyExperiencesButton = ({
   children,
-  varient,
+  variant,
 }: {
   children: React.ReactNode;
-  varient: 'edit' | 'delete';
+  variant: 'edit' | 'delete';
 }) => {
   const buttonClass =
-    varient === 'edit' ? `${styles.button} ${styles.edit}` : `${styles.button} ${styles.delete}`;
+    variant === 'edit' ? `${styles.button} ${styles.edit}` : `${styles.button} ${styles.delete}`;
 
   return <button className={buttonClass}>{children}</button>;
 };
