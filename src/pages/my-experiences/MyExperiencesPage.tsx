@@ -37,20 +37,6 @@ const MyExperiences = () => {
           }
           className="row"
         />
-        <MyExperiencesHeader
-          title="내 체험 관리"
-          subTitle="체험을 등록하거나 수정 및 삭제가 가능합니다."
-          children={
-            <>
-              <div>승인</div>
-              <div>취소</div>
-              <div>완료</div>
-              <div>거절</div>
-              <div>예완</div>
-            </>
-          }
-          className="column"
-        />
         <MyExperiencesCardList />
       </div>
     </div>
