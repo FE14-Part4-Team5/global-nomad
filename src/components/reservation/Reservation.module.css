@@ -1,0 +1,236 @@
+.reservation {
+  padding: 2.4rem 2.4rem 1.8rem 2.4rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+}
+
+.price {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--gray-950);
+}
+
+.unit {
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #79747e;
+}
+
+.totalPrice {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #79747e;
+}
+
+.totalPrice strong {
+  margin-left: 0.6rem;
+  color: var(--gray-950);
+}
+
+.countWrapper {
+  order: 2;
+}
+
+.countLabel {
+  margin-bottom: 1.4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gray-950);
+}
+
+.counterBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 2rem;
+  border: 1px solid #e0e0e5;
+  border-radius: 1.2rem;
+}
+
+.counterBox button {
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.countValue {
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #4b4b4b;
+}
+
+.timeWrapper {
+  order: 1;
+}
+
+.timeLabel {
+  margin-bottom: 1.4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gray-950);
+}
+
+.timeList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.timeButton {
+  padding: 1.4rem 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--gray-950);
+  background-color: transparent;
+  border: 1px solid var(--gray-300);
+  border-radius: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.timeButtonSelected {
+  font-weight: 600;
+  color: var(--primary-500);
+  background-color: var(--primary-100);
+  border: 2px solid var(--primary-500);
+}
+
+.timeNotice {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #4b4b4b;
+}
+
+.totalRow {
+  order: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid #dddddd;
+}
+
+.totalRow .inlineReserveButton,
+.reservation .reserveButton {
+  padding: 1.4rem 4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+  border-radius: 1.4rem;
+}
+
+.inlineReserveButton {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.reserveButton {
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.totalRow .inlineReserveButton:disabled,
+.reservation .reserveButton:disabled {
+  background-color: var(--gray-300);
+  color: var(--gray-50);
+}
+
+@media (min-width: 768px) {
+  .reservation {
+    padding: 2.4rem 3rem 1.8rem 3rem;
+  }
+
+  .container {
+    flex-direction: row;
+    margin-bottom: 4rem;
+  }
+
+  .contentBox {
+    flex: 1;
+    padding: 3rem 2.4rem;
+    border-radius: 2.4rem;
+    box-shadow: 0px 4px 24px rgba(156, 180, 202, 0.2);
+  }
+
+  .countLabel,
+  .timeLabel {
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gray-950);
+  }
+}
+
+@media (min-width: 1024px) {
+  .reservation {
+    padding: 0rem;
+  }
+
+  .container {
+    max-width: 41rem;
+    flex-direction: column;
+    margin: 0rem;
+    padding: 3rem;
+    border: solid 1px #dddddd;
+    border-radius: 2.4rem;
+    box-shadow: 0px 4px 24px rgba(156, 180, 202, 0.2);
+  }
+
+  .contentBox {
+    flex: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .countWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .counterBox {
+    padding: 0 0.9rem;
+    border-color: #eeeeee;
+    border-radius: 2.4rem;
+  }
+
+  .countLabel {
+    margin: 0px;
+  }
+
+  .timeLabel {
+    margin-bottom: 1.4rem;
+  }
+
+  .timeWrapper {
+    order: 2;
+  }
+
+  .timeButton {
+    padding: 1.6rem 1.2rem;
+    font-size: 1.6rem;
+  }
+
+  .timeButtonSelected {
+    font-weight: 700;
+  }
+}
