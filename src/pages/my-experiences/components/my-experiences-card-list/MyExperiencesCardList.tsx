@@ -1,0 +1,46 @@
+import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
+import MyExperiencesButton from '../my-experiences-button/MyExperiencesButton';
+import ExampleLogin from '../../example/ExampleLogin';
+import EmptyState from '../empty-state/EmptyState';
+
+import { useMyActivities } from '@/hooks/useMyActivities';
+
+import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
+
+import styles from './MyExperiencesCardList.module.css';
+
+const MyExperiencesCardList = () => {
+  const teamId = 'team5';
+  const {
+    data: userActivities,
+    isLoading: isCardLoading,
+    isError: isCardError,
+  } = useMyActivities(teamId);
+  console.log(userActivities);
+
+  if (isCardLoading) return <ExampleLogin />;
+  if (isCardError) return <ExampleLogin />;
+  return (
+    <>
+      {userActivities?.activities.length === 0 && <EmptyState text="아직 등록한 체험이 없어요" />}
+      <div className={styles.card}>
+        {userActivities?.activities.map((item: MyExperienceCardProps) => (
+          <MyExperienceCard
+            key={item.id}
+            bannerImageUrl={item.bannerImageUrl}
+            title={item.title}
+            rating={item.rating}
+            reviewCount={item.reviewCount}
+            currencySymbol="₩"
+            price={item.price}
+            priceUnit="/인"
+            editButton={<MyExperiencesButton variant="edit">수정하기</MyExperiencesButton>}
+            deleteButton={<MyExperiencesButton variant="delete">삭제하기</MyExperiencesButton>}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default MyExperiencesCardList;

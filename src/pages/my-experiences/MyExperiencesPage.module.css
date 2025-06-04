@@ -9,13 +9,6 @@
   display: none;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  margin-bottom: 3rem;
-}
-
 .button {
   width: 32.7rem;
   height: 4.8rem;
@@ -50,9 +43,5 @@
   .myExperiences {
     width: 98rem;
     gap: 5rem;
-  }
-
-  .card {
-    gap: 2.4rem;
   }
 }
