@@ -7,12 +7,17 @@
 }
 
 .inputWrapper {
-  max-width: 64rem;
+  max-width: 32.8rem;
   width: 100%;
   margin-bottom: 2rem;
 }
 
-.signupLogo {
+.logoDesktop {
+  display: none;
+}
+
+.logoMobile {
+  display: block;
   margin-bottom: 6.2rem;
 }
 
@@ -21,7 +26,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 64rem;
+  max-width: 32.8rem;
 }
 
 .signupDivider::before,
@@ -41,13 +46,18 @@
   font-size: var(--fs-16);
   margin-top: 2rem;
   margin-bottom: 3rem;
+  padding: 1.75rem 13rem;
 }
 
 .signupContainer .kakaoButton {
   color: var(--gray-600);
   font-size: var(--fs-16);
+  font-weight: 700;
   margin-bottom: 3rem;
   margin-top: 3rem;
+  background-color: #fee500;
+  border: none;
+  padding: 1.75rem 10.7rem;
 }
 
 .loginContainer {
@@ -57,4 +67,31 @@
 .loginLink {
   text-decoration: underline;
   margin-left: 0.4rem;
+}
+
+@media (min-width: 768px) {
+  .inputWrapper {
+    max-width: 64rem;
+  }
+
+  .signupDivider {
+    max-width: 64rem;
+  }
+
+  .logoDesktop {
+    display: block;
+    margin-bottom: 6.2rem;
+  }
+
+  .logoMobile {
+    display: none;
+  }
+
+  .signupContainer .signupButton {
+    padding: 1.75rem 28.6rem;
+  }
+
+  .signupContainer .kakaoButton {
+    padding: 1.5rem 26.3rem;
+  }
 }

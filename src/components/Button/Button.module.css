@@ -49,6 +49,8 @@
   border-radius: 10rem;
 }
 
-.icon {
-  margin-right: 0.6rem;
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
