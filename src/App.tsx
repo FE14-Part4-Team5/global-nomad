@@ -1,13 +1,12 @@
 import { RouterProvider } from 'react-router-dom';
-import ModalContainer from './components/modal/modal';
-import './styles/global.css';
 import router from './router';
+
+import './styles/global.css';
 
 const App = () => {
   return (
     <div>
       <RouterProvider router={router} />
-      <ModalContainer />
     </div>
   );
 };
