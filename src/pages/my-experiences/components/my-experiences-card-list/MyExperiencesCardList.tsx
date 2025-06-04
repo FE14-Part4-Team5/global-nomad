@@ -1,6 +1,5 @@
 import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
 import MyExperiencesButton from '../my-experiences-button/MyExperiencesButton';
-import ExampleLogin from '../../example/ExampleLogin';
 import EmptyState from '../empty-state/EmptyState';
 
 import { useMyActivities } from '@/hooks/useMyActivities';
@@ -18,8 +17,8 @@ const MyExperiencesCardList = () => {
   } = useMyActivities(teamId);
   console.log(userActivities);
 
-  if (isCardLoading) return <ExampleLogin />;
-  if (isCardError) return <ExampleLogin />;
+  if (isCardLoading) return <div>카드 로딩중: 추후 구현예정</div>;
+  if (isCardError) return <div>카드 에러남: 추후 구현예정</div>;
   return (
     <>
       {userActivities?.activities.length === 0 && <EmptyState text="아직 등록한 체험이 없어요" />}
