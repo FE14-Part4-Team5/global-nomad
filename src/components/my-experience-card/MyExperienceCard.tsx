@@ -43,7 +43,8 @@ const MyExperienceCard = ({
 
 export default MyExperienceCard;
 
-type MyExperienceCardProps = {
+export type MyExperienceCardProps = {
+  id?: number;
   title: string;
   rating: number;
   reviewCount: number;
