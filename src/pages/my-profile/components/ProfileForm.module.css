@@ -1,0 +1,96 @@
+.userInfoContainer {
+  padding: 0 2.4rem;
+  max-width: 37.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.descriptionWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.userInfoTitle {
+  font-size: var(--fs-18);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-950);
+}
+.userInfoDescription {
+  color: var(--gray-500);
+  font-size: var(--fs-14);
+  font-weight: var(--font-weight-medium);
+}
+
+.userInfoContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+form::placeholder {
+  color: var(--gray-400);
+}
+
+.formButtomWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+}
+
+.commonProfileButton {
+  padding: 1.4rem 4rem;
+  width: 100%;
+  font-size: var(--fs-16);
+  font-weight: var(--font-weight-medium);
+}
+
+.formButtomWrapper .cancleButton {
+  border: 0.1rem solid var(--gray-200);
+  color: var(--gray-600);
+}
+.formButtomWrapper .submitButton {
+  color: var(--color-white);
+}
+.cancleButton:hover {
+  background-color: var(--gray-25);
+}
+.submitButton:hover {
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .userInfoContainer {
+    max-width: 47.6rem;
+    padding: 0;
+  }
+
+  .descriptionWrapper {
+    gap: 0.5rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .userInfoContainer form {
+    gap: 2.4rem;
+  }
+  .formButtomWrapper .cancleButton {
+    display: none;
+  }
+
+  .formButtomWrapper {
+    margin-top: 0;
+  }
+  .submitButton {
+    width: 12rem;
+    padding: 1.2rem 4rem;
+    font-size: var(--fs-14);
+  }
+}
+
+@media (min-width: 1024px) {
+  .userInfoContainer {
+    max-width: 64rem;
+  }
+}

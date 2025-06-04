@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 3rem auto;
+}
+.sideNavigationWrapper {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .container {
+    gap: 3rem;
+  }
+  .sideNavigationWrapper {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    gap: 5rem;
+    margin: 4rem auto;
+  }
+}
