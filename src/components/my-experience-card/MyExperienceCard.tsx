@@ -1,6 +1,7 @@
 import styles from './MyExperienceCard.module.css';
 
 import starIcon from '../../assets/icons/icon_active=0n.svg';
+import fallbackImage from '@/assets/images/unsplash_8f_VQ3EFbTg.png';
 
 const MyExperienceCard = ({
   bannerImageUrl,
@@ -34,7 +35,14 @@ const MyExperienceCard = ({
           </div>
         </div>
         <div>
-          <img src={bannerImageUrl} alt={`체험 배너 - ${title}`} className={styles.img} />
+          <img
+            src={bannerImageUrl}
+            alt={`체험 배너 - ${title}`}
+            className={styles.img}
+            onError={e => {
+              e.currentTarget.src = fallbackImage;
+            }}
+          />
         </div>
       </div>
     </div>
