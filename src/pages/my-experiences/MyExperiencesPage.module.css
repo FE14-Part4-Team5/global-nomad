@@ -9,37 +9,6 @@
   display: none;
 }
 
-.contents {
-  display: flex;
-  width: 32.7rem;
-  margin: 0 auto;
-}
-
-.headerText {
-  width: 18.1rem;
-}
-
-.title {
-  color: var(--gray-950);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--fs-18);
-  margin-bottom: 1rem;
-}
-
-.subTitle {
-  color: var(--gray-500);
-  font-size: var(--fs-14);
-  margin-bottom: 2rem;
-}
-
-.button {
-  width: 13.8rem;
-  height: 4.8rem;
-  background-color: var(--primary-500);
-  color: var(--color-white);
-  border-radius: 1.4rem;
-}
-
 .card {
   display: flex;
   flex-direction: column;
@@ -90,42 +59,12 @@
   .sideNavigation {
     display: block;
   }
-
-  .contents {
-    width: 47.6rem;
-    margin: 0;
-    justify-content: space-between;
-  }
-
-  .headerText {
-    width: 26rem;
-  }
-
-  .button {
-    width: 13.8rem;
-    height: 4.8rem;
-    background-color: var(--primary-500);
-    color: var(--color-white);
-    border-radius: 1.4rem;
-  }
-
-  .br {
-    display: none;
-  }
 }
 
 @media (min-width: 1024px) {
   .myExperiences {
     width: 98rem;
     gap: 5rem;
-  }
-
-  .contents {
-    width: 64rem;
-  }
-
-  .headerText {
-    width: 40rem;
   }
 
   .card {

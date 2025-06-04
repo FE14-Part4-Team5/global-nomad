@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom';
-
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
-import MyExperiencesButton from './components/MyExperiencesButton';
+import MyExperiencesButton from './components/my-experiences-button/MyExperiencesButton';
 import ExampleLogin from './example/ExampleLogin';
 
 import { useMyProfile } from '@/hooks/useMyProfile';
@@ -11,6 +9,7 @@ import { useMyActivities } from '@/hooks/useMyActivities';
 import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
 import EmptyStateImage from '@/assets/images/img_empty.png';
 import styles from './MyExperiencesPage.module.css';
+import MyExperiencesHeader from './components/my-experiences-header/MyExperiencesHeader';
 
 const MyExperiences = () => {
   const teamId = 'team5';
@@ -19,7 +18,7 @@ const MyExperiences = () => {
     isLoading: isProfileLoading,
     isError: isProfileError,
   } = useMyProfile(teamId);
-
+  console.log(userData);
   const {
     data: userActivities,
     isLoading: isCardLoading,
@@ -35,18 +34,7 @@ const MyExperiences = () => {
         {userData && <SideNavigation defaultImage={userData.profileImageUrl} />}
       </div>
       <div>
-        <div className={styles.contents}>
-          <div className={styles.headerText}>
-            <div className={styles.title}>내 체험 관리</div>
-            <div className={styles.subTitle}>
-              체험을 등록하거나 <br className={styles.br} />
-              수정 및 삭제가 가능합니다.
-            </div>
-          </div>
-          <Link to={'/add'}>
-            <button className={styles.button}>체험 등록하기</button>
-          </Link>
-        </div>
+        <MyExperiencesHeader />
         {userActivities?.activities.length === 0 && (
           <div className={styles.emptyState}>
             <div className={styles.emptyStateImageWrapper}>
