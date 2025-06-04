@@ -2,6 +2,7 @@ import SideNavigation from '../../components/side-navigation/SideNavigation.tsx'
 import styles from './ReservationListPage.module.css';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
 import { useState } from 'react';
+import ReservationCard from '../../components/reservation-card/ReservationCard';
 
 const handleProfileImageUpload = (file: File) => {
   console.log('이미지 업로드:', file);
@@ -57,8 +58,30 @@ const ReservationList: React.FC = () => {
             <span className={styles.labelCommon1}>체험 완료</span>
           </div>
         </div>
+        <div className={styles.cardContainer}>
+          <ReservationCard
+            activity={{
+              id: 1,
+              bannerImageUrl: '이미지URL',
+              title: '액티비티 제목',
+            }}
+            status="pending"
+            date="2024.06.05"
+            dateDot="•"
+            startTime="14:00"
+            timedash="-"
+            endTime="16:00"
+            currencySymbol="₩"
+            totalPrice={50000}
+            headCount={2}
+            headCountUnit="명"
+            reviewSubmitted={false}
+            editReservationButton={<button>예약 변경</button>}
+            cancelReservationButton={<button>예약 취소</button>}
+            reviewSubmittedButton={<button>후기 작성</button>}
+          />
+        </div>
       </div>
-      <main className={styles.mainContent}>{}</main>
     </div>
   );
 };
