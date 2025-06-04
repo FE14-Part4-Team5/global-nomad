@@ -1,0 +1,49 @@
+.footerWrapper {
+  display: grid;
+  gap: 1.2rem;
+  border-top: solid 1px #e6e6e6;
+  padding: 1.8rem 2.4rem;
+}
+
+.footerTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priceText {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--gray-950);
+}
+
+.priceUnit {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #79747e;
+  margin-left: 0.6rem;
+}
+
+.dateSelector {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-500);
+  background: none;
+  border: none;
+  border-bottom: solid 2px var(--primary-500);
+  cursor: pointer;
+}
+
+.footerWrapper .confirmButton {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--primary-500);
+  padding: 1.4rem 4rem;
+  border-radius: 1.4rem;
+  transition: background 0.2s;
+}
+
+.footerWrapper .confirmButton:disabled {
+  background-color: #c6c8cf;
+}
