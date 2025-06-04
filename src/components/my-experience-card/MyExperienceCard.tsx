@@ -1,7 +1,7 @@
 import styles from './MyExperienceCard.module.css';
 
 import starIcon from '../../assets/icons/icon_active=0n.svg';
-import fallbackImage from '@/assets/images/unsplash_8f_VQ3EFbTg.png';
+import fallbackImage from '@/assets/images/error-image.png';
 
 const MyExperienceCard = ({
   bannerImageUrl,
