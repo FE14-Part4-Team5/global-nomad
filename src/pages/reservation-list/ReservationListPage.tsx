@@ -1,11 +1,15 @@
-import React from 'react';
-import SideNavigation from '../../components/SideNavigation/SideNavigation';
-import styles from './ReservationList.module.css';
+import SideNavigation from '../../components/side-navigation/SideNavigation.tsx';
+import styles from './ReservationListPage.module.css';
+import profileImg from '@/assets/icons/profile_size=lg.svg';
+
+const handleProfileImageUpload = (file: File) => {
+  console.log('이미지 업로드:', file);
+};
 
 const ReservationList: React.FC = () => {
   return (
     <div className={styles.container}>
-      <SideNavigation />
+      <SideNavigation defaultImage={profileImg} onImageUpload={handleProfileImageUpload} />
       <div className={styles.titleSection}>
         <h1 className={styles.title}>예약 내역</h1>
         <p className={styles.subtitle}>예약내역 변경 및 취소할 수 있습니다.</p>
@@ -27,7 +31,7 @@ const ReservationList: React.FC = () => {
           </div>
         </div>
       </div>
-      <main className={styles.mainContent}>{/* ...existing code... */}</main>
+      <main className={styles.mainContent}>{}</main>
     </div>
   );
 };

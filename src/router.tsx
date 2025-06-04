@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
-import ReservationList from './pages/reservation-list';
+import ReservationList from './pages/reservation-list/ReservationListPage';
 
 const router = createBrowserRouter([
   {

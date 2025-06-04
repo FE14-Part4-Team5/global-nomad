@@ -7,8 +7,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 1.2rem;
   padding: 2.4rem 1.4rem;
-  /*임시 마진*/
-  margin: 100px;
+  position: absolute;
+  left: 47rem;
+  top: 12rem;
 }
 
 @media (min-width: 768px) {
