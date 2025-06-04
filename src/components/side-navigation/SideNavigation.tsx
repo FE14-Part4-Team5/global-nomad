@@ -18,5 +18,5 @@ export default SideNavigation;
 
 type SideNavigationProps = {
   defaultImage: string;
-  onImageUpload: (file: File) => void;
+  onImageUpload?: (file: File) => void;
 };
