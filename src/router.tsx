@@ -3,7 +3,7 @@ import MainLayout from './components/layout/main-layout/MainLayout';
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/signup/SignupPage';
 import MyExperiencesPage from './pages/my-experiences/MyExperiencesPage';
-
+import MyProfilePage from './pages/my-profile/MyProfilePage';
 const router = createBrowserRouter([
   {
     path: '/',

@@ -23,10 +23,8 @@
   font-weight: var(--font-weight-medium);
 }
 
-.userInfoContainer form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
+.inputWrapper {
+  margin-bottom: 1.8rem;
 }
 form::placeholder {
   color: var(--gray-400);
@@ -37,7 +35,8 @@ form::placeholder {
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
-  margin-top: 1.8rem;
+  border-radius: 1.2rem;
+  margin-top: 3.2rem;
 }
 
 .commonProfileButton {
@@ -72,15 +71,15 @@ form::placeholder {
     margin-bottom: 2.4rem;
   }
 
-  .userInfoContainer form {
-    gap: 2.4rem;
+  .inputWrapper {
+    margin-bottom: 2.4rem;
   }
   .formButtomWrapper .cancleButton {
     display: none;
   }
 
   .formButtomWrapper {
-    margin-top: 0;
+    margin-top: 2.4rem;
   }
   .submitButton {
     width: 12rem;
