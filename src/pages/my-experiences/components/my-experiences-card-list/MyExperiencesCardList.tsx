@@ -1,6 +1,6 @@
 import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
 import MyExperiencesButton from '../my-experiences-button/MyExperiencesButton';
-import EmptyState from '../empty-state/EmptyState';
+import EmptyState from '@/components/empty-state/EmptyState';
 
 import { useMyActivities } from '@/hooks/useMyActivities';
 

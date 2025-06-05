@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import SideNavigation from '@/components/side-navigation/SideNavigation';
-import MyExperiencesHeader from './components/my-experiences-header/MyExperiencesHeader';
+import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
 import MyExperiencesCardList from './components/my-experiences-card-list/MyExperiencesCardList';
 import ExampleLogin from './example/ExampleLogin';
 
