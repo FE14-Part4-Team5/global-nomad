@@ -38,6 +38,7 @@ const Modal: React.FC<ModalProps> = ({
         }
         onClick={e => e.stopPropagation()}
       >
+        {/* 여기서 children을 한 번만 렌더링 */}
         <div
           className={
             isThird ? styles.modalTitle3 : isSecondary ? styles.modalTitle2 : styles.modalTitle
@@ -54,17 +55,16 @@ const Modal: React.FC<ModalProps> = ({
               취소하기
             </button>
           </>
-        ) : isThird ? ( // isThird 조건 추가
+        ) : isThird ? (
           <button className={styles.modalClose4} onClick={onClose}>
             작성하기
           </button>
         ) : (
-          // 첫 번째 모달
           <button className={styles.modalClose} onClick={onClose}>
             확인
           </button>
         )}
-        {children}
+        {/* 여기서 children을 제거 */}
         {isThird && (
           <>
             <div className={styles.starContainer}>

@@ -107,4 +107,23 @@
   flex-direction: column;
   gap: 2rem;
   width: 120rem;
+  margin-top: 2rem;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 2rem; /* badge와의 간격 */
+}
+
+.emptyState img {
+  width: 12rem;
+  height: 12rem;
+}
+
+.emptyState p {
+  color: var(--gray-600);
+  font-size: var(--fs-14);
 }

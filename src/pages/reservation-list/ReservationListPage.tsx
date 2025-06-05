@@ -3,6 +3,8 @@ import styles from './ReservationListPage.module.css';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
 import { useState } from 'react';
 import ReservationCard from '../../components/reservation-card/ReservationCard';
+import Modal from '../../components/modal/modal';
+import WarningIcon from '../../assets/icons/modalwarning.svg';
 
 const handleProfileImageUpload = (file: File) => {
   console.log('이미지 업로드:', file);
@@ -10,6 +12,9 @@ const handleProfileImageUpload = (file: File) => {
 
 const ReservationList: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  // 예약 취소 모달 상태 추가
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const handleBadgeClick = (state: string) => {
     // 현재 선택된 상태와 동일한 배지를 클릭하면 선택 해제
@@ -20,9 +25,41 @@ const ReservationList: React.FC = () => {
     }
   };
 
+  const reservations: MyReservation[] = [
+    {
+      activity: {
+        id: 1,
+        bannerImageUrl: '이미지URL1',
+        title: '액티비티 제목 1',
+      },
+      status: 'pending',
+      date: '2024.06.05',
+      startTime: '14:00',
+      endTime: '16:00',
+      totalPrice: 50000,
+      headCount: 2,
+      reviewSubmitted: false,
+    },
+    // 체험 완료 카드 추가
+    {
+      activity: {
+        id: 2,
+        bannerImageUrl: '이미지URL2',
+        title: '맛있는 김치 만들기 체험',
+      },
+      status: 'completed', // 체험 완료 상태
+      date: '2024.06.01',
+      startTime: '10:00',
+      endTime: '12:00',
+      totalPrice: 45000,
+      headCount: 3,
+      reviewSubmitted: false, // false로 설정하여 후기 작성 버튼이 보이도록 함
+    },
+  ];
+
   return (
     <div className={styles.container}>
-      <SideNavigation defaultImage={profileImg} onImageUpload={handleProfileImageUpload} />
+      <SideNavigation defaultImage={profileImg} />
       <div className={styles.titleSection}>
         <h1 className={styles.title}>예약 내역</h1>
         <p className={styles.subtitle}>예약내역 변경 및 취소할 수 있습니다.</p>
@@ -59,29 +96,49 @@ const ReservationList: React.FC = () => {
           </div>
         </div>
         <div className={styles.cardContainer}>
-          <ReservationCard
-            activity={{
-              id: 1,
-              bannerImageUrl: '이미지URL',
-              title: '액티비티 제목',
-            }}
-            status="pending"
-            date="2024.06.05"
-            dateDot="•"
-            startTime="14:00"
-            timedash="-"
-            endTime="16:00"
-            currencySymbol="₩"
-            totalPrice={50000}
-            headCount={2}
-            headCountUnit="명"
-            reviewSubmitted={false}
-            editReservationButton={<button>예약 변경</button>}
-            cancelReservationButton={<button>예약 취소</button>}
-            reviewSubmittedButton={<button>후기 작성</button>}
-          />
+          {reservations
+            .filter(reservation => activeState === null || reservation.status === activeState)
+            .map((reservation, index) => (
+              <ReservationCard
+                key={index}
+                activity={reservation.activity}
+                status={reservation.status}
+                date={reservation.date}
+                dateDot="•"
+                startTime={reservation.startTime}
+                timedash="-"
+                endTime={reservation.endTime}
+                currencySymbol="₩"
+                totalPrice={reservation.totalPrice}
+                headCount={reservation.headCount}
+                headCountUnit="명"
+                reviewSubmitted={reservation.reviewSubmitted}
+                editReservationButton={<button>예약 변경</button>}
+                cancelReservationButton={
+                  <button onClick={() => setIsCancelModalOpen(true)}>예약 취소</button>
+                }
+                reviewSubmittedButton={
+                  <button onClick={() => setIsReviewModalOpen(true)}>후기 작성</button>
+                }
+              />
+            ))}
         </div>
       </div>
+
+      {/* 후기 작성 모달 */}
+      <Modal isOpen={isReviewModalOpen} onClose={() => setIsReviewModalOpen(false)} isThird={true}>
+        후기 작성
+      </Modal>
+
+      {/* 예약 취소 모달 */}
+      <Modal
+        isOpen={isCancelModalOpen}
+        onClose={() => setIsCancelModalOpen(false)}
+        isSecondary={true}
+      >
+        <img src={WarningIcon} className={styles.warningIcon} alt="warning" />
+        <h2>예약을 취소하시겠습니까?</h2>
+      </Modal>
     </div>
   );
 };
