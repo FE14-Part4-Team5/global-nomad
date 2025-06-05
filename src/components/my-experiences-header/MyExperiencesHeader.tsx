@@ -9,10 +9,14 @@ const MyExperiencesHeader = ({
   title: string;
   subTitle: string;
   children?: React.ReactElement;
-  className?: 'row' | 'column';
+  className?: 'columnRowContents' | 'columnContents';
 }) => {
   return (
-    <div className={className === 'row' ? styles.flexContents : styles.rowContents}>
+    <div
+      className={
+        className === 'columnRowContents' ? styles.columnRowContents : styles.columnContents
+      }
+    >
       <div className={styles.headerText}>
         <div className={styles.title}>{title}</div>
         <div className={styles.subTitle}>{subTitle}</div>

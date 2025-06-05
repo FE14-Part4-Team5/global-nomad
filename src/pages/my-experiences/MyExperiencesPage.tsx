@@ -16,7 +16,7 @@ const MyExperiences = () => {
     isLoading: isProfileLoading,
     isError: isProfileError,
   } = useMyProfile(teamId);
-  console.log(userData);
+  // console.log(userData);
 
   if (isProfileLoading) return <ExampleLogin />;
   if (isProfileError) return <ExampleLogin />;
@@ -30,13 +30,12 @@ const MyExperiences = () => {
         <MyExperiencesHeader
           title="내 체험 관리"
           subTitle="체험을 등록하거나 수정 및 삭제가 가능합니다."
-          children={
-            <Link to={'/add'}>
-              <button className={styles.button}>체험 등록하기</button>
-            </Link>
-          }
-          className="row"
-        />
+          className="columnRowContents"
+        >
+          <Link to={'/add'}>
+            <button className={styles.button}>체험 등록하기</button>
+          </Link>
+        </MyExperiencesHeader>
         <MyExperiencesCardList />
       </div>
     </div>

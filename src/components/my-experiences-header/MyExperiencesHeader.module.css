@@ -1,4 +1,4 @@
-.flexContents {
+.columnRowContents {
   display: flex;
   flex-direction: column;
   width: 32.7rem;
@@ -26,7 +26,7 @@
 }
 
 @media (min-width: 768px) {
-  .flexContents {
+  .columnRowContents {
     width: 47.6rem;
     margin: 0;
     justify-content: space-between;
@@ -43,7 +43,7 @@
 }
 
 @media (min-width: 1024px) {
-  .flexContents {
+  .columnRowContents {
     width: 64rem;
   }
 
