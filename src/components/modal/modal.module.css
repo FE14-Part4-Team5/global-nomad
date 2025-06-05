@@ -4,7 +4,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(var(--color-black), 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.4rem);
+  -webkit-backdrop-filter: blur(0.4rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,8 +17,9 @@
   width: 32rem;
   height: 14rem;
   position: fixed;
-  left: calc(50% - 20rem);
-  top: calc(50% - 8.5rem - 0.05rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
   border-radius: 3rem;
@@ -32,8 +35,9 @@
   width: 32rem;
   height: 18.5rem;
   position: fixed;
-  left: calc(50% - 20rem);
-  top: calc(50% - 12.1rem - 0.05rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
   border-radius: 2.4rem;
@@ -49,8 +53,9 @@
   width: 32.7rem;
   height: 47.9rem;
   position: fixed;
-  left: calc(50% - 20rem);
-  top: calc(50% - 23.95rem - 0.05rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
   border-radius: 3rem;

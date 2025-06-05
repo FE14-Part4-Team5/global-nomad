@@ -43,7 +43,7 @@ const Modal: React.FC<ModalProps> = ({
             isThird ? styles.modalTitle3 : isSecondary ? styles.modalTitle2 : styles.modalTitle
           }
         >
-          Text
+          {children}
         </div>
         {isSecondary ? (
           <>
@@ -97,7 +97,7 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 // 세 개의 모달을 렌더링하는 컴포넌트
-const ModalContainer = () => {
+export const ModalContainer = () => {
   const [isFirstModalOpen, setIsFirstModalOpen] = useState(true);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(true);
   const [isThirdModalOpen, setIsThirdModalOpen] = useState(true);
@@ -123,4 +123,4 @@ const ModalContainer = () => {
   );
 };
 
-export default ModalContainer;
+export default Modal;
