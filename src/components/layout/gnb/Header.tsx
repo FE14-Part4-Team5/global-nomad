@@ -58,7 +58,7 @@ const Header = () => {
           <Link to="/login" className={styles.authButton}>
             로그인
           </Link>
-          <Link to="/signin" className={styles.authButton}>
+          <Link to="/signup" className={styles.authButton}>
             회원가입
           </Link>
         </div>
