@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import styles from './MyExperiencesButton.module.css';
 
 const MyExperiencesButton = ({
@@ -7,8 +9,7 @@ const MyExperiencesButton = ({
   children: React.ReactNode;
   variant: 'edit' | 'delete';
 }) => {
-  const buttonClass =
-    variant === 'edit' ? `${styles.button} ${styles.edit}` : `${styles.button} ${styles.delete}`;
+  const buttonClass = clsx(styles.button, styles[variant]);
 
   return <button className={buttonClass}>{children}</button>;
 };
