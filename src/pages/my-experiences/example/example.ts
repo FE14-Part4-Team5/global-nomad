@@ -43,6 +43,30 @@ export const getMyActivities = async (teamId: string) => {
   return res.json();
 };
 
+export const deleteActivity = async (teamId: string, targetId: number | null) => {
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) throw new Error('Access token not found');
+
+  const res = await fetch(
+    `https://sp-globalnomad-api.vercel.app/${teamId}/my-activities/${targetId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error('삭제 요청에 실패했습니다.');
+  }
+
+  if (res.status === 204) return;
+
+  return await res.json();
+};
+
 export const login = async (email: string, password: string, teamId: string): Promise<void> => {
   const res = await fetch(`https://sp-globalnomad-api.vercel.app/${teamId}/auth/login`, {
     method: 'POST',
