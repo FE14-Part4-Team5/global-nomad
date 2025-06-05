@@ -1,6 +1,7 @@
 import styles from './MainCard.module.css';
 
 import starIcon from '../../assets/icons/icon_active=0n.svg';
+import fallbackImage from '@/assets/images/error-image.png';
 
 const MainCard = ({
   bannerImageUrl,
@@ -18,7 +19,12 @@ const MainCard = ({
       <div className={styles.contentBox}>
         <div className={styles.title}>{title}</div>
         <div className={styles.ratingReview}>
-          <img src={starIcon} alt="star icon" className={styles.star} />
+          <img
+            src={starIcon}
+            alt="star icon"
+            className={styles.star}
+            onError={e => (e.currentTarget.src = fallbackImage)}
+          />
           <div className={styles.rating}>{rating?.toFixed(1)}</div>
           <div className={styles.reviewCount}>({reviewCount})</div>
         </div>
