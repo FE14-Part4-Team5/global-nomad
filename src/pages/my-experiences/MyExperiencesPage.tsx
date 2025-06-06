@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SideNavigation from '@/components/side-navigation/SideNavigation';
@@ -5,13 +6,13 @@ import MyExperiencesHeader from '@/components/my-experiences-header/MyExperience
 import MyExperiencesCardList from './components/my-experiences-card-list/MyExperiencesCardList';
 import ExampleLogin from './example/ExampleLogin';
 import Modal from './example/Modal';
-import { useMyActivities } from '@/hooks/useMyActivities';
 
+import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
 import { useMyProfile } from '@/hooks/useMyProfile';
 import { deleteActivity } from './example/example';
+import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
 import styles from './MyExperiencesPage.module.css';
-import { useState } from 'react';
 
 const MyExperiences = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,9 +25,10 @@ const MyExperiences = () => {
 
   const handleConfirmDelete = async () => {
     try {
+      if (targetId === null) return;
       await deleteActivity(teamId, targetId);
       refetch();
-      // console.log('삭제가 완료되었습니다!');
+      //토스트 띄우기 고려
     } catch (error) {
       console.log(error);
       throw new Error();
@@ -43,11 +45,17 @@ const MyExperiences = () => {
   } = useMyProfile(teamId);
 
   const {
-    data: userActivities,
+    data,
     isLoading: isCardLoading,
     isError: isCardError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     refetch,
-  } = useMyActivities(teamId);
+  } = useInfiniteMyActivities(teamId);
+
+  const pages = (data as { pages: ActivitiesResponse[] } | undefined)?.pages;
+  const allActivities = pages?.flatMap(page => page.activities) ?? [];
 
   if (isProfileLoading || isCardLoading) return <ExampleLogin />;
   if (isProfileError || isCardError) return <ExampleLogin />;
@@ -68,11 +76,14 @@ const MyExperiences = () => {
           </Link>
         </MyExperiencesHeader>
         <MyExperiencesCardList
+          userActivities={{ activities: allActivities }}
+          onLoadMore={fetchNextPage}
+          hasMore={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
           onDeleteClick={handleOpen}
-          userActivities={userActivities ?? { activities: [] }}
         />
       </div>
-      {isModalOpen && (
+      {isModalOpen && targetId !== null && (
         <Modal onConfirm={handleConfirmDelete} onClose={() => setIsModalOpen(false)} />
       )}
     </div>

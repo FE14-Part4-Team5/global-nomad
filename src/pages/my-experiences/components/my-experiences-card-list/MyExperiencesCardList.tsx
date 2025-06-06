@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
 import MyExperiencesButton from '../my-experiences-button/MyExperiencesButton';
 import EmptyState from '@/components/empty-state/EmptyState';
@@ -7,16 +10,20 @@ import type { MyExperienceCardProps } from '@/components/my-experience-card/MyEx
 import styles from './MyExperiencesCardList.module.css';
 
 const MyExperiencesCardList = ({
-  onDeleteClick,
   userActivities,
-}: {
-  onDeleteClick: (id: number) => void;
-  userActivities: {
-    activities: MyExperienceCardProps[];
-    totalCount?: number;
-    cursorId?: string | null;
-  };
-}) => {
+  onDeleteClick,
+  onLoadMore,
+  hasMore,
+  isFetchingNextPage,
+}: Props) => {
+  const { ref, inView } = useInView({ threshold: 0.5 });
+
+  useEffect(() => {
+    if (inView && hasMore) {
+      onLoadMore();
+    }
+  }, [inView, hasMore, onLoadMore]);
+
   return (
     <>
       {!userActivities?.activities.length ? (
@@ -50,6 +57,12 @@ const MyExperiencesCardList = ({
               }
             />
           ))}
+          <div ref={ref} style={{ height: 1 }} />
+          {isFetchingNextPage && (
+            <div className={styles.spinnerWrapper}>
+              <span className={styles.spinner} />
+            </div>
+          )}
         </div>
       )}
     </>
@@ -57,3 +70,11 @@ const MyExperiencesCardList = ({
 };
 
 export default MyExperiencesCardList;
+
+interface Props {
+  userActivities: { activities: MyExperienceCardProps[] };
+  onDeleteClick: (id: number) => void;
+  onLoadMore: () => void;
+  isFetchingNextPage: boolean;
+  hasMore: boolean;
+}

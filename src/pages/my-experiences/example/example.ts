@@ -1,3 +1,5 @@
+import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
+
 export interface UserProfile {
   id: number;
   email: string;
@@ -25,16 +27,32 @@ export const getMyprofile = async (teamId: string): Promise<UserProfile> => {
   return res.json();
 };
 
-export const getMyActivities = async (teamId: string) => {
+interface ActivitiesResponse {
+  cursorId: number;
+  totalCount: number;
+  activities: MyExperienceCardProps[];
+}
+export const getMyActivities = async (
+  teamId: string,
+  cursorId?: number,
+  size: number = 5
+): Promise<ActivitiesResponse> => {
   const accessToken = localStorage.getItem('accessToken') ?? '';
 
-  const res = await fetch(`https://sp-globalnomad-api.vercel.app/${teamId}/my-activities`, {
+  let url = `https://sp-globalnomad-api.vercel.app/${teamId}/my-activities?size=${size}`;
+  if (cursorId !== undefined && cursorId !== 0) {
+    url += `&cursorId=${cursorId}`;
+  }
+
+  const res = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   });
+
+  console.log('요청에 사용된 최종 url:', url);
 
   if (!res.ok) {
     throw new Error('내 체험 정보를 불러오는 데 실패했습니다.');
