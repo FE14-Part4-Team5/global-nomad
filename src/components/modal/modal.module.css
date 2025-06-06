@@ -4,7 +4,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(var(--color-black), 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.4rem);
+  -webkit-backdrop-filter: blur(0.4rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,8 +17,9 @@
   width: 32rem;
   height: 14rem;
   position: fixed;
-  left: calc(50% - 20rem);
-  top: calc(50% - 8.5rem - 0.05rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
   border-radius: 3rem;
@@ -32,8 +35,9 @@
   width: 32rem;
   height: 18.5rem;
   position: fixed;
-  left: calc(50% - 20rem);
-  top: calc(50% - 12.1rem - 0.05rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
   border-radius: 2.4rem;
@@ -49,8 +53,9 @@
   width: 32.7rem;
   height: 47.9rem;
   position: fixed;
-  left: calc(50% - 20rem);
-  top: calc(50% - 23.95rem - 0.05rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-white);
   box-shadow: 0 0.4rem 2.4rem rgba(156, 180, 202, 0.2);
   border-radius: 3rem;
@@ -70,9 +75,9 @@
 }
 
 .modalTitle2 {
-  transform: translateY(-1rem);
+  transform: translateY(-3.5rem); /* 1rem에서 -1rem으로 변경 */
   font-family: var(--font-family);
-  font-size: var(--fs-20);
+  font-size: var(--fs-16);
   text-align: center;
 }
 
@@ -88,7 +93,7 @@
 
 .modalClose {
   position: absolute;
-  bottom: 4rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   width: 20rem;
@@ -111,8 +116,8 @@
 
 .modalClose2 {
   position: absolute;
-  bottom: 4rem;
-  right: 6rem;
+  bottom: 2rem;
+  right: 4rem;
   width: 11.3rem;
   height: 4.1rem;
   border-radius: 1.4rem;
@@ -128,8 +133,8 @@
 
 .modalClose3 {
   position: absolute;
-  bottom: 4rem;
-  left: 6rem;
+  bottom: 2rem;
+  left: 4rem;
   width: 11.3rem;
   height: 4.1rem;
   border-radius: 1.4rem;
@@ -161,20 +166,27 @@
 }
 
 .warningIcon {
-  width: 5rem;
-  height: 5rem;
+  width: 4.9rem;
+  height: 4.9rem;
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, calc(-50% - 5rem));
+  top: 40%; /* 50%에서 40%로 변경 */
+  transform: translate(-50%, calc(-50% - 2rem));
+}
+
+@media (min-width: 768px) {
+  .warningIcon {
+    width: calc(4.9rem * 1.2);
+    height: calc(4.9rem * 1.2);
+  }
 }
 
 .starContainer {
   position: absolute;
   top: 10.5rem;
-  left: 7rem;
   display: flex;
-  gap: 1.3rem;
+  gap: 1rem;
+  transform: translateX(0%);
 }
 
 .star {
@@ -186,13 +198,13 @@
   position: absolute;
   width: 27rem;
   top: 17rem;
-  left: 45%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
 .commentLabel {
   display: block;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
   font-family: var(--font-family);
   font-size: var(--fs-18);
   color: var(--color-black);
@@ -212,9 +224,9 @@
 }
 
 .characterCount {
-  position: absolute;
-  bottom: -2.4rem;
-  right: -3rem;
+  position: relative;
+  bottom: -1rem;
+  right: -24rem;
   font-size: var(--fs-12);
   color: var(--gray-400);
   pointer-events: none;
