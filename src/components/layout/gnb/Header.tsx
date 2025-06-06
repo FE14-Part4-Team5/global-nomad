@@ -79,7 +79,7 @@ const Header = () => {
               정만철
             </button>
             <div className={clsx(styles.dropdownMenu, isDropdownOpen && styles.open)}>
-              <Link to="/mypage" className={styles.dropdownItem}>
+              <Link to="/my-profile" className={styles.dropdownItem}>
                 마이페이지
               </Link>
               <button type="button" className={styles.dropdownItem} onClick={handleLogout}>

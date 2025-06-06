@@ -15,7 +15,7 @@ const myProfileSchema = z
 
 export type MyProfileFormValues = z.infer<typeof myProfileSchema>;
 
-export const useMyProfileForm = () => {
+export const useMyProfileUpdateForm = () => {
   return useForm<MyProfileFormValues>({
     resolver: zodResolver(myProfileSchema),
     mode: 'onBlur',

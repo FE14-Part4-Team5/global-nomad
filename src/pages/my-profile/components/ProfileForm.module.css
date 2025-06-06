@@ -1,26 +1,11 @@
 .userInfoContainer {
   padding: 0 2.4rem;
-  max-width: 37.5rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.descriptionWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.userInfoTitle {
-  font-size: var(--fs-18);
-  font-weight: var(--font-weight-bold);
-  color: var(--gray-950);
-}
-.userInfoDescription {
-  color: var(--gray-500);
-  font-size: var(--fs-14);
-  font-weight: var(--font-weight-medium);
+.userInfoContainer form {
+  margin-top: 2rem;
 }
 
 .inputWrapper {
@@ -62,13 +47,11 @@ form::placeholder {
 
 @media (min-width: 768px) {
   .userInfoContainer {
-    max-width: 47.6rem;
     padding: 0;
   }
 
-  .descriptionWrapper {
-    gap: 0.5rem;
-    margin-bottom: 2.4rem;
+  .userInfoContainer form {
+    margin-top: 2.4rem;
   }
 
   .inputWrapper {
@@ -85,11 +68,5 @@ form::placeholder {
     width: 12rem;
     padding: 1.2rem 4rem;
     font-size: var(--fs-14);
-  }
-}
-
-@media (min-width: 1024px) {
-  .userInfoContainer {
-    max-width: 64rem;
   }
 }

@@ -3,6 +3,11 @@
   justify-content: center;
   margin: 3rem auto;
 }
+.profileFormWrapper {
+  max-width: 37.5rem;
+  width: 100%;
+  display: block;
+}
 .sideNavigationWrapper {
   display: none;
 }
@@ -14,11 +19,17 @@
   .sideNavigationWrapper {
     display: block;
   }
+  .profileFormWrapper {
+    max-width: 47.6rem;
+  }
 }
 
 @media (min-width: 1024px) {
   .container {
     gap: 5rem;
     margin: 4rem auto;
+  }
+  .profileFormWrapper {
+    max-width: 64rem;
   }
 }

@@ -2,26 +2,24 @@ import Input from '@/components/input/Input';
 import styles from './ProfileForm.module.css';
 import Button from '@/components/button/Button';
 import clsx from 'clsx';
-import { useMyProfileForm, type MyProfileFormValues } from '@/hooks/useMyProfileForm';
+import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
+import { useMyProfileUpdateForm, type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
 
 interface MyProfileFormProps {
+  onClick: () => void;
   onSubmit: (data: MyProfileFormValues) => void;
 }
 
-const ProfileForm = ({ onSubmit }: MyProfileFormProps) => {
+const ProfileForm = ({ onClick, onSubmit }: MyProfileFormProps) => {
   const {
     register,
-    trigger,
     handleSubmit,
     formState: { errors, isValid },
-  } = useMyProfileForm();
+  } = useMyProfileUpdateForm();
 
   return (
     <div className={styles.userInfoContainer}>
-      <div className={styles.descriptionWrapper}>
-        <h1 className={styles.userInfoTitle}>내 정보</h1>
-        <p className={styles.userInfoDescription}>닉네임과 비밀번호를 수정하실 수있습니다.</p>
-      </div>
+      <MyExperiencesHeader title="내 정보" subTitle="닉네임과 비밀번호를 수정하실 수있습니다." />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.inputWrapper}>
           <Input
@@ -43,11 +41,7 @@ const ProfileForm = ({ onSubmit }: MyProfileFormProps) => {
             isError={!!errors.newPassword}
             errorMessage={errors.newPassword?.message}
             showEyeIcon={true}
-            {...register('newPassword', {
-              onChange: () => {
-                trigger('newConfirmPassword');
-              },
-            })}
+            {...register('newPassword')}
           />
         </div>
         <div className={styles.inputWrapper}>
@@ -66,6 +60,7 @@ const ProfileForm = ({ onSubmit }: MyProfileFormProps) => {
           <Button
             type="button"
             isActive={true}
+            onClick={onClick}
             variant="secondary"
             className={clsx(styles.cancleButton, styles.commonProfileButton)}
           >
