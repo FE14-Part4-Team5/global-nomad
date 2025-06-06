@@ -22,7 +22,7 @@ interface ScheduleSlot {
 interface ReservationProps {
   price: number;
   schedules: ScheduleSlot[];
-  onReserve: () => void;
+  onReserve: (payload: { scheduleId: number; headCount: number }) => void;
 }
 
 const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
@@ -52,6 +52,9 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
 
   return (
     <section className={styles.reservation}>
+      {viewportSize !== 'desktop' && calendarOpen && (
+        <div className={styles.dimmedBackground} onClick={() => setCalendarOpen(false)} />
+      )}
       {(viewportSize === 'desktop' || calendarOpen) && (
         <div className={styles.container}>
           {viewportSize === 'desktop' && (
@@ -124,7 +127,11 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
                       headCount === 0
                     )
                   }
-                  onClick={onReserve}
+                  onClick={() => {
+                    if (selectedTimeId && headCount > 0) {
+                      onReserve({ scheduleId: selectedTimeId, headCount });
+                    }
+                  }}
                   className={styles.inlineReserveButton}
                 >
                   예약하기
@@ -137,14 +144,16 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
 
       {viewportSize !== 'desktop' &&
         (calendarOpen ? (
-          <Button
-            variant="primary"
-            isActive={!(selectedTime === undefined || headCount === 0)}
-            onClick={() => setCalendarOpen(false)}
-            className={styles.reserveButton}
-          >
-            확인
-          </Button>
+          <div className={styles.reserveButtonWrapper}>
+            <Button
+              variant="primary"
+              isActive={!(selectedTime === undefined || headCount === 0)}
+              onClick={() => setCalendarOpen(false)}
+              className={styles.reserveButton}
+            >
+              확인
+            </Button>
+          </div>
         ) : (
           <ReservationFooter
             price={price}
@@ -152,7 +161,11 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
             selectedDate={selectedDate}
             selectedTime={selectedTime}
             onClickDateSelect={() => setCalendarOpen(true)}
-            onClickReserve={onReserve}
+            onClickReserve={() => {
+              if (selectedTimeId && headCount > 0) {
+                onReserve({ scheduleId: selectedTimeId, headCount });
+              }
+            }}
           />
         ))}
     </section>
