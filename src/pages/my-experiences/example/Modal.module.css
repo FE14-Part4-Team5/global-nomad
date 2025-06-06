@@ -47,8 +47,6 @@
   padding: 0.75rem 1.5rem;
   border-radius: 1.4rem;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
 }
 
 .cancel {
@@ -57,6 +55,8 @@
   background-color: var(--color-white);
   border: 1px solid var(--gray-200);
   color: var(--gray-600);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--fs-16);
 }
 
 .delete {
@@ -64,6 +64,8 @@
   height: 4.7rem;
   background-color: var(--primary-500);
   color: #fff;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--fs-16);
 }
 
 @media (min-width: 768px) {

@@ -84,7 +84,13 @@ const MyExperiences = () => {
         />
       </div>
       {isModalOpen && targetId !== null && (
-        <Modal onConfirm={handleConfirmDelete} onClose={() => setIsModalOpen(false)} />
+        <Modal
+          onConfirm={handleConfirmDelete}
+          onClose={() => setIsModalOpen(false)}
+          text="등록한 체험을 삭제하시겠어요?"
+          cancleText="아니오"
+          confirmText="취소하기"
+        />
       )}
     </div>
   );
