@@ -1,15 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
 
-
 import ReservationList from './pages/reservation-list/ReservationListPage';
-
 
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/signup/SignupPage';
 
 import MyExperiencesPage from './pages/my-experiences/MyExperiencesPage';
-
 
 const router = createBrowserRouter([
   {
@@ -23,17 +20,16 @@ const router = createBrowserRouter([
     ],
   },
   {
-
     path: '/reservation-list',
     element: <ReservationList />,
-
+  },
+  {
     path: '/login',
     element: <LoginPage />,
   },
   {
     path: '/signup',
     element: <SignupPage />,
-
   },
 ]);
 

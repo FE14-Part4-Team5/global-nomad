@@ -13,6 +13,7 @@ const handleProfileImageUpload = (file: File) => {
 const ReservationList: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [selectedReservation, setSelectedReservation] = useState<MyReservation | null>(null);
   // 예약 취소 모달 상태 추가
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
@@ -118,7 +119,14 @@ const ReservationList: React.FC = () => {
                   <button onClick={() => setIsCancelModalOpen(true)}>예약 취소</button>
                 }
                 reviewSubmittedButton={
-                  <button onClick={() => setIsReviewModalOpen(true)}>후기 작성</button>
+                  <button
+                    onClick={() => {
+                      setSelectedReservation(reservation);
+                      setIsReviewModalOpen(true);
+                    }}
+                  >
+                    후기 작성
+                  </button>
                 }
               />
             ))}
@@ -127,7 +135,12 @@ const ReservationList: React.FC = () => {
 
       {/* 후기 작성 모달 */}
       <Modal isOpen={isReviewModalOpen} onClose={() => setIsReviewModalOpen(false)} isThird={true}>
-        후기 작성
+        <div className={styles.modalHeader}>
+          <h3>{selectedReservation?.activity.title}</h3>
+          <p>
+            {`${selectedReservation?.date} / ${selectedReservation?.startTime} - ${selectedReservation?.endTime} (${selectedReservation?.headCount}명)`}
+          </p>
+        </div>
       </Modal>
 
       {/* 예약 취소 모달 */}
