@@ -1,0 +1,379 @@
+.wrapper {
+  padding-bottom: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+.mainImage {
+  flex: 1;
+  height: 24.5rem;
+  width: 50%;
+}
+
+.subImages {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.6rem;
+  height: 24.5rem;
+  width: 50%;
+}
+
+.subImageWrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+.subImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card {
+  position: relative;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-100);
+  grid-area: card;
+}
+
+.category {
+  margin-bottom: 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.titleRow {
+  margin-bottom: 1.6rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gray-950);
+}
+
+.iconMore {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.menuList {
+  position: absolute;
+  top: 0;
+  right: 2rem;
+  border-radius: 0.8rem;
+  border: 1px solid #dfdfdf;
+  z-index: 10;
+}
+
+.menuList li {
+  padding: 1rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--gray-950);
+  cursor: pointer;
+}
+
+.menuList li:hover {
+  background-color: #f1f1f1;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rating,
+.address {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.rating {
+  gap: 0.6rem;
+}
+
+.address {
+  gap: 0.2rem;
+}
+
+.descriptionBox,
+.locationBox {
+  border-bottom: solid 1px var(--gray-100);
+  padding-bottom: 2rem;
+}
+
+.descriptionBox .title,
+.locationBox .title,
+.reviewBox .title {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.descriptionBox .text {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 180%;
+  color: var(--gray-950);
+}
+
+.locationBox .text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  margin-bottom: 0.8rem;
+  color: var(--gray-950);
+}
+
+.mapWrapper {
+  height: 18rem;
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.reviewCount {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  margin-left: 0.8rem;
+  color: #79747e;
+}
+
+.reviewSummary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.reviewScore {
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 3.2rem;
+  margin-bottom: 0.2rem;
+  color: var(--gray-950);
+}
+
+.reviewSatisfaction {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 2.4rem;
+  margin-bottom: 0.6rem;
+  color: var(--gray-950);
+}
+
+.reviewStars {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 2.4rem;
+  color: #79747e;
+}
+
+.starIcon {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #ffc23d;
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.calendarWrapper {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 500;
+  background-color: white;
+}
+
+.modalText {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    gap: 2.4rem;
+  }
+
+  .images,
+  .subImages {
+    gap: 1.2rem;
+  }
+
+  .mainImage,
+  .subImages {
+    height: 40rem;
+  }
+
+  .card {
+    position: relative;
+    padding-bottom: 2.4rem;
+  }
+
+  .category {
+    margin-bottom: 1.6rem;
+    font-size: 1.4rem;
+  }
+
+  .titleRow {
+    margin-bottom: 1.6rem;
+  }
+
+  .title {
+    font-size: 2.4rem;
+  }
+
+  .menuList li {
+    padding: 1.5rem 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  .descriptionBox,
+  .locationBox {
+    padding-bottom: 4rem;
+  }
+
+  .descriptionBox .title {
+    margin-bottom: 1.4rem;
+    font-size: 1.8rem;
+  }
+
+  .locationBox .title,
+  .reviewBox .title {
+    font-size: 1.8rem;
+  }
+
+  .mapWrapper {
+    height: 45rem;
+    border-radius: 2.4rem;
+  }
+
+  .reviewCount {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  .reviewSummary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .reviewScore {
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 4.2rem;
+  }
+
+  .reviewSatisfaction {
+    font-size: 1.6rem;
+    line-height: 100%;
+    margin-bottom: 0.6rem;
+  }
+
+  .reviewStars {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+    color: #79747e;
+  }
+
+  .reviewList {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .paginationWrapper {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrapper {
+    display: grid;
+    grid-template-areas:
+      'images card'
+      'images calendar'
+      'description calendar'
+      'map calendar'
+      'map .';
+    column-gap: 4rem;
+    row-gap: 4rem;
+    padding: 0rem 4rem;
+  }
+
+  .images {
+    grid-area: images;
+  }
+
+  .card {
+    grid-area: card;
+    margin: 0;
+  }
+
+  .menuList li {
+    padding: 1.8rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--gray-950);
+    cursor: pointer;
+  }
+
+  .descriptionBox {
+    grid-area: description;
+  }
+
+  .descriptionBox .title {
+    margin-bottom: 0.8rem;
+  }
+
+  .calendarWrapper {
+    position: static;
+    width: auto;
+    left: auto;
+    bottom: auto;
+    grid-area: calendar;
+  }
+
+  #map {
+    grid-area: map;
+  }
+
+  .reviewList {
+    gap: 2rem;
+  }
+}
