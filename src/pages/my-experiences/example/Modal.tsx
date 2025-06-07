@@ -6,11 +6,11 @@ type Props = {
   onConfirm: () => void;
   onClose: () => void;
   text: string;
-  cancleText: string;
+  cancelText: string;
   confirmText: string;
 };
 
-const Modal = ({ onConfirm, onClose, text, cancleText, confirmText }: Props) => {
+const Modal = ({ onConfirm, onClose, text, cancelText, confirmText }: Props) => {
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
@@ -18,7 +18,7 @@ const Modal = ({ onConfirm, onClose, text, cancleText, confirmText }: Props) => 
         <span className={styles.text}>{text}</span>
         <div className={styles.buttonGroup}>
           <button onClick={onClose} className={styles.cancel}>
-            {cancleText}
+            {cancelText}
           </button>
           <button onClick={onConfirm} className={styles.delete}>
             {confirmText}

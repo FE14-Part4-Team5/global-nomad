@@ -16,10 +16,8 @@ const MyExperiencesButton = ({ children, variant, onClick, to }: Props) => {
 
   if (to) {
     return (
-      <Link to={to}>
-        <button className={buttonClass} type="button">
-          {children}
-        </button>
+      <Link to={to} role="button" className={buttonClass}>
+        {children}
       </Link>
     );
   }
