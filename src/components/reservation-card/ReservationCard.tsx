@@ -1,6 +1,7 @@
 import styles from './ReservationCard.module.css';
 
 import StateBadge from '../state-badge/StateBadge';
+import fallbackImage from '@/assets/images/error-image.png';
 
 const ReservationCard = ({
   activity,
@@ -60,6 +61,7 @@ const ReservationCard = ({
                 src={activity.bannerImageUrl}
                 alt={`배너 이미지- ${activity.title}`}
                 className={styles.image}
+                onError={e => (e.currentTarget.src = fallbackImage)}
               />
             </div>
           </div>
