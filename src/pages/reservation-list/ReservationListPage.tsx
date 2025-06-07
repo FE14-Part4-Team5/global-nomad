@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ReservationCard from '../../components/reservation-card/ReservationCard';
 import Modal from '../../components/modal/modal';
 import WarningIcon from '../../assets/icons/modalwarning.svg';
+import Button from '../../components/Button/Button';
 
 const handleProfileImageUpload = (file: File) => {
   console.log('이미지 업로드:', file);
@@ -114,19 +115,40 @@ const ReservationList: React.FC = () => {
                 headCount={reservation.headCount}
                 headCountUnit="명"
                 reviewSubmitted={reservation.reviewSubmitted}
-                editReservationButton={<button>예약 변경</button>}
-                cancelReservationButton={
-                  <button onClick={() => setIsCancelModalOpen(true)}>예약 취소</button>
+                editReservationButton={
+                  <div className={styles.buttonContainer}>
+                    <Button
+                      variant="secondary"
+                      isActive={true}
+                      className={styles.editButton}
+                      style={{ color: 'var(--gray-600)' }}
+                    >
+                      예약 변경
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      isActive={true}
+                      onClick={() => setIsCancelModalOpen(true)}
+                      className={styles.cancelButton}
+                      style={{ color: 'var(--gray-800)' }}
+                    >
+                      예약 취소
+                    </Button>
+                  </div>
                 }
                 reviewSubmittedButton={
-                  <button
+                  <Button
+                    variant="primary"
+                    isActive={true}
+                    className={styles.reviewButton}
+                    style={{ color: 'var(--color-white)' }}
                     onClick={() => {
                       setSelectedReservation(reservation);
                       setIsReviewModalOpen(true);
                     }}
                   >
                     후기 작성
-                  </button>
+                  </Button>
                 }
               />
             ))}
