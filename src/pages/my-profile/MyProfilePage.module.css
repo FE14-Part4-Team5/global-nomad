@@ -9,7 +9,7 @@
   display: block;
 }
 .sideNavigationWrapper {
-  display: none;
+  display: block;
 }
 
 @media (min-width: 768px) {
