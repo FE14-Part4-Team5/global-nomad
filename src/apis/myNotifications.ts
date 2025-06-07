@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as MyNotificationsType from '@/types/api/myNotificationsType';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*내 알림 리스트 조회*/
 const getMyNotifications = async (

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as UsersType from '@/types/api/usersType';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*회원가입*/
 const signUp = async (

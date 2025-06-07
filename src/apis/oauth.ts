@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as OAuthType from '@/types/api/oauthType';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*간편 로그인 APP 등록/수정*/
 const OAuthApps = async (

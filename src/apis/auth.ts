@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as AuthType from '@/types/api/authType';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*로그인*/
 const login = async (

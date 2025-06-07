@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as MyReservationsType from '@/types/api/myReservationsType';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*내 예약 리스트 조회*/
 const getMyReservations = async (
