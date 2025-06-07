@@ -8,17 +8,17 @@ export type UsersResponse = {
 };
 
 /*POST users, 회원가입*/
-export interface SignupParams {
+export interface SignUpParams {
   teamId: string;
 }
 
-export interface SignupRequest {
+export interface SignUpRequest {
   email: string;
   nickname: string;
   password: string;
 }
 
-export type SignupResponse = UsersResponse;
+export type SignUpResponse = UsersResponse;
 
 /*GET users me, 내 정보 조회*/
 export interface GetMeParams {

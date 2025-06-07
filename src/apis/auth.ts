@@ -5,22 +5,16 @@ const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*로그인*/
 const login = async (
-  params: AuthType.LoginParams,
   body: AuthType.LoginRequest,
   accessToken: string
 ): Promise<AuthType.LoginResponse> => {
   try {
-    const { teamId } = params;
-    const response = await axios.post<AuthType.LoginResponse>(
-      `${BASE_URL}/${teamId}/auth/login`,
-      body,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await axios.post<AuthType.LoginResponse>(`${BASE_URL}/auth/login`, body, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
     return response.data;
   } catch (error: any) {
@@ -29,14 +23,10 @@ const login = async (
   }
 };
 
-const tokens = async (
-  params: AuthType.TokenParams,
-  accessToken: string
-): Promise<AuthType.TokenResponse> => {
+const tokens = async (accessToken: string): Promise<AuthType.TokenResponse> => {
   try {
-    const { teamId } = params;
     const response = await axios.post<AuthType.TokenResponse>(
-      `${BASE_URL}/${teamId}/auth/tokens`,
+      `${BASE_URL}/auth/tokens`,
       {},
       {
         headers: {

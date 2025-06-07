@@ -5,14 +5,11 @@ const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*내 체험 리스트 조회*/
 const getMyActivities = async (
-  params: MyActivitiesType.MyActivitiesParams,
   accessToken: string
 ): Promise<MyActivitiesType.MyActivitiesResponse> => {
   try {
-    const { teamId } = params;
-
     const response = await axios.get<MyActivitiesType.MyActivitiesResponse>(
-      `${BASE_URL}/${teamId}/my-activities`,
+      `${BASE_URL}/my-activities`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -33,10 +30,10 @@ const getReservationDashboard = async (
   accessToken: string
 ): Promise<MyActivitiesType.ReservationDashboardResponse> => {
   try {
-    const { teamId, activityId, ...query } = params;
+    const { activityId, ...query } = params;
 
     const response = await axios.get<MyActivitiesType.ReservationDashboardResponse>(
-      `${BASE_URL}/${teamId}/my-activities/${activityId}/reservation-dashboard`,
+      `${BASE_URL}/my-activities/${activityId}/reservation-dashboard`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -60,10 +57,10 @@ const getReservedSchedule = async (
   accessToken: string
 ): Promise<MyActivitiesType.ReservedScheduleResponse> => {
   try {
-    const { teamId, activityId, ...query } = params;
+    const { activityId, ...query } = params;
 
     const response = await axios.get<MyActivitiesType.ReservedScheduleResponse>(
-      `${BASE_URL}/${teamId}/my-activities/${activityId}/reserved-schedule`,
+      `${BASE_URL}/my-activities/${activityId}/reserved-schedule`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -87,10 +84,10 @@ const getReservations = async (
   accessToken: string
 ): Promise<MyActivitiesType.GetReservationsResponse> => {
   try {
-    const { teamId, activityId, ...query } = params;
+    const { activityId, ...query } = params;
 
     const response = await axios.get<MyActivitiesType.GetReservationsResponse>(
-      `${BASE_URL}/${teamId}/my-activities/${activityId}/reservations`,
+      `${BASE_URL}/my-activities/${activityId}/reservations`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -116,10 +113,10 @@ const updateReservation = async (
   accessToken: string
 ): Promise<MyActivitiesType.UpdateReservationResponse> => {
   try {
-    const { teamId, activityId, reservationId } = params;
+    const { activityId, reservationId } = params;
 
     const response = await axios.patch<MyActivitiesType.UpdateReservationResponse>(
-      `${BASE_URL}/${teamId}/my-activities/${activityId}/reservations/${reservationId}`,
+      `${BASE_URL}/my-activities/${activityId}/reservations/${reservationId}`,
       body,
       {
         headers: {
@@ -144,9 +141,9 @@ const deleteActivity = async (
   accessToken: string
 ): Promise<void> => {
   try {
-    const { teamId, activityId } = params;
+    const { activityId } = params;
 
-    await axios.delete(`${BASE_URL}/${teamId}/my-activities/${activityId}`, {
+    await axios.delete(`${BASE_URL}/my-activities/${activityId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -164,10 +161,10 @@ const updateActivity = async (
   accessToken: string
 ): Promise<MyActivitiesType.UpdateActivityResponse> => {
   try {
-    const { teamId, activityId } = params;
+    const { activityId } = params;
 
     const response = await axios.patch<MyActivitiesType.UpdateActivityResponse>(
-      `${BASE_URL}/${teamId}/my-activities/${activityId}`,
+      `${BASE_URL}/my-activities/${activityId}`,
       body,
       {
         headers: {

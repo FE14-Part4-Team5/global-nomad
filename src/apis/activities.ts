@@ -9,10 +9,10 @@ const getActivities = async (
   accessToken: string
 ): Promise<ActivitiesType.GetActivitiesResponse> => {
   try {
-    const { teamId, ...query } = params;
+    const { ...query } = params;
 
     const response = await axios.get<ActivitiesType.GetActivitiesResponse>(
-      `${BASE_URL}/${teamId}/activities`,
+      `${BASE_URL}/activities`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -30,15 +30,12 @@ const getActivities = async (
 
 /*체험 등록*/
 const createActivity = async (
-  params: ActivitiesType.CreateActivityParams,
   body: ActivitiesType.CreateActivityRequest,
   accessToken: string
 ): Promise<ActivitiesType.CreateActivityResponse> => {
   try {
-    const { teamId } = params;
-
     const response = await axios.post<ActivitiesType.CreateActivityResponse>(
-      `${BASE_URL}/${teamId}/activities`,
+      `${BASE_URL}/activities`,
       body,
       {
         headers: {
@@ -58,10 +55,10 @@ const createActivity = async (
 /*체험 상세 조회*/
 const getActivityId = async (params: ActivitiesType.GetActivityIdParams, accessToken: string) => {
   try {
-    const { teamId, activityId } = params;
+    const { activityId } = params;
 
     const response = await axios.get<ActivitiesType.GetActivityIdResponse>(
-      `${BASE_URL}/${teamId}/activities/${activityId}`,
+      `${BASE_URL}/activities/${activityId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -82,10 +79,10 @@ const getActivityAvailableSchedule = async (
   accessToken: string
 ): Promise<ActivitiesType.GetAvailableScheduleResponse> => {
   try {
-    const { teamId, activityId, ...query } = params;
+    const { activityId, ...query } = params;
 
     const response = await axios.get<ActivitiesType.GetAvailableScheduleResponse>(
-      `${BASE_URL}/${teamId}/activities/${activityId}/available-schedule`,
+      `${BASE_URL}/activities/${activityId}/available-schedule`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -109,10 +106,10 @@ const getReviews = async (
   accessToken: string
 ): Promise<ActivitiesType.GetReviewsResponse> => {
   try {
-    const { teamId, activityId, ...query } = params;
+    const { activityId, ...query } = params;
 
     const response = await axios.get<ActivitiesType.GetReviewsResponse>(
-      `${BASE_URL}/${teamId}/activities/${activityId}/reviews`,
+      `${BASE_URL}/activities/${activityId}/reviews`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -135,9 +132,9 @@ const createReservations = async (
   accessToken: string
 ): Promise<ActivitiesType.CreateReservationResponse> => {
   try {
-    const { teamId, activityId } = params;
+    const { activityId } = params;
     const response = await axios.post<ActivitiesType.CreateReservationResponse>(
-      `${BASE_URL}/${teamId}/activities/${activityId}/reservations`,
+      `${BASE_URL}/activities/${activityId}/reservations`,
       body,
       {
         headers: {
@@ -155,18 +152,15 @@ const createReservations = async (
 
 /*체험 이미지 URL 생성*/
 const getActivityImageUrl = async (
-  params: ActivitiesType.CreateActivityImageParams,
   body: ActivitiesType.CreateActivityImageRequest,
   accessToken: string
 ): Promise<ActivitiesType.CreateActivityImageResponse> => {
   try {
-    const { teamId } = params;
-
     const formData = new FormData();
     formData.append('image', body.image);
 
     const response = await axios.post<ActivitiesType.CreateActivityImageResponse>(
-      `${BASE_URL}/${teamId}/activities/image`,
+      `${BASE_URL}/activities/image`,
       formData,
       {
         headers: {

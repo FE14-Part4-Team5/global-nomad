@@ -9,10 +9,10 @@ const getMyReservations = async (
   accessToken: string
 ): Promise<MyReservationsType.GetMyReservationsResponse> => {
   try {
-    const { teamId, ...query } = params;
+    const { ...query } = params;
 
     const response = await axios.get<MyReservationsType.GetMyReservationsResponse>(
-      `${BASE_URL}/${teamId}/my-reservations`,
+      `${BASE_URL}/my-reservations`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -34,10 +34,10 @@ const updateMyReservation = async (
   accessToken: string
 ): Promise<MyReservationsType.UpdateMyReservationResponse> => {
   try {
-    const { teamId, reservationId } = params;
+    const { reservationId } = params;
 
     const response = await axios.patch<MyReservationsType.UpdateMyReservationResponse>(
-      `${BASE_URL}/${teamId}/my-reservations/${reservationId}`,
+      `${BASE_URL}/my-reservations/${reservationId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -58,10 +58,10 @@ const createMyReservationReview = async (
   accessToken: string
 ): Promise<MyReservationsType.CreateMyReservationReviewResponse> => {
   try {
-    const { teamId, reservationId } = params;
+    const { reservationId } = params;
 
     const response = await axios.post<MyReservationsType.CreateMyReservationReviewResponse>(
-      `${BASE_URL}/${teamId}/my-reservations/${reservationId}/reviews`,
+      `${BASE_URL}/my-reservations/${reservationId}/reviews`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

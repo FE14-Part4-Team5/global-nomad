@@ -5,22 +5,16 @@ const BASE_URL = process.env.VITE_BASE_URL || '';
 
 /*간편 로그인 APP 등록/수정*/
 const OAuthApps = async (
-  params: OAuthType.OAuthParams,
   body: OAuthType.OAuthRequest,
   accessToken: string
 ): Promise<OAuthType.OAuthResponse> => {
   try {
-    const { teamId } = params;
-    const response = await axios.post<OAuthType.OAuthResponse>(
-      `${BASE_URL}/${teamId}/oauth/apps`,
-      body,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await axios.post<OAuthType.OAuthResponse>(`${BASE_URL}/oauth/apps`, body, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
     return response.data;
   } catch (error: any) {
@@ -38,9 +32,9 @@ const OAuthSignUp = async (
   accessToken: string
 ): Promise<OAuthType.OAuthSignupProviderResponse> => {
   try {
-    const { teamId, provider } = params;
+    const { provider } = params;
     const response = await axios.post<OAuthType.OAuthSignupProviderResponse>(
-      `${BASE_URL}/${teamId}/oauth/sign-up/${provider}`,
+      `${BASE_URL}/oauth/sign-up/${provider}`,
       body,
       {
         headers: {
@@ -64,9 +58,9 @@ const OAuthSignIn = async (
   accessToken: string
 ): Promise<OAuthType.OAuthSigninProviderResponse> => {
   try {
-    const { teamId, provider } = params;
+    const { provider } = params;
     const response = await axios.post<OAuthType.OAuthSigninProviderResponse>(
-      `${BASE_URL}/${teamId}/oauth/sign-in/${provider}`,
+      `${BASE_URL}/oauth/sign-in/${provider}`,
       body,
       {
         headers: {

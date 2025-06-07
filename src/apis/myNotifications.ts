@@ -9,10 +9,10 @@ const getMyNotifications = async (
   accessToken: string
 ): Promise<MyNotificationsType.GetMyNotificationsResponse> => {
   try {
-    const { teamId, ...query } = params;
+    const { ...query } = params;
 
     const response = await axios.get<MyNotificationsType.GetMyNotificationsResponse>(
-      `${BASE_URL}/${teamId}/my-notifications`,
+      `${BASE_URL}/my-notifications`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -34,9 +34,9 @@ const deleteNotification = async (
   accessToken: string
 ): Promise<void> => {
   try {
-    const { teamId, notificationId } = params;
+    const { notificationId } = params;
 
-    await axios.delete(`${BASE_URL}/${teamId}/my-notifications/${notificationId}`, {
+    await axios.delete(`${BASE_URL}/my-notifications/${notificationId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
