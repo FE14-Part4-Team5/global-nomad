@@ -6,18 +6,24 @@ import calendarIcon from '@/assets/icons/icon_calendar.svg?react';
 
 import styles from './SideNavItem.module.css';
 
-const SideNavItem = () => {
+const SideNavItem = ({ onNavItemClick }: SideNavItemProps) => {
   const location = useLocation();
 
   return (
     <div>
       {navItems.map(({ path, label, Icon }) => {
         const isActive = location.pathname === path;
+        const handleClick = () => {
+          if (path === '/my-profile') {
+            onNavItemClick?.();
+          }
+        };
         return (
           <Link
             key={path}
             to={path}
             className={isActive ? styles.activeContentsBox : styles.contentsBox}
+            onClick={handleClick}
           >
             <Icon className={`${styles.icon} ${isActive ? styles.activeIcon : ''}`} />
             <div className={styles.itemText}>{label}</div>
@@ -30,6 +36,9 @@ const SideNavItem = () => {
 
 export default SideNavItem;
 
+type SideNavItemProps = {
+  onNavItemClick?: () => void;
+};
 const navItems = [
   {
     path: '/my-profile',
