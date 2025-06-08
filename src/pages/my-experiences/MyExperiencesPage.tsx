@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
 import MyExperiencesCardList from './components/my-experiences-card-list/MyExperiencesCardList';
-import ExampleLogin from './example/ExampleLogin';
 import Modal from './example/Modal';
 
 import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
@@ -13,6 +12,10 @@ import { deleteActivity } from './example/example';
 import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
 import styles from './MyExperiencesPage.module.css';
+
+export const ErrorUI = () => {
+  return <div>에러중</div>;
+};
 
 const MyExperiences = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,27 +41,13 @@ const MyExperiences = () => {
   };
 
   const teamId = 'team5';
-  const {
-    data: userData,
-    isLoading: isProfileLoading,
-    isError: isProfileError,
-  } = useMyProfile(teamId);
+  const { data: userData } = useMyProfile(teamId);
 
-  const {
-    data,
-    isLoading: isCardLoading,
-    isError: isCardError,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    refetch,
-  } = useInfiniteMyActivities(teamId);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
+    useInfiniteMyActivities(teamId);
 
   const pages = (data as { pages: ActivitiesResponse[] } | undefined)?.pages;
   const allActivities = pages?.flatMap(page => page.activities) ?? [];
-
-  if (isProfileLoading || isCardLoading) return <ExampleLogin />;
-  if (isProfileError || isCardError) return <ExampleLogin />;
 
   return (
     <div className={styles.myExperiences}>
@@ -75,13 +64,15 @@ const MyExperiences = () => {
             <button className={styles.button}>체험 등록하기</button>
           </Link>
         </MyExperiencesHeader>
-        <MyExperiencesCardList
-          userActivities={{ activities: allActivities }}
-          onLoadMore={fetchNextPage}
-          hasMore={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          onDeleteClick={handleOpen}
-        />
+        <Suspense fallback={<div>서스펜스</div>}>
+          <MyExperiencesCardList
+            userActivities={{ activities: allActivities }}
+            onLoadMore={fetchNextPage}
+            hasMore={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            onDeleteClick={handleOpen}
+          />
+        </Suspense>
       </div>
       {isModalOpen && targetId !== null && (
         <Modal

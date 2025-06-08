@@ -1,3 +1,7 @@
+import { ErrorBoundary } from 'react-error-boundary';
+import { Suspense } from 'react';
+import { ErrorUI } from './pages/my-experiences/MyExperiencesPage';
+
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
 import ReservationList from './pages/reservation-list/ReservationListPage';
@@ -21,7 +25,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/my-experiences',
-        element: <MyExperiencesPage />,
+        element: (
+          <ErrorBoundary FallbackComponent={ErrorUI}>
+            <Suspense fallback={<div>메롱</div>}>
+              <MyExperiencesPage />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
         path: 'add-experiences',
