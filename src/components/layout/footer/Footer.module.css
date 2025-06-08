@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  min-width: 37.5rem;
   background-color: var(--gray-100);
   display: flex;
   flex-wrap: wrap;
