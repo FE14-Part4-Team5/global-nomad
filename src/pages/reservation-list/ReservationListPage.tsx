@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ReservationCard from '../../components/reservation-card/ReservationCard';
 import Modal from '../../components/modal/modal';
 import WarningIcon from '../../assets/icons/modalwarning.svg';
+import Button from '../../components/Button/Button';
 
 const handleProfileImageUpload = (file: File) => {
   console.log('이미지 업로드:', file);
@@ -13,6 +14,7 @@ const handleProfileImageUpload = (file: File) => {
 const ReservationList: React.FC = () => {
   const [activeState, setActiveState] = useState<string | null>(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [selectedReservation, setSelectedReservation] = useState<MyReservation | null>(null);
   // 예약 취소 모달 상태 추가
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
@@ -113,12 +115,40 @@ const ReservationList: React.FC = () => {
                 headCount={reservation.headCount}
                 headCountUnit="명"
                 reviewSubmitted={reservation.reviewSubmitted}
-                editReservationButton={<button>예약 변경</button>}
-                cancelReservationButton={
-                  <button onClick={() => setIsCancelModalOpen(true)}>예약 취소</button>
+                editReservationButton={
+                  <div className={styles.buttonContainer}>
+                    <Button
+                      variant="secondary"
+                      isActive={true}
+                      className={styles.editButton}
+                      style={{ color: 'var(--gray-600)' }}
+                    >
+                      예약 변경
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      isActive={true}
+                      onClick={() => setIsCancelModalOpen(true)}
+                      className={styles.cancelButton}
+                      style={{ color: 'var(--gray-800)' }}
+                    >
+                      예약 취소
+                    </Button>
+                  </div>
                 }
                 reviewSubmittedButton={
-                  <button onClick={() => setIsReviewModalOpen(true)}>후기 작성</button>
+                  <Button
+                    variant="primary"
+                    isActive={true}
+                    className={styles.reviewButton}
+                    style={{ color: 'var(--color-white)' }}
+                    onClick={() => {
+                      setSelectedReservation(reservation);
+                      setIsReviewModalOpen(true);
+                    }}
+                  >
+                    후기 작성
+                  </Button>
                 }
               />
             ))}
@@ -127,7 +157,12 @@ const ReservationList: React.FC = () => {
 
       {/* 후기 작성 모달 */}
       <Modal isOpen={isReviewModalOpen} onClose={() => setIsReviewModalOpen(false)} isThird={true}>
-        후기 작성
+        <div className={styles.modalHeader}>
+          <h3>{selectedReservation?.activity.title}</h3>
+          <p>
+            {`${selectedReservation?.date} / ${selectedReservation?.startTime} - ${selectedReservation?.endTime} (${selectedReservation?.headCount}명)`}
+          </p>
+        </div>
       </Modal>
 
       {/* 예약 취소 모달 */}
