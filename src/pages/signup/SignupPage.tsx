@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import Signup from '@/pages/signup/components/Signup';
+import { usersService } from '@/apis/users';
+import { useNavigate } from 'react-router-dom';
+import Modal from '@/components/modal/modal';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
@@ -11,15 +14,34 @@ const SignupPage = () => {
   const [nicknameError, setNicknameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const isValidEmail = (email: string) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!isFormValid) return;
+
     setIsSubmitting(true);
-    console.log('회원가입 API 호출 필요', { email, nickname, password });
-    setTimeout(() => {
+
+    try {
+      const response = await usersService.signUp({
+        email,
+        nickname,
+        password,
+      });
+
+      console.log('회원가입 성공:', response);
+      setIsSuccessModalOpen(true);
+    } catch (error: any) {
+      setErrorMessage(error.message || '로그인에 실패했습니다.');
+      setIsErrorModalOpen(true);
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleEmailBlur = () => {
@@ -52,27 +74,46 @@ const SignupPage = () => {
     password === confirmPassword;
 
   return (
-    <Signup
-      email={email}
-      nickname={nickname}
-      password={password}
-      confirmPassword={confirmPassword}
-      onEmailChange={setEmail}
-      onNicknameChange={setNickname}
-      onPasswordChange={setPassword}
-      onConfirmPasswordChange={setConfirmPassword}
-      onSubmit={handleSubmit}
-      isSubmitting={isSubmitting}
-      emailError={emailError}
-      nicknameError={nicknameError}
-      passwordError={passwordError}
-      confirmPasswordError={confirmPasswordError}
-      onEmailBlur={handleEmailBlur}
-      onNicknameBlur={handleNicknameBlur}
-      onPasswordBlur={handlePasswordBlur}
-      onConfirmPasswordBlur={handleConfirmPasswordBlur}
-      isFormValid={isFormValid}
-    />
+    <>
+      <Signup
+        email={email}
+        nickname={nickname}
+        password={password}
+        confirmPassword={confirmPassword}
+        onEmailChange={setEmail}
+        onNicknameChange={setNickname}
+        onPasswordChange={setPassword}
+        onConfirmPasswordChange={setConfirmPassword}
+        onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+        emailError={emailError}
+        nicknameError={nicknameError}
+        passwordError={passwordError}
+        confirmPasswordError={confirmPasswordError}
+        onEmailBlur={handleEmailBlur}
+        onNicknameBlur={handleNicknameBlur}
+        onPasswordBlur={handlePasswordBlur}
+        onConfirmPasswordBlur={handleConfirmPasswordBlur}
+        isFormValid={isFormValid}
+      />
+      {isSuccessModalOpen && (
+        <Modal
+          isOpen={isSuccessModalOpen}
+          onClose={() => {
+            setIsSuccessModalOpen(false);
+            navigate('/login');
+          }}
+        >
+          가입에 성공하였습니다.
+        </Modal>
+      )}
+
+      {isErrorModalOpen && (
+        <Modal isOpen={isErrorModalOpen} onClose={() => setIsErrorModalOpen(false)}>
+          {errorMessage}
+        </Modal>
+      )}
+    </>
   );
 };
 
