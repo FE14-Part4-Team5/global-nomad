@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import styles from './DetailPage.module.css';
 
@@ -26,25 +27,26 @@ declare global {
 
 const DetailPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isModalOpen, setISModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // TODO: 하드코딩된 값, 추후 동적 값으로 교체 필요
   const teamId = '14-5';
-  const activityId = 4414;
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const {
     data: experience,
     isLoading: isDetailLoading,
     isError: isDetailError,
-  } = useExperienceDetail(teamId, activityId);
+  } = useExperienceDetail(teamId, Number(id));
   const {
     data: reviews,
     isLoading: isReviewLoading,
     isError: isReviewError,
-  } = useExperienceReviews(teamId, activityId);
+  } = useExperienceReviews(teamId, Number(id));
 
-  const { mutateAsync: reserveExperience } = useReserveExperience(teamId, activityId);
-  const { mutateAsync: deleteExperience } = useDeleteExperience(teamId, activityId);
+  const { mutateAsync: reserveExperience } = useReserveExperience(teamId, Number(id));
+  const { mutateAsync: deleteExperience } = useDeleteExperience(teamId, Number(id));
 
   const handleReserve = async ({
     scheduleId,
@@ -56,7 +58,7 @@ const DetailPage = () => {
     try {
       const response = await reserveExperience({ scheduleId, headCount });
       console.log('예약 성공:', response);
-      setISModalOpen(true);
+      setIsModalOpen(true);
     } catch (e: unknown) {
       if (e instanceof Error) {
         console.error('예약 실패:', e.message);
@@ -156,26 +158,30 @@ const DetailPage = () => {
           <div className={styles.category}>{experience.category}</div>
           <div className={styles.titleRow}>
             <h3 className={styles.title}>{experience.title}</h3>
-            <div className={styles.menu}>
-              <IconMore
-                width={28}
-                height={28}
-                className={styles.iconMore}
-                onClick={() => setMenuOpen(!menuOpen)}
-              />
-              {menuOpen && (
-                <ul className={styles.menuList}>
-                  <li>수정하기</li>
-                  <li onClick={handleDelete}>삭제하기</li>
-                </ul>
-              )}
-            </div>
+            {true && (
+              <div className={styles.menu}>
+                <IconMore
+                  width={28}
+                  height={28}
+                  className={styles.iconMore}
+                  onClick={() => setMenuOpen(!menuOpen)}
+                />
+                {menuOpen && (
+                  <ul className={styles.menuList}>
+                    <li onClick={() => navigate(`/edit-experiences/${id}`)}>수정하기</li>
+                    <li onClick={handleDelete}>삭제하기</li>
+                  </ul>
+                )}
+              </div>
+            )}
           </div>
 
           <div className={styles.meta}>
             <div className={styles.rating}>
-              <IconStar width={16} height={16} />
-              {experience.rating.toFixed(1)}({experience.reviewCount})
+              <IconStar className={styles.starIcon} />
+              <span>
+                {experience.rating.toFixed(1)} ({experience.reviewCount})
+              </span>
             </div>
             <div className={styles.address}>
               <IconMap width={16} height={16} />
@@ -205,7 +211,8 @@ const DetailPage = () => {
             <div className={styles.reviewScore}>{experience.rating}</div>
             <div className={styles.reviewSatisfaction}>만족도</div>
             <div className={styles.reviewStars}>
-              <span className={styles.starIcon}>★</span> {experience.reviewCount} 후기
+              <IconStar className={styles.starIcon} />
+              <span>{experience.reviewCount} 후기</span>
             </div>
           </div>
           <div className={styles.reviewList}>
@@ -224,18 +231,20 @@ const DetailPage = () => {
           </div>
         </section>
         <section className={styles.calendarWrapper}>
-          <Reservation
-            price={experience.price}
-            schedules={experience.schedules}
-            onReserve={handleReserve}
-          />
+          <div className={false ? styles.invisibleBox : ''}>
+            <Reservation
+              price={experience.price}
+              schedules={experience.schedules}
+              onReserve={handleReserve}
+            />
+          </div>
         </section>
       </div>
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <Modal isOpen onClose={() => setIsModalOpen(false)}>
           <p className={styles.modalText}>예약이 완료되었습니다.</p>
         </Modal>
-      )} */}
+      )}
     </>
   );
 };
