@@ -115,7 +115,8 @@
   flex-direction: column;
   align-items: center;
   gap: 1.6rem;
-  margin-top: 2rem; /* badge와의 간격 */
+  margin-top: 8rem;
+  margin-left: 23rem;
 }
 
 .emptyState img {
@@ -179,4 +180,13 @@
   flex: 1;
   padding-top: 13rem;
   margin-left: 33.1rem;
+}
+
+.exploreButton {
+  width: 18.2rem;
+  height: 5.4rem;
+  margin-top: 3rem;
+  border-radius: 0.8rem;
+  font-size: var(--fs-16);
+  color: var(--color-white);
 }
