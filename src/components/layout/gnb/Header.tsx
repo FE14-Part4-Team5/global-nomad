@@ -58,7 +58,7 @@ const Header = () => {
           <Link to="/login" className={styles.authButton}>
             로그인
           </Link>
-          <Link to="/signin" className={styles.authButton}>
+          <Link to="/signup" className={styles.authButton}>
             회원가입
           </Link>
         </div>
@@ -79,7 +79,7 @@ const Header = () => {
               정만철
             </button>
             <div className={clsx(styles.dropdownMenu, isDropdownOpen && styles.open)}>
-              <Link to="/mypage" className={styles.dropdownItem}>
+              <Link to="/my-profile" className={styles.dropdownItem}>
                 마이페이지
               </Link>
               <button type="button" className={styles.dropdownItem} onClick={handleLogout}>

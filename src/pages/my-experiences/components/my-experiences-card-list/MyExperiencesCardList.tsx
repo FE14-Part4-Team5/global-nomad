@@ -1,45 +1,80 @@
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import MyExperienceCard from '@/components/my-experience-card/MyExperienceCard';
 import MyExperiencesButton from '../my-experiences-button/MyExperiencesButton';
 import EmptyState from '@/components/empty-state/EmptyState';
-
-import { useMyActivities } from '@/hooks/useMyActivities';
 
 import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
 
 import styles from './MyExperiencesCardList.module.css';
 
-const MyExperiencesCardList = () => {
-  const teamId = 'team5';
-  const {
-    data: userActivities,
-    isLoading: isCardLoading,
-    isError: isCardError,
-  } = useMyActivities(teamId);
-  console.log(userActivities);
+const MyExperiencesCardList = ({
+  userActivities,
+  onDeleteClick,
+  onLoadMore,
+  hasMore,
+  isFetchingNextPage,
+}: Props) => {
+  const { ref, inView } = useInView({ threshold: 0.5 });
 
-  if (isCardLoading) return <div>카드 로딩중: 추후 구현예정</div>;
-  if (isCardError) return <div>카드 에러남: 추후 구현예정</div>;
+  useEffect(() => {
+    if (inView && hasMore) {
+      onLoadMore();
+    }
+  }, [inView, hasMore, onLoadMore]);
+
   return (
     <>
-      {userActivities?.activities.length === 0 && <EmptyState text="아직 등록한 체험이 없어요" />}
-      <div className={styles.card}>
-        {userActivities?.activities.map((item: MyExperienceCardProps) => (
-          <MyExperienceCard
-            key={item.id}
-            bannerImageUrl={item.bannerImageUrl}
-            title={item.title}
-            rating={item.rating}
-            reviewCount={item.reviewCount}
-            currencySymbol="₩"
-            price={item.price}
-            priceUnit="/인"
-            editButton={<MyExperiencesButton variant="edit">수정하기</MyExperiencesButton>}
-            deleteButton={<MyExperiencesButton variant="delete">삭제하기</MyExperiencesButton>}
-          />
-        ))}
-      </div>
+      {!userActivities?.activities.length ? (
+        <EmptyState text="아직 등록한 체험이 없어요" />
+      ) : (
+        <div className={styles.card}>
+          {userActivities?.activities.map((item: MyExperienceCardProps) => (
+            <MyExperienceCard
+              key={item.id}
+              bannerImageUrl={item.bannerImageUrl}
+              title={item.title}
+              rating={item.rating}
+              reviewCount={item.reviewCount}
+              currencySymbol="₩"
+              price={item.price}
+              priceUnit="/인"
+              editButton={
+                <MyExperiencesButton variant="edit" to={`/edit-experiences/${item.id}`}>
+                  수정하기
+                </MyExperiencesButton>
+              }
+              deleteButton={
+                <MyExperiencesButton
+                  variant="delete"
+                  onClick={() => {
+                    if (item.id !== undefined) onDeleteClick(item.id);
+                  }}
+                >
+                  삭제하기
+                </MyExperiencesButton>
+              }
+            />
+          ))}
+          <div ref={ref} style={{ height: 1 }} />
+          {isFetchingNextPage && (
+            <div className={styles.spinnerWrapper}>
+              <span className={styles.spinner} />
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
 
 export default MyExperiencesCardList;
+
+interface Props {
+  userActivities: { activities: MyExperienceCardProps[] };
+  onDeleteClick: (id: number) => void;
+  onLoadMore: () => void;
+  isFetchingNextPage: boolean;
+  hasMore: boolean;
+}
