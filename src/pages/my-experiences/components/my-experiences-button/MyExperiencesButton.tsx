@@ -1,16 +1,32 @@
+import { Link } from 'react-router-dom';
+
+import clsx from 'clsx';
+
 import styles from './MyExperiencesButton.module.css';
 
-const MyExperiencesButton = ({
-  children,
-  variant,
-}: {
+type Props = {
   children: React.ReactNode;
   variant: 'edit' | 'delete';
-}) => {
-  const buttonClass =
-    variant === 'edit' ? `${styles.button} ${styles.edit}` : `${styles.button} ${styles.delete}`;
+  onClick?: () => void;
+  to?: string;
+};
 
-  return <button className={buttonClass}>{children}</button>;
+const MyExperiencesButton = ({ children, variant, onClick, to }: Props) => {
+  const buttonClass = clsx(styles.button, styles[variant]);
+
+  if (to) {
+    return (
+      <Link to={to} role="button" className={buttonClass}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <button className={buttonClass} onClick={onClick} type="button">
+      {children}
+    </button>
+  );
 };
 
 export default MyExperiencesButton;
