@@ -1,25 +1,64 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
 import MyExperiencesCardList from './components/my-experiences-card-list/MyExperiencesCardList';
 import ExampleLogin from './example/ExampleLogin';
+import Modal from './example/Modal';
 
+import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
 import { useMyProfile } from '@/hooks/useMyProfile';
+import { deleteActivity } from './example/example';
+import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
 import styles from './MyExperiencesPage.module.css';
 
 const MyExperiences = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [targetId, setTargetId] = useState<number | null>(null);
+
+  const handleOpen = (id: number) => {
+    setTargetId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      if (targetId === null) return;
+      await deleteActivity(teamId, targetId);
+      refetch();
+      //토스트 띄우기 고려
+    } catch (error) {
+      console.log(error);
+      throw new Error();
+    } finally {
+      setIsModalOpen(false);
+    }
+  };
+
   const teamId = 'team5';
   const {
     data: userData,
     isLoading: isProfileLoading,
     isError: isProfileError,
   } = useMyProfile(teamId);
-  // console.log(userData);
 
-  if (isProfileLoading) return <ExampleLogin />;
-  if (isProfileError) return <ExampleLogin />;
+  const {
+    data,
+    isLoading: isCardLoading,
+    isError: isCardError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteMyActivities(teamId);
+
+  const pages = (data as { pages: ActivitiesResponse[] } | undefined)?.pages;
+  const allActivities = pages?.flatMap(page => page.activities) ?? [];
+
+  if (isProfileLoading || isCardLoading) return <ExampleLogin />;
+  if (isProfileError || isCardError) return <ExampleLogin />;
 
   return (
     <div className={styles.myExperiences}>
@@ -36,8 +75,23 @@ const MyExperiences = () => {
             <button className={styles.button}>체험 등록하기</button>
           </Link>
         </MyExperiencesHeader>
-        <MyExperiencesCardList />
+        <MyExperiencesCardList
+          userActivities={{ activities: allActivities }}
+          onLoadMore={fetchNextPage}
+          hasMore={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          onDeleteClick={handleOpen}
+        />
       </div>
+      {isModalOpen && targetId !== null && (
+        <Modal
+          onConfirm={handleConfirmDelete}
+          onClose={() => setIsModalOpen(false)}
+          text="등록한 체험을 삭제하시겠어요?"
+          cancelText="아니오"
+          confirmText="취소하기"
+        />
+      )}
     </div>
   );
 };
