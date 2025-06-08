@@ -10,7 +10,7 @@ import { useMyProfile } from '@/hooks/useMyProfile';
 import ExampleLogin from '@/pages/my-experiences/example/ExampleLogin';
 
 const Header = () => {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
   const [isNoticeClick, setIsNoticeClick] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
