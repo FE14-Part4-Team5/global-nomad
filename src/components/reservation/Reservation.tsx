@@ -10,7 +10,7 @@ import { formatDateToYMD } from '@/utils/datetime';
 import styles from './Reservation.module.css';
 import CalendarSection from '../calendar/CalendarSection';
 import ReservationFooter from './ReservationFooter';
-import Button from '../Button/Button';
+import Button from '../button/Button';
 
 interface ScheduleSlot {
   id: number;
@@ -147,7 +147,7 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
           <div className={styles.reserveButtonWrapper}>
             <Button
               variant="primary"
-              isActive={!(selectedTime === undefined || headCount === 0)}
+              isActive={!!selectedTime && headCount > 0}
               onClick={() => setCalendarOpen(false)}
               className={styles.reserveButton}
             >
