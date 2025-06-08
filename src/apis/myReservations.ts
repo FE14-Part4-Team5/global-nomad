@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as MyReservationsType from '@/types/api/myReservationsType';
 
-const BASE_URL = process.env.VITE_BASE_URL || '';
+const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 /*내 예약 리스트 조회*/
 const getMyReservations = async (
@@ -38,6 +38,7 @@ const updateMyReservation = async (
 
     const response = await axios.patch<MyReservationsType.UpdateMyReservationResponse>(
       `${BASE_URL}/my-reservations/${reservationId}`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -62,6 +63,7 @@ const createMyReservationReview = async (
 
     const response = await axios.post<MyReservationsType.CreateMyReservationReviewResponse>(
       `${BASE_URL}/my-reservations/${reservationId}/reviews`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

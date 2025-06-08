@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as ActivitiesType from '@/types/api/activitiesType';
 
-const BASE_URL = process.env.VITE_BASE_URL || '';
+const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 /*체험 리스트 조회*/
 const getActivities = async (

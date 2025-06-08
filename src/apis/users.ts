@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as UsersType from '@/types/api/usersType';
 
-const BASE_URL = process.env.VITE_BASE_URL || '';
+const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 /*회원가입*/
 const signUp = async (body: UsersType.SignUpRequest): Promise<UsersType.SignUpResponse> => {
@@ -41,7 +41,7 @@ const updateMe = async (
   accessToken: string
 ): Promise<UsersType.PatchMeResponse> => {
   try {
-    const response = await axios.put<UsersType.PatchMeResponse>(`${BASE_URL}/users/me`, body, {
+    const response = await axios.patch<UsersType.PatchMeResponse>(`${BASE_URL}/users/me`, body, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',

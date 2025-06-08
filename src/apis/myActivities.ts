@@ -1,19 +1,23 @@
 import axios from 'axios';
 import * as MyActivitiesType from '@/types/api/myActivitiesType';
 
-const BASE_URL = process.env.VITE_BASE_URL || '';
+const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 /*내 체험 리스트 조회*/
 const getMyActivities = async (
-  accessToken: string
+  accessToken: string,
+  params: MyActivitiesType.MyActivitiesParams
 ): Promise<MyActivitiesType.MyActivitiesResponse> => {
   try {
+    const { ...query } = params;
     const response = await axios.get<MyActivitiesType.MyActivitiesResponse>(
       `${BASE_URL}/my-activities`,
+
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
+        params: query,
       }
     );
 

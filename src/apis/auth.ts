@@ -1,17 +1,13 @@
 import axios from 'axios';
 import * as AuthType from '@/types/api/authType';
 
-const BASE_URL = process.env.VITE_BASE_URL || '';
+const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 /*로그인*/
-const login = async (
-  body: AuthType.LoginRequest,
-  accessToken: string
-): Promise<AuthType.LoginResponse> => {
+const login = async (body: AuthType.LoginRequest): Promise<AuthType.LoginResponse> => {
   try {
     const response = await axios.post<AuthType.LoginResponse>(`${BASE_URL}/auth/login`, body, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
     });
@@ -23,14 +19,13 @@ const login = async (
   }
 };
 
-const tokens = async (accessToken: string): Promise<AuthType.TokenResponse> => {
+const tokens = async (refreshToken: string): Promise<AuthType.TokenResponse> => {
   try {
     const response = await axios.post<AuthType.TokenResponse>(
       `${BASE_URL}/auth/tokens`,
-      {},
+      { refreshToken },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
       }
