@@ -164,3 +164,19 @@
   height: 2.9rem;
   border-radius: 0.4rem;
 }
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.navigationWrapper {
+  padding-top: 13rem;
+  margin-left: 45rem;
+}
+
+.contentWrapper {
+  flex: 1;
+  padding-top: 13rem;
+  margin-left: 33.1rem;
+}

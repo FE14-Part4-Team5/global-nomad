@@ -61,119 +61,123 @@ const ReservationList: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <SideNavigation defaultImage={profileImg} />
-      <div className={styles.titleSection}>
-        <h1 className={styles.title}>예약 내역</h1>
-        <p className={styles.subtitle}>예약내역 변경 및 취소할 수 있습니다.</p>
-        <div className={styles.badgeWrapper}>
-          <div
-            className={`${styles.badgeCommon} ${activeState === 'pending' ? styles.active : ''}`}
-            onClick={() => handleBadgeClick('pending')}
-          >
-            <span className={styles.labelCommon1}>예약 완료</span>
-          </div>
-          <div
-            className={`${styles.badgeCommon} ${activeState === 'confirmed' ? styles.active : ''}`}
-            onClick={() => handleBadgeClick('confirmed')}
-          >
-            <span className={styles.labelCommon1}>예약 승인</span>
-          </div>
-          <div
-            className={`${styles.badgeCommon} ${activeState === 'declined' ? styles.active : ''}`}
-            onClick={() => handleBadgeClick('declined')}
-          >
-            <span className={styles.labelCommon1}>예약 거절</span>
-          </div>
-          <div
-            className={`${styles.badgeCommon} ${activeState === 'canceled' ? styles.active : ''}`}
-            onClick={() => handleBadgeClick('canceled')}
-          >
-            <span className={styles.labelCommon1}>예약 취소</span>
-          </div>
-          <div
-            className={`${styles.badgeCommon} ${activeState === 'completed' ? styles.active : ''}`}
-            onClick={() => handleBadgeClick('completed')}
-          >
-            <span className={styles.labelCommon1}>체험 완료</span>
-          </div>
-        </div>
-        <div className={styles.cardContainer}>
-          {reservations
-            .filter(reservation => activeState === null || reservation.status === activeState)
-            .map((reservation, index) => (
-              <ReservationCard
-                key={index}
-                activity={reservation.activity}
-                status={reservation.status}
-                date={reservation.date}
-                dateDot="•"
-                startTime={reservation.startTime}
-                timedash="-"
-                endTime={reservation.endTime}
-                currencySymbol="₩"
-                totalPrice={reservation.totalPrice}
-                headCount={reservation.headCount}
-                headCountUnit="명"
-                reviewSubmitted={reservation.reviewSubmitted}
-                editReservationButton={
-                  <div className={styles.buttonContainer}>
-                    <Button
-                      variant="secondary"
-                      isActive={true}
-                      className={styles.editButton}
-                      style={{ color: 'var(--gray-600)' }}
-                    >
-                      예약 변경
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      isActive={true}
-                      onClick={() => setIsCancelModalOpen(true)}
-                      className={styles.cancelButton}
-                      style={{ color: 'var(--gray-800)' }}
-                    >
-                      예약 취소
-                    </Button>
-                  </div>
-                }
-                reviewSubmittedButton={
-                  <Button
-                    variant="primary"
-                    isActive={true}
-                    className={styles.reviewButton}
-                    style={{ color: 'var(--color-white)' }}
-                    onClick={() => {
-                      setSelectedReservation(reservation);
-                      setIsReviewModalOpen(true);
-                    }}
-                  >
-                    후기 작성
-                  </Button>
-                }
-              />
-            ))}
-        </div>
+      <div className={styles.navigationWrapper}>
+        <SideNavigation defaultImage={profileImg} />
       </div>
-
-      {/* 후기 작성 모달 */}
-      <Modal isOpen={isReviewModalOpen} onClose={() => setIsReviewModalOpen(false)} isThird={true}>
-        <div className={styles.modalHeader}>
-          <h3>{selectedReservation?.activity.title}</h3>
-          <p>
-            {`${selectedReservation?.date} / ${selectedReservation?.startTime} - ${selectedReservation?.endTime} (${selectedReservation?.headCount}명)`}
-          </p>
+      <div className={styles.contentWrapper}>
+        <div className={styles.titleSection}>
+          <h1 className={styles.title}>예약 내역</h1>
+          <p className={styles.subtitle}>예약내역 변경 및 취소할 수 있습니다.</p>
+          <div className={styles.badgeWrapper}>
+            <div
+              className={`${styles.badgeCommon} ${activeState === 'pending' ? styles.active : ''}`}
+              onClick={() => handleBadgeClick('pending')}
+            >
+              <span className={styles.labelCommon1}>예약 완료</span>
+            </div>
+            <div
+              className={`${styles.badgeCommon} ${activeState === 'confirmed' ? styles.active : ''}`}
+              onClick={() => handleBadgeClick('confirmed')}
+            >
+              <span className={styles.labelCommon1}>예약 승인</span>
+            </div>
+            <div
+              className={`${styles.badgeCommon} ${activeState === 'declined' ? styles.active : ''}`}
+              onClick={() => handleBadgeClick('declined')}
+            >
+              <span className={styles.labelCommon1}>예약 거절</span>
+            </div>
+            <div
+              className={`${styles.badgeCommon} ${activeState === 'canceled' ? styles.active : ''}`}
+              onClick={() => handleBadgeClick('canceled')}
+            >
+              <span className={styles.labelCommon1}>예약 취소</span>
+            </div>
+            <div
+              className={`${styles.badgeCommon} ${activeState === 'completed' ? styles.active : ''}`}
+              onClick={() => handleBadgeClick('completed')}
+            >
+              <span className={styles.labelCommon1}>체험 완료</span>
+            </div>
+          </div>
+          <div className={styles.cardContainer}>
+            {reservations
+              .filter(reservation => activeState === null || reservation.status === activeState)
+              .map((reservation, index) => (
+                <ReservationCard
+                  key={index}
+                  activity={reservation.activity}
+                  status={reservation.status}
+                  date={reservation.date}
+                  dateDot="•"
+                  startTime={reservation.startTime}
+                  timedash="-"
+                  endTime={reservation.endTime}
+                  currencySymbol="₩"
+                  totalPrice={reservation.totalPrice}
+                  headCount={reservation.headCount}
+                  headCountUnit="명"
+                  reviewSubmitted={reservation.reviewSubmitted}
+                  editReservationButton={
+                    <div className={styles.buttonContainer}>
+                      <Button
+                        variant="secondary"
+                        isActive={true}
+                        className={styles.editButton}
+                        style={{ color: 'var(--gray-600)' }}
+                      >
+                        예약 변경
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        isActive={true}
+                        onClick={() => setIsCancelModalOpen(true)}
+                        className={styles.cancelButton}
+                        style={{ color: 'var(--gray-800)' }}
+                      >
+                        예약 취소
+                      </Button>
+                    </div>
+                  }
+                  reviewSubmittedButton={
+                    <Button
+                      variant="primary"
+                      isActive={true}
+                      className={styles.reviewButton}
+                      style={{ color: 'var(--color-white)' }}
+                      onClick={() => {
+                        setSelectedReservation(reservation);
+                        setIsReviewModalOpen(true);
+                      }}
+                    >
+                      후기 작성
+                    </Button>
+                  }
+                />
+              ))}
+          </div>
         </div>
-      </Modal>
 
-      {/* 예약 취소 모달 */}
-      <Modal
-        isOpen={isCancelModalOpen}
-        onClose={() => setIsCancelModalOpen(false)}
-        isSecondary={true}
-      >
-        <img src={WarningIcon} className={styles.warningIcon} alt="warning" />
-        <h2>예약을 취소하시겠습니까?</h2>
-      </Modal>
+        {/* 후기 작성 모달 */}
+        <Modal isOpen={isReviewModalOpen} onClose={() => setIsReviewModalOpen(false)} isThird={true}>
+          <div className={styles.modalHeader}>
+            <h3>{selectedReservation?.activity.title}</h3>
+            <p>
+              {`${selectedReservation?.date} / ${selectedReservation?.startTime} - ${selectedReservation?.endTime} (${selectedReservation?.headCount}명)`}
+            </p>
+          </div>
+        </Modal>
+
+        {/* 예약 취소 모달 */}
+        <Modal
+          isOpen={isCancelModalOpen}
+          onClose={() => setIsCancelModalOpen(false)}
+          isSecondary={true}
+        >
+          <img src={WarningIcon} className={styles.warningIcon} alt="warning" />
+          <h2>예약을 취소하시겠습니까?</h2>
+        </Modal>
+      </div>
     </div>
   );
 };
