@@ -1,37 +1,45 @@
 import Input from '@/components/input/Input';
 import styles from './ProfileForm.module.css';
-import Button from '@/components/button/Button';
+import Button from '@/components/Button/Button';
 import clsx from 'clsx';
+import { type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
+import type { UserProfile } from '@/pages/my-experiences/example/example';
+
+import { useFormContext } from 'react-hook-form';
+import { useFormChangeChecker } from '@/hooks/useFormChangeChecker';
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
-import { useMyProfileUpdateForm, type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
 
 interface MyProfileFormProps {
   onClick: () => void;
   onSubmit: (data: MyProfileFormValues) => void;
+  userData?: UserProfile;
+  isProfileChanged: boolean;
 }
 
-const ProfileForm = ({ onClick, onSubmit }: MyProfileFormProps) => {
+const ProfileForm = ({ onClick, onSubmit, userData, isProfileChanged }: MyProfileFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useMyProfileUpdateForm();
+  } = useFormContext<MyProfileFormValues>();
+  const isFormChanged = useFormChangeChecker(userData);
 
   return (
     <div className={styles.userInfoContainer}>
       <MyExperiencesHeader title="내 정보" subTitle="닉네임과 비밀번호를 수정하실 수있습니다." />
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.inputWrapper}>
           <Input
             title="닉네임"
-            placeholder="정만철"
+            placeholder={userData?.nickname || ''}
             isError={!!errors.nickname}
             errorMessage={errors.nickname?.message}
             {...register('nickname')}
           />
         </div>
         <div className={styles.inputWrapper}>
-          <Input title="이메일" placeholder="codeit@codeit.com" disabled />
+          <Input title="이메일" placeholder={userData?.email || ''} disabled />
         </div>
         <div className={styles.inputWrapper}>
           <Input
@@ -55,7 +63,6 @@ const ProfileForm = ({ onClick, onSubmit }: MyProfileFormProps) => {
             {...register('newConfirmPassword')}
           />
         </div>
-
         <div className={styles.formButtomWrapper}>
           <Button
             type="button"
@@ -68,7 +75,7 @@ const ProfileForm = ({ onClick, onSubmit }: MyProfileFormProps) => {
           </Button>
           <Button
             type="submit"
-            isActive={isValid}
+            isActive={(isFormChanged || isProfileChanged) && isValid}
             variant="primary"
             className={clsx(styles.submitButton, styles.commonProfileButton)}
           >
