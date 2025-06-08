@@ -22,9 +22,16 @@
 }
 
 .stars {
-  color: #ffc23d;
   font-size: 1.5rem;
   margin-bottom: 0.8rem;
+}
+
+.starFilled {
+  color: #ffc23d;
+}
+
+.starEmpty {
+  color: var(--gray-100);
 }
 
 .reviewText {

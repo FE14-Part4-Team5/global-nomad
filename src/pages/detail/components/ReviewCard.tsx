@@ -1,4 +1,7 @@
+import IconStar from '@/assets/icons/icon_star.svg?react';
 import styles from './ReviewCard.module.css';
+
+const MAX_RATING = 5;
 
 interface ReviewCardProps {
   name: string;
@@ -16,7 +19,10 @@ const ReviewCard = ({ name, date, rating, content }: ReviewCardProps) => {
       </div>
       <div className={styles.stars}>
         {Array.from({ length: rating }).map((_, i) => (
-          <span key={i}>★</span>
+          <IconStar key={`filled-${i}`} className={styles.starFilled} />
+        ))}
+        {Array.from({ length: MAX_RATING - rating }).map((_, i) => (
+          <IconStar key={`empty-${i}`} className={styles.starEmpty} />
         ))}
       </div>
       <p className={styles.reviewText}>{content}</p>
