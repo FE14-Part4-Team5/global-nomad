@@ -18,6 +18,10 @@ const router = createBrowserRouter([
     children: [
       { path: '/my-profile', element: <MyProfilePage /> },
       {
+        path: 'detail/:id',
+        element: <DetailPage />,
+      },
+      {
         path: '/reservation-list',
         element: <ReservationList />,
       },
