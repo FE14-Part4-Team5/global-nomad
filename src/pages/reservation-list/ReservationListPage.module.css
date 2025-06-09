@@ -134,11 +134,26 @@
   }
 
   .cardContainer > * {
-    padding: 2rem 0; /* 카드 위아래 패딩 추가 */ /* 구분선 추가 */
+    position: relative;
+    padding-bottom: 7rem; /* 버튼 + 구분선을 위한 여백 */
+  }
+
+  .cardContainer > *::after {
+    content: '';
+    position: absolute;
+    bottom: 3rem; /* 버튼과의 간격 3rem */
+    left: 0;
+    width: 47.6rem; /* 태블릿에서의 카드 너비 */
+    height: 0.1rem;
+    background-color: var(--gray-200);
   }
 
   .cardContainer > *:last-child {
-    border-bottom: none; /* 마지막 카드는 구분선 제거 */
+    padding-bottom: 4rem; /* 마지막 카드는 구분선 없으므로 패딩 감소 */
+  }
+
+  .cardContainer > *:last-child::after {
+    display: none; /* 마지막 카드의 구분선 제거 */
   }
 }
 
@@ -149,6 +164,10 @@
 
   .cardContainer > * {
     padding: 2rem 0; /* 카드 위아래 패딩 추가 */
+  }
+
+  .cardContainer > *::after {
+    width: 64rem; /* PC에서의 카드 너비 */
   }
 }
 

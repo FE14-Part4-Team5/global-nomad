@@ -1,6 +1,6 @@
 .card {
   width: 32.7rem;
-  height: 23.6rem;
+  height: 13.6rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 3.2rem;
 }
@@ -122,6 +122,8 @@
 @media (min-width: 768px) {
   .card {
     width: 47.6rem;
+    margin-top: -1rem;
+    margin-bottom: 4rem;
   }
 
   .contents {
