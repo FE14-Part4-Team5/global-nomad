@@ -44,6 +44,21 @@ const ReservationList: React.FC = () => {
       headCountUnit: '명',
       reviewSubmitted: false,
     },
+    {
+      activity: {
+        id: 2,
+        bannerImageUrl: '이미지URL2',
+        title: '맛있는 김치 만들기 체험',
+      },
+      status: 'pending',
+      date: '2024.06.01',
+      startTime: '10:00',
+      endTime: '12:00',
+      totalPrice: 45000,
+      headCount: 3,
+      headCountUnit: '명',
+      reviewSubmitted: false,
+    },
   ];
 
   return (
