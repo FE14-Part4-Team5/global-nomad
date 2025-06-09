@@ -16,7 +16,6 @@ interface SignupProps {
   onPasswordChange: (value: string) => void;
   onConfirmPasswordChange: (value: string) => void;
   onSubmit: () => void;
-  isSubmitting?: boolean;
   onOauthSignup?: () => void;
   emailError?: string;
   nicknameError?: string;
@@ -39,7 +38,6 @@ const Signup = ({
   onPasswordChange,
   onConfirmPasswordChange,
   onSubmit,
-  isSubmitting = false,
   onOauthSignup,
   emailError = '',
   nicknameError = '',
