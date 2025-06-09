@@ -1,0 +1,61 @@
+.error {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  padding-top: 10rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.errorText {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0b121f;
+}
+
+.button {
+  display: flex;
+  gap: 3rem;
+  color: #555555;
+}
+
+.errorRetry {
+  background-color: #f9dc73;
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  color: #555555;
+}
+
+.cryImage {
+  width: 25rem;
+  height: 25rem;
+  border-radius: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .cryImage {
+    width: 30rem;
+    height: 30rem;
+    border-radius: 3rem;
+  }
+
+  .errorText {
+    font-size: 3rem;
+  }
+
+  .button {
+    gap: 7rem;
+  }
+
+  .errorRetry {
+    background-color: #f9dc73;
+    padding: 1.5rem 2rem;
+    font-size: 2rem;
+    border-radius: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+}

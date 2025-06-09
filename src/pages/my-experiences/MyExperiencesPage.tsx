@@ -13,10 +13,6 @@ import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
 import styles from './MyExperiencesPage.module.css';
 
-export const ErrorUI = () => {
-  return <div>에러중</div>;
-};
-
 const MyExperiences = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [targetId, setTargetId] = useState<number | null>(null);
