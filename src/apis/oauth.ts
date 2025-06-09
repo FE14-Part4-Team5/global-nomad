@@ -1,5 +1,6 @@
 import axiosInstance from '@/apis/axiosInstance';
 import * as OAuthType from '@/types/api/oauthType';
+import { AxiosError } from 'axios';
 
 /* 간편 로그인 APP 등록/수정 */
 const OAuthApps = async (body: OAuthType.OAuthRequest): Promise<OAuthType.OAuthResponse> => {
@@ -7,9 +8,10 @@ const OAuthApps = async (body: OAuthType.OAuthRequest): Promise<OAuthType.OAuthR
     const response = await axiosInstance.post<OAuthType.OAuthResponse>('/oauth/apps', body);
 
     return response.data;
-  } catch (error: any) {
-    console.error('간편 로그인 APP 등록/수정 실패:', error);
-    throw new Error(error.message || '간편 로그인 APP 등록/수정 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('간편 로그인 APP 등록/수정 실패:', err);
+    throw new Error(err.message || '간편 로그인 APP 등록/수정 중 오류가 발생했습니다.');
   }
 };
 
@@ -26,9 +28,10 @@ const OAuthSignUp = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('간편 회원가입 실패:', error);
-    throw new Error(error.message || '간편 회원가입 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('간편 회원가입 실패:', err);
+    throw new Error(err.message || '간편 회원가입 중 오류가 발생했습니다.');
   }
 };
 
@@ -45,9 +48,10 @@ const OAuthSignIn = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('간편 로그인 실패:', error);
-    throw new Error(error.message || '간편 로그인 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('간편 로그인 실패:', err);
+    throw new Error(err.message || '간편 로그인 중 오류가 발생했습니다.');
   }
 };
 

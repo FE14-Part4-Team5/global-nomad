@@ -1,5 +1,6 @@
 import axiosInstance from '@/apis/axiosInstance';
 import * as MyReservationsType from '@/types/api/myReservationsType';
+import { AxiosError } from 'axios';
 
 /* 내 예약 리스트 조회 */
 const getMyReservations = async (
@@ -14,9 +15,10 @@ const getMyReservations = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 예약 리스트 조회 실패:', error);
-    throw new Error(error.message || '내 예약 리스트 조회 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 예약 리스트 조회 실패:', err);
+    throw new Error(err.message || '내 예약 리스트 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -33,9 +35,10 @@ const updateMyReservation = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 예약 수정(취소) 실패:', error);
-    throw new Error(error.message || '내 예약 수정(취소) 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 예약 수정(취소) 실패:', err);
+    throw new Error(err.message || '내 예약 수정(취소) 중 오류가 발생했습니다.');
   }
 };
 
@@ -52,9 +55,10 @@ const createMyReservationReview = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 예약 리뷰 작성 실패:', error);
-    throw new Error(error.message || '내 예약 리뷰 작성 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 예약 리뷰 작성 실패:', err);
+    throw new Error(err.message || '내 예약 리뷰 작성 중 오류가 발생했습니다.');
   }
 };
 

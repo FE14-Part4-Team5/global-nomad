@@ -1,8 +1,6 @@
-import axios from 'axios';
 import * as MyActivitiesType from '@/types/api/myActivitiesType';
 import axiosInstance from '@/apis/axiosInstance';
-
-const BASE_URL = import.meta.env.VITE_BASE_URL || '';
+import { AxiosError } from 'axios';
 
 /*내 체험 리스트 조회*/
 const getMyActivities = async (
@@ -18,9 +16,10 @@ const getMyActivities = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 체험 리스트 조회 실패:', error);
-    throw new Error(error.message || '내 체험 리스트 조회 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 리스트 조회 실패:', err);
+    throw new Error(err.message || '내 체험 리스트 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -38,9 +37,10 @@ const getReservationDashboard = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 체험 월별 예약 현황 조회 실패:', error);
-    throw new Error(error.message || '내 체험 월별 예약 현황 조회 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 월별 예약 현황 조회 실패:', err);
+    throw new Error(err.message || '내 체험 월별 예약 현황 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -58,9 +58,10 @@ const getReservedSchedule = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 체험 날짜별 예약 정보 조회 실패:', error);
-    throw new Error(error.message || '내 체험 날짜별 예약 정보 조회 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 날짜별 예약 정보 조회 실패:', err);
+    throw new Error(err.message || '내 체험 날짜별 예약 정보 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -78,11 +79,10 @@ const getReservations = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 체험 예약 시간대별 예약 내역 조회 실패:', error);
-    throw new Error(
-      error.message || '내 체험 예약 시간대별 예약 내역 조회 중 오류가 발생했습니다.'
-    );
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 예약 시간대별 예약 내역 조회 실패:', err);
+    throw new Error(err.message || '내 체험 예약 시간대별 예약 내역 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -100,9 +100,10 @@ const updateReservation = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 체험 예약 상태 업데이트 실패:', error);
-    throw new Error(error.message || '내 체험 예약 상태 업데이트 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 예약 상태 업데이트 실패:', err);
+    throw new Error(err.message || '내 체험 예약 상태 업데이트 중 오류가 발생했습니다.');
   }
 };
 
@@ -111,9 +112,10 @@ const deleteActivity = async (params: MyActivitiesType.DeleteActivityParams): Pr
   try {
     const { activityId } = params;
     await axiosInstance.delete(`/my-activities/${activityId}`);
-  } catch (error: any) {
-    console.error('내 체험 삭제 실패:', error);
-    throw new Error(error.message || '내 체험 삭제 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 삭제 실패:', err);
+    throw new Error(err.message || '내 체험 삭제 중 오류가 발생했습니다.');
   }
 };
 
@@ -130,9 +132,10 @@ const updateActivity = async (
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error('내 체험 수정 실패:', error);
-    throw new Error(error.message || '내 체험 수정 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    console.error('내 체험 수정 실패:', err);
+    throw new Error(err.message || '내 체험 수정 중 오류가 발생했습니다.');
   }
 };
 
