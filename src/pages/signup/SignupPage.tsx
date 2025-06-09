@@ -10,7 +10,6 @@ const SignupPage = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -26,8 +25,6 @@ const SignupPage = () => {
   const handleSubmit = async () => {
     if (!isFormValid) return;
 
-    setIsSubmitting(true);
-
     try {
       const response = await usersService.signUp({
         email,
@@ -41,8 +38,6 @@ const SignupPage = () => {
       const err = error as AxiosError;
       setErrorMessage(err.message || '로그인에 실패했습니다.');
       setIsErrorModalOpen(true);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -87,7 +82,6 @@ const SignupPage = () => {
         onPasswordChange={setPassword}
         onConfirmPasswordChange={setConfirmPassword}
         onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
         emailError={emailError}
         nicknameError={nicknameError}
         passwordError={passwordError}

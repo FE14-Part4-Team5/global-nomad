@@ -9,7 +9,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
@@ -55,8 +54,6 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async () => {
-    setIsSubmitting(true);
-
     try {
       const response = await authService.login({ email, password });
       console.log('로그인 성공:', response);
@@ -68,8 +65,6 @@ const LoginPage = () => {
       const err = error as AxiosError;
       setErrorMessage(err.message || '로그인에 실패했습니다.');
       setIsErrorModalOpen(true);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -84,7 +79,6 @@ const LoginPage = () => {
         onEmailChange={handleEmailChange}
         onPasswordChange={handlePasswordChange}
         onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
         emailError={emailError}
         passwordError={passwordError}
         onEmailBlur={handleEmailBlur}
