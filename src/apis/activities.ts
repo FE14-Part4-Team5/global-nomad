@@ -12,9 +12,9 @@ const getActivities = async (
     });
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 리스트 조회 실패:', err);
-    throw new Error(err.message || '체험 리스트 조회 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 리스트 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -29,9 +29,9 @@ const createActivity = async (
     );
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 등록 실패:', err);
-    throw new Error(err.message || '체험 등록 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 등록 중 오류가 발생했습니다.');
   }
 };
 
@@ -46,9 +46,9 @@ const getActivityId = async (
     );
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 상세 조회 실패:', err);
-    throw new Error(err.message || '체험 상세 조회 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 상세 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -64,9 +64,9 @@ const getActivityAvailableSchedule = async (
     );
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 예약 가능일 조회 실패:', err);
-    throw new Error(err.message || '체험 예약 가능일 조회 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 예약 가능일 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -82,9 +82,9 @@ const getReviews = async (
     );
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 리뷰 조회 실패:', err);
-    throw new Error(err.message || '체험 리뷰 조회 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 리뷰 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -101,9 +101,9 @@ const createReservations = async (
     );
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 예약 신청 실패:', err);
-    throw new Error(err.message || '체험 예약 신청 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 예약 신청 중 오류가 발생했습니다.');
   }
 };
 
@@ -127,9 +127,9 @@ const getActivityImageUrl = async (
 
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('체험 이미지 URL 생성 실패:', err);
-    throw new Error(err.message || '체험 이미지 URL 생성 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '체험 이미지 URL 생성 중 오류가 발생했습니다.');
   }
 };
 

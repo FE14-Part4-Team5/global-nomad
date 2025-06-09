@@ -3,6 +3,7 @@ import Signup from '@/pages/signup/components/Signup';
 import { usersService } from '@/apis/users';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@/components/modal/modal';
+import { AxiosError } from 'axios';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
@@ -36,8 +37,9 @@ const SignupPage = () => {
 
       console.log('회원가입 성공:', response);
       setIsSuccessModalOpen(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '로그인에 실패했습니다.');
+    } catch (error: unknown) {
+      const err = error as AxiosError;
+      setErrorMessage(err.message || '로그인에 실패했습니다.');
       setIsErrorModalOpen(true);
     } finally {
       setIsSubmitting(false);

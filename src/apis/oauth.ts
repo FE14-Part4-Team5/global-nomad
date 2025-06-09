@@ -29,9 +29,9 @@ const OAuthSignUp = async (
 
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('간편 회원가입 실패:', err);
-    throw new Error(err.message || '간편 회원가입 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '간편 회원가입 중 오류가 발생했습니다.');
   }
 };
 
@@ -49,9 +49,9 @@ const OAuthSignIn = async (
 
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('간편 로그인 실패:', err);
-    throw new Error(err.message || '간편 로그인 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '간편 로그인 중 오류가 발생했습니다.');
   }
 };
 

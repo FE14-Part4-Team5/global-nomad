@@ -3,6 +3,7 @@ import Login from '@/pages/login/components/Login';
 import { authService } from '@/apis/auth';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@/components/modal/modal';
+import { AxiosError } from 'axios';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -63,8 +64,9 @@ const LoginPage = () => {
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
       navigate('/');
-    } catch (error: any) {
-      setErrorMessage(error.message || '로그인에 실패했습니다.');
+    } catch (error: unknown) {
+      const err = error as AxiosError;
+      setErrorMessage(err.message || '로그인에 실패했습니다.');
       setIsErrorModalOpen(true);
     } finally {
       setIsSubmitting(false);

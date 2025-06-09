@@ -15,9 +15,9 @@ const login = async (body: AuthType.LoginRequest): Promise<AuthType.LoginRespons
 
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('로그인 실패:', err);
-    throw new Error(err.message || '로그인 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '로그인 중 오류가 발생했습니다.');
   }
 };
 
@@ -35,9 +35,9 @@ const tokens = async (refreshToken: string): Promise<AuthType.TokenResponse> => 
 
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('토큰 갱신 실패:', err);
-    throw new Error(err.message || '토큰 갱신 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '토큰 갱신 중 오류가 발생했습니다.');
   }
 };
 

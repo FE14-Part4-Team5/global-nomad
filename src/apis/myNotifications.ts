@@ -15,9 +15,9 @@ const getMyNotifications = async (
     );
     return response.data;
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('내 알림 리스트 조회 실패:', err);
-    throw new Error(err.message || '내 알림 리스트 조회 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '내 알림 리스트 조회 중 오류가 발생했습니다.');
   }
 };
 
@@ -29,9 +29,9 @@ const deleteNotification = async (
     const { notificationId } = params;
     await axiosInstance.delete(`/my-notifications/${notificationId}`);
   } catch (error: unknown) {
-    const err = error as AxiosError;
+    const err = error as AxiosError<{ message?: string }>;
     console.error('내 알림 삭제 실패:', err);
-    throw new Error(err.message || '내 알림 삭제 중 오류가 발생했습니다.');
+    throw new Error(err.response?.data?.message || '내 알림 삭제 중 오류가 발생했습니다.');
   }
 };
 
