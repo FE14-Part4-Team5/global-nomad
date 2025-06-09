@@ -65,7 +65,7 @@ const Header = () => {
         </Link>
       </div>
 
-      {!auth ? (
+      {auth ? (
         <div className={styles.authWrapper}>
           <Link to="/login" className={styles.authButton}>
             로그인

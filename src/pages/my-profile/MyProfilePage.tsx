@@ -6,6 +6,7 @@ import { useUpdateMyProfileMutation } from '@/hooks/useUpdateProfile';
 import { useCreateImageUrlMutation } from '@/hooks/useCreateImageUrl';
 import { useMyProfile } from '@/hooks/useMyProfile';
 import { useMyProfileUpdateForm, type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
+import useViewPortSize from '@/hooks/useViewPortSize';
 import ExampleLogin from '@/pages/my-experiences/example/ExampleLogin';
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import ProfileForm from './components/ProfileForm';
@@ -16,10 +17,10 @@ const MyProfilePage = () => {
   const methods = useMyProfileUpdateForm();
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const location = useLocation();
   const { mutate: updateMutate } = useUpdateMyProfileMutation();
   const { mutate: createMutate } = useCreateImageUrlMutation();
+  const { viewportSize } = useViewPortSize();
   const teamId = '14-5';
   const {
     data: userData,
@@ -30,23 +31,15 @@ const MyProfilePage = () => {
   const isProfileChanged = !!profileImageUrl && profileImageUrl !== userData?.profileImageUrl;
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname === '/my-profile' && !isDesktop) {
-      setIsEdit(true);
+    if (location.pathname === '/my-profile' && viewportSize === 'mobile') {
+      setIsEdit(prev => !prev);
     }
-  }, [location.pathname, isDesktop]);
+  }, [location.pathname, viewportSize]);
   if (isProfileLoading) return <ExampleLogin />;
   if (isProfileError) return <ExampleLogin />;
 
   const handleCancelUpdate = () => {
-    setIsEdit(false);
+    setIsEdit(prev => !prev);
   };
 
   const handleProfileSubmit = async (data: MyProfileFormValues) => {
@@ -65,7 +58,7 @@ const MyProfilePage = () => {
             newPassword: '',
             newConfirmPassword: '',
           });
-          setIsEdit(false);
+          setIsEdit(prev => !prev);
         },
         onError: () => {
           //toast 기능 추가 고민중
@@ -76,12 +69,10 @@ const MyProfilePage = () => {
   };
 
   const handleProfileImageUpload = (file: File) => {
-    // console.log('이미지 업로드:', file);
     createMutate(
       { image: file },
       {
         onSuccess: data => {
-          // console.log(`이미지 url 변환 완료 ${data.profileImageUrl}`);
           setProfileImageUrl(data.profileImageUrl);
         },
         onError: () => {
@@ -94,7 +85,7 @@ const MyProfilePage = () => {
   return (
     <FormProvider {...methods}>
       <div className={styles.container}>
-        {(isDesktop || !isEdit) && (
+        {(viewportSize !== 'mobile' || !isEdit) && (
           <div className={styles.sideNavigationWrapper}>
             <SideNavigation
               defaultImage={userData?.profileImageUrl || defaultProfileImg}
@@ -103,7 +94,7 @@ const MyProfilePage = () => {
             />
           </div>
         )}
-        {(isDesktop || isEdit) && (
+        {(viewportSize !== 'mobile' || isEdit) && (
           <div className={styles.profileFormWrapper}>
             <ProfileForm
               onClick={handleCancelUpdate}
