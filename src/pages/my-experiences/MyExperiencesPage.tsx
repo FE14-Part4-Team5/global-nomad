@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SideNavigation from '@/components/side-navigation/SideNavigation';
@@ -12,6 +12,7 @@ import { deleteActivity } from './example/example';
 import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
 import styles from './MyExperiencesPage.module.css';
+import { LoadingSideNavigation } from './components/loading/Loading';
 
 const MyExperiences = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +49,11 @@ const MyExperiences = () => {
   return (
     <div className={styles.myExperiences}>
       <div className={styles.sideNavigation}>
-        {userData && <SideNavigation defaultImage={userData.profileImageUrl} />}
+        {userData ? (
+          <SideNavigation defaultImage={userData.profileImageUrl} />
+        ) : (
+          <LoadingSideNavigation />
+        )}
       </div>
       <div>
         <MyExperiencesHeader
@@ -56,19 +61,17 @@ const MyExperiences = () => {
           subTitle="체험을 등록하거나 수정 및 삭제가 가능합니다."
           className="columnRowContents"
         >
-          <Link to={'/add'}>
+          <Link to={'/add-experiences'}>
             <button className={styles.button}>체험 등록하기</button>
           </Link>
         </MyExperiencesHeader>
-        <Suspense fallback={<div>서스펜스</div>}>
-          <MyExperiencesCardList
-            userActivities={{ activities: allActivities }}
-            onLoadMore={fetchNextPage}
-            hasMore={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            onDeleteClick={handleOpen}
-          />
-        </Suspense>
+        <MyExperiencesCardList
+          userActivities={{ activities: allActivities }}
+          onLoadMore={fetchNextPage}
+          hasMore={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          onDeleteClick={handleOpen}
+        />
       </div>
       {isModalOpen && targetId !== null && (
         <Modal

@@ -13,7 +13,7 @@ import AddExperiences from './pages/add-experiences/AddExperiences';
 import EditExperiences from './pages/edit-experiences/EditExperiences';
 import ReservationStatus from './pages/reservation-status/ReservationStatus';
 
-import ExampleLogin from './pages/my-experiences/example/ExampleLogin';
+import LoadingUI from './pages/my-experiences/components/loading/Loading';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             <Suspense
               fallback={
                 <div>
-                  <ExampleLogin />
+                  <LoadingUI />
                 </div>
               }
             >
