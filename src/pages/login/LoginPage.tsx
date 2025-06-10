@@ -4,6 +4,7 @@ import { authService } from '@/apis/auth';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@/components/modal/modal';
 import { AxiosError } from 'axios';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,9 +15,11 @@ const LoginPage = () => {
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  //   const handleKakaoLogin = () => {
-  //   window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  // };
+  const handleKakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+      import.meta.env.VITE_KAKAO_REST_API_KEY
+    }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+  };
 
   const isValidEmail = (email: string) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -58,8 +61,7 @@ const LoginPage = () => {
       const response = await authService.login({ email, password });
       console.log('로그인 성공:', response);
 
-      localStorage.setItem('accessToken', response.accessToken);
-      localStorage.setItem('refreshToken', response.refreshToken);
+      useAuthStore.getState().setTokens(response.accessToken, response.refreshToken);
       navigate('/');
     } catch (error: unknown) {
       const err = error as AxiosError;
@@ -84,6 +86,7 @@ const LoginPage = () => {
         onEmailBlur={handleEmailBlur}
         onPasswordBlur={handlePasswordBlur}
         isFormValid={isFormValid}
+        onOauthLogin={handleKakaoLogin}
       />
       {isErrorModalOpen && (
         <Modal isOpen={isErrorModalOpen} onClose={() => setIsErrorModalOpen(false)}>

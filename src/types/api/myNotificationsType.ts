@@ -1,3 +1,5 @@
+import type { NotificationBase } from './sharedType';
+
 /*GET my-notifications, 내 알림 리스트 조회*/
 export interface MyNotificationsParams {
   teamId: string;
@@ -5,15 +7,7 @@ export interface MyNotificationsParams {
   size?: number;
 }
 
-export interface Notifications {
-  id: number;
-  teamId: string;
-  userId: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-}
+export type Notifications = NotificationBase;
 
 export interface GetMyNotificationsResponse {
   cursorId: number;

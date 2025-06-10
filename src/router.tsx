@@ -13,6 +13,7 @@ import MyProfilePage from './pages/my-profile/MyProfilePage';
 import AddExperiences from './pages/add-experiences/AddExperiences';
 import EditExperiences from './pages/edit-experiences/EditExperiences';
 import ReservationStatus from './pages/reservation-status/ReservationStatus';
+import OAuthKakaoCallback from './pages/oauthkakaocallback/OAuthKakaoCallback';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignupPage />,
+  },
+  {
+    path: '/oauth/kakao/callback',
+    element: <OAuthKakaoCallback />,
   },
 ]);
 

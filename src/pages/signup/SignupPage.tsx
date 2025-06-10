@@ -20,6 +20,12 @@ const SignupPage = () => {
 
   const navigate = useNavigate();
 
+  const handleKakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+      import.meta.env.VITE_KAKAO_REST_API_KEY
+    }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+  };
+
   const isValidEmail = (email: string) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
 
   const handleSubmit = async () => {
@@ -91,6 +97,7 @@ const SignupPage = () => {
         onPasswordBlur={handlePasswordBlur}
         onConfirmPasswordBlur={handleConfirmPasswordBlur}
         isFormValid={isFormValid}
+        onOauthSignup={handleKakaoLogin}
       />
       {isSuccessModalOpen && (
         <Modal
