@@ -1,29 +1,27 @@
+import type {
+  Category,
+  ActivityBase,
+  ActivitySchedule,
+  ActivityScheduleWithId,
+  ActivityScheduleWithTime,
+  ActivitySubImage,
+  ReviewWithUser,
+  ReservationBase,
+} from './sharedType';
+
 /*GET activities, 체험 리스트 조회*/
 export interface GetActivitiesParams {
   teamId: string;
   method: 'offset' | 'cursor';
   cursorId?: number;
-  category?: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
+  category?: Category;
   keyword?: string;
   sort?: 'most_reviewed' | 'price_asc' | 'price_desc' | 'latest';
   page?: number;
   size?: number;
 }
 
-export interface Activity {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  rating: number;
-  reviewCount: number;
-  createdAt: string;
-  updatedAt: string;
-}
+export type Activity = ActivityBase;
 
 export interface GetActivitiesResponse {
   cursorId: number;
@@ -36,15 +34,9 @@ export interface CreateActivityParams {
   teamId: string;
 }
 
-export interface ActivitySchedule {
-  date: string;
-  startTime: string;
-  endTime: string;
-}
-
 export interface CreateActivityRequest {
   title: string;
-  category: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
+  category: Category;
   description: string;
   address: string;
   price: number;
@@ -53,35 +45,7 @@ export interface CreateActivityRequest {
   subImageUrls: string[];
 }
 
-export interface ActivitySubImage {
-  imageUrl: string;
-  id: number;
-}
-
-export interface ScheduleTime {
-  id: number;
-  startTime: string;
-  endTime: string;
-}
-
-export interface ActivityScheduleWithTime {
-  date: string;
-  times: ScheduleTime[];
-}
-
-export interface CreateActivityResponse {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  rating: number;
-  reviewCount: number;
-  createdAt: string;
-  updatedAt: string;
+export interface CreateActivityResponse extends ActivityBase {
   subImages: ActivitySubImage[];
   schedules: ActivityScheduleWithTime[];
 }
@@ -92,25 +56,9 @@ export interface GetActivityIdParams {
   activityId: number;
 }
 
-export interface ActivityScheduleWithId extends ActivitySchedule {
-  id: number;
-}
-
-export interface GetActivityIdResponse {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
+export interface GetActivityIdResponse extends ActivityBase {
   subImages: ActivitySubImage[];
   schedules: ActivityScheduleWithId[];
-  reviewCount: number;
-  rating: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 /*GET available-schedule, 체험 예약 가능일 조회*/
@@ -141,12 +89,6 @@ export interface Review {
   updatedAt: string;
 }
 
-export interface ReviewWithUser {
-  profileImageUrl: string;
-  nickname: string;
-  id: number;
-}
-
 export interface GetReviewsResponse {
   averageRating: number;
   totalCount: number;
@@ -164,22 +106,7 @@ export interface CreateReservationRequest {
   headCount: number;
 }
 
-export interface CreateReservationResponse {
-  id: number;
-  teamId: string;
-  userId: number;
-  activityId: number;
-  scheduleId: number;
-  status: 'pending' | 'confirmed' | 'canceled';
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
-}
+export type CreateReservationResponse = ReservationBase;
 
 /*POST activities image, 체험 이미지 URL 생성*/
 export interface CreateActivityImageParams {

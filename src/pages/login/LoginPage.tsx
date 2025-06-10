@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import Login from '@/pages/login/components/Login';
+import { authService } from '@/apis/auth';
+import { useNavigate } from 'react-router-dom';
+import Modal from '@/components/modal/modal';
+import { AxiosError } from 'axios';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleKakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+      import.meta.env.VITE_KAKAO_REST_API_KEY
+    }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+  };
 
   const isValidEmail = (email: string) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -43,32 +56,44 @@ const LoginPage = () => {
     }
   };
 
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-    console.log('로그인 API 넣어야 함', { email, password, isSubmitting });
-    setTimeout(() => {
-      setIsSubmitting(false);
-      // 로그인 성공 시 리다이렉트 또는 상태 업데이트
-    }, 1000);
+  const handleSubmit = async () => {
+    try {
+      const response = await authService.login({ email, password });
+      console.log('로그인 성공:', response);
+
+      useAuthStore.getState().setTokens(response.accessToken, response.refreshToken);
+      navigate('/');
+    } catch (error: unknown) {
+      const err = error as AxiosError;
+      setErrorMessage(err.message || '로그인에 실패했습니다.');
+      setIsErrorModalOpen(true);
+    }
   };
 
   const isFormValid =
     isValidEmail(email) && password.length >= 8 && email.trim() !== '' && password.trim() !== '';
 
   return (
-    <Login
-      email={email}
-      password={password}
-      onEmailChange={handleEmailChange}
-      onPasswordChange={handlePasswordChange}
-      onSubmit={handleSubmit}
-      isSubmitting={isSubmitting}
-      emailError={emailError}
-      passwordError={passwordError}
-      onEmailBlur={handleEmailBlur}
-      onPasswordBlur={handlePasswordBlur}
-      isFormValid={isFormValid}
-    />
+    <>
+      <Login
+        email={email}
+        password={password}
+        onEmailChange={handleEmailChange}
+        onPasswordChange={handlePasswordChange}
+        onSubmit={handleSubmit}
+        emailError={emailError}
+        passwordError={passwordError}
+        onEmailBlur={handleEmailBlur}
+        onPasswordBlur={handlePasswordBlur}
+        isFormValid={isFormValid}
+        onOauthLogin={handleKakaoLogin}
+      />
+      {isErrorModalOpen && (
+        <Modal isOpen={isErrorModalOpen} onClose={() => setIsErrorModalOpen(false)}>
+          {errorMessage}
+        </Modal>
+      )}
+    </>
   );
 };
 
