@@ -1,37 +1,20 @@
+import type { ReservationBase, ReservationActivitySummary } from './sharedType';
+
 /*GET my-reservations, 내 예약 리스트 조회*/
 export interface MyReservationsParams {
   teamId: string;
   cursorId?: number;
   size?: number;
-  status: 'pending' | 'confirmed' | 'declined' | 'canceled' | 'completed';
+  status: ReservationBase['status'];
 }
 
-export interface ReservationActivity {
-  bannerImageUrl: string;
-  title: string;
-  id: number;
-}
-
-export interface Reservation {
-  id: number;
-  teamId: string;
-  userId: number;
-  activity: ReservationActivity;
-  scheduleId: number;
-  status: 'pending' | 'confirmed' | 'declined' | 'canceled' | 'completed';
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
+export interface MyReservation extends ReservationBase {
+  activity: ReservationActivitySummary;
 }
 
 export interface GetMyReservationsResponse {
   cursorId: number;
-  reservations: Reservation[];
+  reservations: MyReservation[];
   totalCount: number;
 }
 
@@ -45,21 +28,8 @@ export interface UpdateMyReservationRequest {
   status: 'canceled';
 }
 
-export interface UpdateMyReservationResponse {
-  id: number;
-  teamId: string;
-  userId: number;
+export interface UpdateMyReservationResponse extends ReservationBase {
   activityId: number;
-  scheduleId: number;
-  status: 'pending' | 'confirmed' | 'completed' | 'canceled';
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 /*POST reviews, 내 예약 리뷰 작성*/

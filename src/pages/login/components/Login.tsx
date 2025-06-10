@@ -12,7 +12,6 @@ interface LoginProps {
   onEmailChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onSubmit: () => void;
-  isSubmitting?: boolean;
   onOauthLogin?: () => void;
   emailError?: string;
   passwordError?: string;
@@ -26,7 +25,6 @@ const Login = ({
   password,
   onEmailChange,
   onPasswordChange,
-  isSubmitting = false,
   onSubmit,
   onOauthLogin,
   emailError = '',

@@ -1,49 +1,37 @@
-import axios from 'axios';
+import axiosInstance from '@/apis/axiosInstance';
 import * as MyNotificationsType from '@/types/api/myNotificationsType';
+import { AxiosError } from 'axios';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || '';
-
-/*내 알림 리스트 조회*/
+/* 내 알림 리스트 조회 */
 const getMyNotifications = async (
-  params: MyNotificationsType.MyNotificationsParams,
-  accessToken: string
+  params: MyNotificationsType.MyNotificationsParams
 ): Promise<MyNotificationsType.GetMyNotificationsResponse> => {
   try {
-    const { ...query } = params;
-
-    const response = await axios.get<MyNotificationsType.GetMyNotificationsResponse>(
-      `${BASE_URL}/my-notifications`,
+    const response = await axiosInstance.get<MyNotificationsType.GetMyNotificationsResponse>(
+      '/my-notifications',
       {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: query,
+        params,
       }
     );
-
     return response.data;
-  } catch (error: any) {
-    console.error('내 알림 리스트 조회 실패:', error);
-    throw new Error(error.response?.data?.message || '내 알림 리스트 조회 중 오류가 발생했습니다.');
+  } catch (error: unknown) {
+    const err = error as AxiosError<{ message?: string }>;
+    console.error('내 알림 리스트 조회 실패:', err);
+    throw new Error(err.response?.data?.message || '내 알림 리스트 조회 중 오류가 발생했습니다.');
   }
 };
 
-/*내 알림 삭제*/
+/* 내 알림 삭제 */
 const deleteNotification = async (
-  params: MyNotificationsType.DeleteNotificationParams,
-  accessToken: string
+  params: MyNotificationsType.DeleteNotificationParams
 ): Promise<void> => {
   try {
     const { notificationId } = params;
-
-    await axios.delete(`${BASE_URL}/my-notifications/${notificationId}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (error: any) {
-    console.error('내 알림 삭제 실패:', error);
-    throw new Error(error.response?.data?.message || '내 알림 삭제 중 오류가 발생했습니다.');
+    await axiosInstance.delete(`/my-notifications/${notificationId}`);
+  } catch (error: unknown) {
+    const err = error as AxiosError<{ message?: string }>;
+    console.error('내 알림 삭제 실패:', err);
+    throw new Error(err.response?.data?.message || '내 알림 삭제 중 오류가 발생했습니다.');
   }
 };
 

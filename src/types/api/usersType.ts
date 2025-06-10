@@ -1,54 +1,26 @@
-export type UsersResponse = {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl?: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import type {
+  UserSummary,
+  UpdateProfileRequest,
+  ProfileImageResponse,
+  CreateImageRequest,
+} from './sharedType';
 
 /*POST users, 회원가입*/
-export interface SignUpParams {
-  teamId: string;
-}
-
 export interface SignUpRequest {
   email: string;
   nickname: string;
   password: string;
 }
 
-export type SignUpResponse = UsersResponse;
+export type SignUpResponse = UserSummary;
 
 /*GET users me, 내 정보 조회*/
-export interface GetMeParams {
-  teamId: string;
-}
-
-export type GetMeResponse = UsersResponse;
+export type GetMeResponse = UserSummary;
 
 /*PATCH users me, 내 정보 수정*/
-export interface PatchMeParams {
-  teamId: string;
-}
-
-export interface PatchMeRequest {
-  nickname?: string;
-  profileImageUrl?: string;
-  newPassword?: string;
-}
-
-export type PatchMeResponse = UsersResponse;
+export type PatchMeRequest = UpdateProfileRequest;
+export type PatchMeResponse = UserSummary;
 
 /*POST users me image, 프로필 이미지 url 생성*/
-export interface CreateImageUrlParams {
-  teamId: string;
-}
-
-export interface CreateImageUrlRequest {
-  image: File;
-}
-
-export interface CreateImageUrlResponse {
-  profileImageUrl: string;
-}
+export type CreateImageUrlRequest = CreateImageRequest;
+export type CreateImageUrlResponse = ProfileImageResponse;
