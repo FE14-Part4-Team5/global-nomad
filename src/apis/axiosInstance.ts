@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { authService } from '@/apis/auth';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -9,7 +10,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(config => {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = useAuthStore.getState().accessToken;
   if (accessToken && config.headers) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -25,17 +26,18 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('refreshToken');
+        const refreshToken = useAuthStore.getState().refreshToken;
         if (!refreshToken) throw new Error('Refresh token not found');
 
         const newTokens = await authService.tokens(refreshToken);
-        localStorage.setItem('accessToken', newTokens.accessToken);
-        localStorage.setItem('refreshToken', newTokens.refreshToken);
+        useAuthStore.getState().setTokens(newTokens.accessToken, newTokens.refreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${newTokens.accessToken}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         console.error('토큰 갱신 실패:', refreshError);
+        useAuthStore.getState().clearTokens();
+        window.location.href = '/login';
       }
     }
 
