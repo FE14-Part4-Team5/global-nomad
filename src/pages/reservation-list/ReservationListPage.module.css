@@ -10,6 +10,7 @@
     margin-left: 0;
     padding: 1.6rem;
     box-shadow: none;
+    justify-content: center;
   }
 }
 
@@ -24,10 +25,12 @@
 }
 
 .title {
+  position: flex;
+  padding-left: 2.4rem;
   font-size: var(--fs-18);
   font-weight: var(--font-weight-bold);
   color: var(--gray-900);
-  margin-right: 1.6rem;
+  gap: 2rem;
 }
 
 .subtitle {
@@ -35,6 +38,18 @@
   font-weight: var(--font-weight-medium);
   color: var(--gray-600);
   margin-top: 1rem;
+  padding-left: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  .title {
+    padding-left: 0;
+    font-size: var(--fs-20);
+  }
+  .subtitle {
+    padding-left: 0;
+    font-size: var(--fs-16);
+  }
 }
 
 @media (min-width: 768px) {
@@ -61,8 +76,28 @@
   justify-content: center;
   border: 0.1rem solid var(--gray-200);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
+.badgeWrapper {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 2.4rem;
+  padding-left: 2.4rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
+  scrollbar-width: none; /* Firefox 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE/Edge 스크롤바 숨기기 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  padding-bottom: 1rem; /* 스크롤바 공간 확보 */
+}
+
+@media (min-width: 768px) {
+  .badgeWrapper {
+    padding-left: 0;
+    overflow-x: visible; /* 태블릿 이상에서는 스크롤바 제거 */
+  }
+}
 .active {
   background-color: var(--gray-900);
 }
@@ -115,55 +150,34 @@
   background-color: var(--color-white);
 }
 
-.badgeWrapper {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 2.4rem;
-}
-
 .cardContainer {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 10rem;
+  padding-left: 2.4rem;
   margin-top: 2rem;
 }
 
 @media (min-width: 768px) {
   .cardContainer {
-    gap: 1rem; /* gap 제거 */
+    gap: 1rem;
+    padding-left: 0;
   }
 
   .cardContainer > * {
     position: relative;
     padding-bottom: 7rem; /* 버튼 + 구분선을 위한 여백 */
   }
-
-  .cardContainer > *::after {
-    content: '';
-    position: absolute;
-    bottom: 3rem; /* 버튼과의 간격 3rem */
-    left: 0;
-    width: 47.6rem; /* 태블릿에서의 카드 너비 */
-    height: 0.1rem;
-    background-color: var(--gray-200);
-  }
-
-  .cardContainer > *:last-child {
-    padding-bottom: 4rem; /* 마지막 카드는 구분선 없으므로 패딩 감소 */
-  }
-
-  .cardContainer > *:last-child::after {
-    display: none; /* 마지막 카드의 구분선 제거 */
-  }
 }
 
 @media (min-width: 1024px) {
   .cardContainer {
-    gap: 0; /* gap 제거 */
+    gap: 0;
+    padding-left: 0;
   }
 
   .cardContainer > * {
-    padding: 2rem 0; /* 카드 위아래 패딩 추가 */
+    padding: 1.2rem 0; /* 카드 위아래 패딩 추가 */
   }
 
   .cardContainer > *::after {
@@ -175,19 +189,65 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6rem;
-  margin-top: 8rem;
-  margin-left: 23rem;
+  gap: 2rem;
+  padding-top: 7rem;
 }
 
 .emptyState img {
-  width: 12rem;
-  height: 12rem;
+  width: 12.2rem;
+  height: 12.2rem;
 }
 
 .emptyState p {
   color: var(--gray-600);
-  font-size: var(--fs-14);
+  font-size: var(--fs-20);
+}
+
+.exploreButton {
+  width: 18.2rem;
+  height: 5.4rem;
+  gap: 3rem;
+  border-radius: 0.8rem;
+  font-size: var(--fs-16);
+  color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .emptyState img {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .emptyState p {
+    color: var(--gray-600);
+    font-size: var(--fs-20);
+  }
+}
+
+@media (min-width: 1024px) {
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .emptyState img {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .emptyState p {
+    color: var(--gray-600);
+    font-size: var(--fs-18);
+  }
 }
 
 .modalHeader {
@@ -216,7 +276,21 @@
 .buttonContainer {
   display: flex;
   gap: 0.8rem;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+}
+
+.editButton,
+.cancelButton {
+  width: 15.75rem;
+  height: 3.7rem;
+  border-radius: 0.1rem;
+  font-size: var(--fs-14);
+}
+.reviewButton {
+  width: 30.9rem;
+  height: 3.7rem;
+  border-radius: 0.1rem;
+  font-size: var(--fs-14);
 }
 
 @media (min-width: 768px) {
@@ -247,7 +321,13 @@
 }
 
 .navigationWrapper {
-  display: block;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .navigationWrapper {
+    display: block;
+  }
 }
 
 .contentWrapper {
@@ -276,15 +356,6 @@
   .contentWrapper {
     max-width: 64rem;
   }
-}
-
-.exploreButton {
-  width: 18.2rem;
-  height: 5.4rem;
-  margin-top: 3rem;
-  border-radius: 0.8rem;
-  font-size: var(--fs-16);
-  color: var(--color-white);
 }
 
 .loadingMore {
