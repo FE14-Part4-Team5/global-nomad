@@ -3,20 +3,10 @@ import useViewPortSize from '@/hooks/useViewPortSize';
 
 import styles from './ExperienceCardList.module.css';
 
-interface CardData {
-  id: number;
-  bannerImageUrl: string;
-  title: string;
-  rating: number;
-  reviewCount: number;
-  currencySymbol: string;
-  price: number;
-  priceUnit: string;
-  onClick: () => void;
-}
+import type { MainCardProps } from '@/components/main-card/MainCard';
 
 interface ExperiencesCardListProps {
-  cardList: CardData[];
+  cardList: MainCardProps[];
 }
 
 const ExperiencesCardList = ({ cardList }: ExperiencesCardListProps) => {

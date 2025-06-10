@@ -8,20 +8,10 @@ import IconLeft from '@/assets/icons/icon_back.svg?react';
 
 import styles from './HorizontalCardList.module.css';
 
-interface CardData {
-  id: number;
-  bannerImageUrl: string;
-  title: string;
-  rating: number;
-  reviewCount: number;
-  currencySymbol: string;
-  price: number;
-  priceUnit: string;
-  onClick: () => void;
-}
+import type { MainCardProps } from '@/components/main-card/MainCard';
 
 interface HorizontalCardListProps {
-  cardList: CardData[];
+  cardList: MainCardProps[];
 }
 
 const HorizontalCardList = ({ cardList }: HorizontalCardListProps) => {
