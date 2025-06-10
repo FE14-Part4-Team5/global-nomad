@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import cryImage from '@/assets/images/cry.png';
@@ -12,10 +11,6 @@ const ErrorUI = ({
   error: Error;
   resetErrorBoundary: () => void;
 }) => {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
     <div className={styles.error}>
       <div className={styles.errorText}>{error.message}</div>
