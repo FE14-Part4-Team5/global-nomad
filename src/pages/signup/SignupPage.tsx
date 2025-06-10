@@ -1,25 +1,50 @@
 import { useState } from 'react';
 import Signup from '@/pages/signup/components/Signup';
+import { usersService } from '@/apis/users';
+import { useNavigate } from 'react-router-dom';
+import Modal from '@/components/modal/modal';
+import { AxiosError } from 'axios';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleKakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+      import.meta.env.VITE_KAKAO_REST_API_KEY
+    }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+  };
 
   const isValidEmail = (email: string) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
 
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-    console.log('회원가입 API 호출 필요', { email, nickname, password });
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 1000);
+  const handleSubmit = async () => {
+    if (!isFormValid) return;
+
+    try {
+      const response = await usersService.signUp({
+        email,
+        nickname,
+        password,
+      });
+
+      console.log('회원가입 성공:', response);
+      setIsSuccessModalOpen(true);
+    } catch (error: unknown) {
+      const err = error as AxiosError;
+      setErrorMessage(err.message || '로그인에 실패했습니다.');
+      setIsErrorModalOpen(true);
+    }
   };
 
   const handleEmailBlur = () => {
@@ -52,27 +77,46 @@ const SignupPage = () => {
     password === confirmPassword;
 
   return (
-    <Signup
-      email={email}
-      nickname={nickname}
-      password={password}
-      confirmPassword={confirmPassword}
-      onEmailChange={setEmail}
-      onNicknameChange={setNickname}
-      onPasswordChange={setPassword}
-      onConfirmPasswordChange={setConfirmPassword}
-      onSubmit={handleSubmit}
-      isSubmitting={isSubmitting}
-      emailError={emailError}
-      nicknameError={nicknameError}
-      passwordError={passwordError}
-      confirmPasswordError={confirmPasswordError}
-      onEmailBlur={handleEmailBlur}
-      onNicknameBlur={handleNicknameBlur}
-      onPasswordBlur={handlePasswordBlur}
-      onConfirmPasswordBlur={handleConfirmPasswordBlur}
-      isFormValid={isFormValid}
-    />
+    <>
+      <Signup
+        email={email}
+        nickname={nickname}
+        password={password}
+        confirmPassword={confirmPassword}
+        onEmailChange={setEmail}
+        onNicknameChange={setNickname}
+        onPasswordChange={setPassword}
+        onConfirmPasswordChange={setConfirmPassword}
+        onSubmit={handleSubmit}
+        emailError={emailError}
+        nicknameError={nicknameError}
+        passwordError={passwordError}
+        confirmPasswordError={confirmPasswordError}
+        onEmailBlur={handleEmailBlur}
+        onNicknameBlur={handleNicknameBlur}
+        onPasswordBlur={handlePasswordBlur}
+        onConfirmPasswordBlur={handleConfirmPasswordBlur}
+        isFormValid={isFormValid}
+        onOauthSignup={handleKakaoLogin}
+      />
+      {isSuccessModalOpen && (
+        <Modal
+          isOpen={isSuccessModalOpen}
+          onClose={() => {
+            setIsSuccessModalOpen(false);
+            navigate('/login');
+          }}
+        >
+          가입에 성공하였습니다.
+        </Modal>
+      )}
+
+      {isErrorModalOpen && (
+        <Modal isOpen={isErrorModalOpen} onClose={() => setIsErrorModalOpen(false)}>
+          {errorMessage}
+        </Modal>
+      )}
+    </>
   );
 };
 

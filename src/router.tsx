@@ -2,10 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
 
 import ReservationList from './pages/reservation-list/ReservationListPage';
-
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/signup/SignupPage';
-
 import DetailPage from './pages/detail/DetailPage';
 import MyExperiencesPage from './pages/my-experiences/MyExperiencesPage';
 
@@ -13,6 +11,10 @@ import MyProfilePage from './pages/my-profile/MyProfilePage';
 import AddExperiences from './pages/add-experiences/AddExperiences';
 import EditExperiences from './pages/edit-experiences/EditExperiences';
 import ReservationStatus from './pages/reservation-status/ReservationStatus';
+
+
+import OAuthKakaoCallback from './pages/oauthkakaocallback/OAuthKakaoCallback';
+
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignupPage />,
+  },
+  {
+    path: '/oauth/kakao/callback',
+    element: <OAuthKakaoCallback />,
   },
 ]);
 
