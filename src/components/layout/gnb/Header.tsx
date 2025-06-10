@@ -6,8 +6,7 @@ import smallLogo from '@/assets/icons/logo_earth.svg';
 import gnbLogo from '@/assets/icons/logo_vertical.svg';
 import NotiIcon from '@/assets/icons/icon_bell.svg?react';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
-import { useMyProfile } from '@/hooks/useMyProfile';
-import ExampleLogin from '@/pages/my-experiences/example/ExampleLogin';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
 
 const Header = () => {
   const [auth, setAuth] = useState(false);
@@ -30,17 +29,8 @@ const Header = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isDropdownOpen]);
-  const teamId = '14-5';
-  const token = localStorage.getItem('accessToken');
-  const { data: userData, isError } = useMyProfile(teamId);
+  const { data: userData } = useMyProfileQuery();
 
-  if (!token) {
-    return <ExampleLogin />;
-  }
-
-  if (isError) {
-    return <ExampleLogin />;
-  }
   const handleNoticeClick = () => {
     setIsNoticeClick(!isNoticeClick);
   };

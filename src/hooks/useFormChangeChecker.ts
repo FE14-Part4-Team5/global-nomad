@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { UserProfile } from '@/pages/my-experiences/example/example';
+import type { GetMeResponse } from '@/types/api/usersType';
 import type { MyProfileFormValues } from './useMyProfileUpdateForm';
 
-export const useFormChangeChecker = (userData: UserProfile | undefined) => {
+export const useFormChangeChecker = (userData: GetMeResponse | undefined) => {
   const { watch } = useFormContext<MyProfileFormValues>();
   const [isFormChanged, setIsFormChanged] = useState(false);
-  console.log(`${userData?.nickname} 과  ${userData?.profileImageUrl}`);
+
   useEffect(() => {
     const subscription = watch(values => {
       const nickname = values.nickname;

@@ -1,18 +1,17 @@
-import Input from '@/components/input/Input';
-import styles from './ProfileForm.module.css';
-import Button from '@/components/Button/Button';
 import clsx from 'clsx';
-import { type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
-import type { UserProfile } from '@/pages/my-experiences/example/example';
-
 import { useFormContext } from 'react-hook-form';
-import { useFormChangeChecker } from '@/hooks/useFormChangeChecker';
+import styles from './ProfileForm.module.css';
+import Input from '@/components/input/Input';
+import Button from '@/components/Button/Button';
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
+import { useFormChangeChecker } from '@/hooks/useFormChangeChecker';
+import type { MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
+import type { GetMeResponse } from '@/types/api/usersType';
 
 interface MyProfileFormProps {
   onClick: () => void;
   onSubmit: (data: MyProfileFormValues) => void;
-  userData?: UserProfile;
+  userData?: GetMeResponse;
   isProfileChanged: boolean;
 }
 

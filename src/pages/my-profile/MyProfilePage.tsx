@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FormProvider } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
-import { useUpdateMyProfileMutation } from '@/hooks/useUpdateProfile';
-import { useCreateImageUrlMutation } from '@/hooks/useCreateImageUrl';
-import { useMyProfile } from '@/hooks/useMyProfile';
+import {
+  useMyProfileQuery,
+  useCreateImageUrlMutation,
+  useUpdateMyProfileMutation,
+} from '@/hooks/useMyProfile';
 import { useMyProfileUpdateForm, type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
 import useViewPortSize from '@/hooks/useViewPortSize';
 import ExampleLogin from '@/pages/my-experiences/example/ExampleLogin';
@@ -21,12 +23,11 @@ const MyProfilePage = () => {
   const { mutate: updateMutate } = useUpdateMyProfileMutation();
   const { mutate: createMutate } = useCreateImageUrlMutation();
   const { viewportSize } = useViewPortSize();
-  const teamId = '14-5';
   const {
     data: userData,
     isLoading: isProfileLoading,
     isError: isProfileError,
-  } = useMyProfile(teamId);
+  } = useMyProfileQuery();
   const [profileImageUrl, setProfileImageUrl] = useState(userData?.profileImageUrl || '');
   const isProfileChanged = !!profileImageUrl && profileImageUrl !== userData?.profileImageUrl;
 
@@ -73,6 +74,7 @@ const MyProfilePage = () => {
       { image: file },
       {
         onSuccess: data => {
+          console.log('이미지 Url 바꾸기 성공');
           setProfileImageUrl(data.profileImageUrl);
         },
         onError: () => {
@@ -87,11 +89,13 @@ const MyProfilePage = () => {
       <div className={styles.container}>
         {(viewportSize !== 'mobile' || !isEdit) && (
           <div className={styles.sideNavigationWrapper}>
-            <SideNavigation
-              defaultImage={userData?.profileImageUrl || defaultProfileImg}
-              onImageUpload={handleProfileImageUpload}
-              onNavItemClick={() => setIsEdit(true)}
-            />
+            {userData && (
+              <SideNavigation
+                defaultImage={userData?.profileImageUrl || defaultProfileImg}
+                onImageUpload={handleProfileImageUpload}
+                onNavItemClick={() => setIsEdit(true)}
+              />
+            )}
           </div>
         )}
         {(viewportSize !== 'mobile' || isEdit) && (
