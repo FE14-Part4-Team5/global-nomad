@@ -1,62 +1,115 @@
-import SideNavigation from '@/components/side-navigation/SideNavigation';
-import profileImg from '@/assets/icons/profile_size=lg.svg';
-import styles from './MyProfilePage.module.css';
-import ProfileForm from './components/ProfileForm';
-import type { MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { FormProvider } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
+import {
+  useMyProfileQuery,
+  useCreateImageUrlMutation,
+  useUpdateMyProfileMutation,
+} from '@/hooks/useMyProfile';
+import { useMyProfileUpdateForm, type MyProfileFormValues } from '@/hooks/useMyProfileUpdateForm';
+import useViewPortSize from '@/hooks/useViewPortSize';
+import ExampleLogin from '@/pages/my-experiences/example/ExampleLogin';
+import SideNavigation from '@/components/side-navigation/SideNavigation';
+import ProfileForm from './components/ProfileForm';
+import defaultProfileImg from '@/assets/icons/profile_size=lg.svg';
+import styles from './MyProfilePage.module.css';
 
 const MyProfilePage = () => {
+  const methods = useMyProfileUpdateForm();
+  const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const location = useLocation();
+  const { mutate: updateMutate } = useUpdateMyProfileMutation();
+  const { mutate: createMutate } = useCreateImageUrlMutation();
+  const { viewportSize } = useViewPortSize();
+  const {
+    data: userData,
+    isLoading: isProfileLoading,
+    isError: isProfileError,
+  } = useMyProfileQuery();
+  const [profileImageUrl, setProfileImageUrl] = useState(userData?.profileImageUrl || '');
+  const isProfileChanged = !!profileImageUrl && profileImageUrl !== userData?.profileImageUrl;
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname === '/my-profile' && !isDesktop) {
-      setIsEdit(true);
+    if (location.pathname === '/my-profile' && viewportSize === 'mobile') {
+      setIsEdit(prev => !prev);
     }
-  }, [location.pathname, isDesktop]);
-
-  const handleProfileSubmit = async (data: MyProfileFormValues) => {
-    console.log(`제출 완료 ${data.nickname} ${data.newPassword} ${data.newConfirmPassword}`);
-    setIsEdit(false);
-  };
+  }, [location.pathname, viewportSize]);
+  if (isProfileLoading) return <ExampleLogin />;
+  if (isProfileError) return <ExampleLogin />;
 
   const handleCancelUpdate = () => {
-    console.log('취소');
-    setIsEdit(false);
+    setIsEdit(prev => !prev);
+  };
+
+  const handleProfileSubmit = async (data: MyProfileFormValues) => {
+    updateMutate(
+      {
+        nickname: data.nickname,
+        newPassword: data.newPassword,
+        profileImageUrl: profileImageUrl,
+      },
+      {
+        onSuccess: async () => {
+          //toast 기능 추가 고민중
+          await queryClient.invalidateQueries({ queryKey: ['myProfile'] });
+          methods.reset({
+            nickname: '',
+            newPassword: '',
+            newConfirmPassword: '',
+          });
+          setIsEdit(prev => !prev);
+        },
+        onError: () => {
+          //toast 기능 추가 고민중
+          console.error();
+        },
+      }
+    );
   };
 
   const handleProfileImageUpload = (file: File) => {
-    console.log('이미지 업로드:', file);
+    createMutate(
+      { image: file },
+      {
+        onSuccess: data => {
+          console.log('이미지 Url 바꾸기 성공');
+          setProfileImageUrl(data.profileImageUrl);
+        },
+        onError: () => {
+          console.error();
+        },
+      }
+    );
   };
 
   return (
-    <div className={styles.container}>
-      {(isDesktop || !isEdit) && (
-        <div className={styles.sideNavigationWrapper}>
-          <SideNavigation
-            defaultImage={profileImg}
-            onImageUpload={handleProfileImageUpload}
-            onNavItemClick={() => setIsEdit(true)}
-          />
-        </div>
-      )}
-      {(isDesktop || isEdit) && (
-        <div className={styles.profileFormWrapper}>
-          <ProfileForm onClick={handleCancelUpdate} onSubmit={handleProfileSubmit} />
-        </div>
-      )}
-    </div>
+    <FormProvider {...methods}>
+      <div className={styles.container}>
+        {(viewportSize !== 'mobile' || !isEdit) && (
+          <div className={styles.sideNavigationWrapper}>
+            {userData && (
+              <SideNavigation
+                defaultImage={userData?.profileImageUrl || defaultProfileImg}
+                onImageUpload={handleProfileImageUpload}
+                onNavItemClick={() => setIsEdit(true)}
+              />
+            )}
+          </div>
+        )}
+        {(viewportSize !== 'mobile' || isEdit) && (
+          <div className={styles.profileFormWrapper}>
+            <ProfileForm
+              onClick={handleCancelUpdate}
+              onSubmit={handleProfileSubmit}
+              userData={userData}
+              isProfileChanged={isProfileChanged}
+            />
+          </div>
+        )}
+      </div>
+    </FormProvider>
   );
 };
-
 export default MyProfilePage;

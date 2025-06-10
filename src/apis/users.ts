@@ -37,7 +37,13 @@ const getMe = async (): Promise<UsersType.GetMeResponse> => {
 /* 내 정보 수정 */
 const updateMe = async (body: UsersType.PatchMeRequest): Promise<UsersType.PatchMeResponse> => {
   try {
-    const response = await axiosInstance.patch<UsersType.PatchMeResponse>('/users/me', body);
+    const filteredBody = Object.fromEntries(
+      Object.entries(body).filter(([_, value]) => value !== undefined && value !== '')
+    );
+    const response = await axiosInstance.patch<UsersType.PatchMeResponse>(
+      '/users/me',
+      filteredBody
+    );
     return response.data;
   } catch (error: unknown) {
     const err = error as AxiosError<{ message?: string }>;
