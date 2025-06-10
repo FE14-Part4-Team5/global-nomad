@@ -4,10 +4,15 @@ import ErrorUI from './pages/my-experiences/components/error/ErrorUI';
 
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
+
 import ReservationList from './pages/reservation-list/ReservationListPage';
+
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/signup/SignupPage';
+
+import DetailPage from './pages/detail/DetailPage';
 import MyExperiencesPage from './pages/my-experiences/MyExperiencesPage';
+
 import MyProfilePage from './pages/my-profile/MyProfilePage';
 import AddExperiences from './pages/add-experiences/AddExperiences';
 import EditExperiences from './pages/edit-experiences/EditExperiences';
@@ -21,6 +26,10 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: '/my-profile', element: <MyProfilePage /> },
+      {
+        path: 'detail/:id',
+        element: <DetailPage />,
+      },
       {
         path: '/reservation-list',
         element: <ReservationList />,
@@ -54,6 +63,10 @@ const router = createBrowserRouter([
         element: <ReservationStatus />,
       },
     ],
+  },
+  {
+    path: '/reservation-list',
+    element: <ReservationList />,
   },
   {
     path: '/login',

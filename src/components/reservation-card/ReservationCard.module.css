@@ -140,6 +140,7 @@
 @media (min-width: 1024px) {
   .card {
     width: 64rem;
+    height: 18.1rem;
   }
 
   .contents {
