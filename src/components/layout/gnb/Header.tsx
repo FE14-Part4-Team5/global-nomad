@@ -6,6 +6,7 @@ import smallLogo from '@/assets/icons/logo_earth.svg';
 import gnbLogo from '@/assets/icons/logo_vertical.svg';
 import NotiIcon from '@/assets/icons/icon_bell.svg?react';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
 
 const Header = () => {
   const [auth, setAuth] = useState(false);
@@ -13,20 +14,6 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  const handleNoticeClick = () => {
-    setIsNoticeClick(!isNoticeClick);
-  };
-
-  const handleDropdownToggle = () => {
-    setIsDropdownOpen(prev => !prev);
-  };
-
-  const handleLogout = () => {
-    setAuth(false);
-    navigate('/login');
-  };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -42,6 +29,21 @@ const Header = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isDropdownOpen]);
+  const { data: userData } = useMyProfileQuery();
+
+  const handleNoticeClick = () => {
+    setIsNoticeClick(!isNoticeClick);
+  };
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(prev => !prev);
+  };
+
+  const handleLogout = () => {
+    setAuth(false);
+    navigate('/login');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.gnbLogo}>
@@ -53,7 +55,7 @@ const Header = () => {
         </Link>
       </div>
 
-      {!auth ? (
+      {auth ? (
         <div className={styles.authWrapper}>
           <Link to="/login" className={styles.authButton}>
             로그인
@@ -72,11 +74,14 @@ const Header = () => {
           <div className={styles.divider}></div>
           <div className={styles.userWrapper} ref={dropdownRef}>
             <div className={styles.userProfile}>
-              <img src={profileImg} alt="프로필" className={styles.userProfileIcon} />
+              <img
+                src={userData?.profileImageUrl || profileImg}
+                alt="프로필"
+                className={styles.userProfileIcon}
+              />
             </div>
             <button className={styles.userName} type="button" onClick={handleDropdownToggle}>
-              {/* api 연결 예정 */}
-              정만철
+              {userData?.nickname}
             </button>
             <div className={clsx(styles.dropdownMenu, isDropdownOpen && styles.open)}>
               <Link to="/my-profile" className={styles.dropdownItem}>

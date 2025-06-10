@@ -1,3 +1,12 @@
+import type {
+  Category,
+  ActivityBase,
+  ActivitySubImage,
+  ActivityScheduleWithTime,
+  ReservationStatus,
+  BaseEntity,
+} from './sharedType';
+
 /*GET my-activities, 내 체험 리스트 조회*/
 export interface MyActivitiesParams {
   teamId: string;
@@ -5,24 +14,12 @@ export interface MyActivitiesParams {
   size?: number;
 }
 
-export interface Activity {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  rating: number;
-  reviewCount: number;
-  createdAt: string;
-  updatedAt: string;
-}
+export type MyActivity = ActivityBase;
+
 export interface MyActivitiesResponse {
   cursorId: number;
   totalCount: number;
-  activities: Activity[];
+  activities: MyActivity[];
 }
 
 /*GET reservation-dashboard, 내 체험 월별 예약 현황 조회*/
@@ -44,7 +41,7 @@ export interface ReservationDashboardResponse {
   reservations: ReservationsWithDashboard;
 }
 
-/*GET reserved-schedule, 내 체험 날짜별 예약 정보(신청, 승인, 거절)가 있는 스케줄 조회*/
+/*GET reserved-schedule, 날짜별 예약 상태 요약*/
 export interface ReservedScheduleParams {
   teamId: string;
   activityId: number;
@@ -64,18 +61,17 @@ export interface ReservedScheduleResponse {
   count: ReservedScheduleWithCount;
 }
 
-/*GET reservations, 내 체험 예약 시간대별 예약 내역 조회 */
+/*GET reservations, 시간대별 예약 내역*/
 export interface ReservationsParams {
   teamId: string;
   activityId: number;
   cursorId?: number;
   size?: number;
   scheduleId: number;
-  status: 'pending' | 'confirmed' | 'declined';
+  status: ReservationStatus;
 }
 
-export interface Reservation {
-  id: number;
+export interface ReservationDetail extends BaseEntity {
   nickname: string;
   userId: number;
   teamId: string;
@@ -88,18 +84,16 @@ export interface Reservation {
   date: string;
   startTime: string;
   endTime: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface GetReservationsResponse {
   cursorId: number;
   totalCount: number;
-  reservations: Reservation[];
+  reservations: ReservationDetail[];
   message: string;
 }
 
-/*PATCH reservationId, 내 체험 예약 상태(승인, 거절) 업데이트*/
+/*PATCH 예약 상태 변경*/
 export interface UpdateReservationParams {
   teamId: string;
   activityId: number;
@@ -107,24 +101,10 @@ export interface UpdateReservationParams {
 }
 
 export interface UpdateReservationRequest {
-  status: 'confirmed' | 'declined' | 'pending';
+  status: ReservationStatus;
 }
 
-export interface UpdateReservationResponse {
-  id: number;
-  teamId: string;
-  userId: number;
-  activityId: number;
-  scheduleId: number;
-  status: 'pending' | 'confirmed' | 'declined';
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
+export interface UpdateReservationResponse extends ReservationDetail {
   message: string;
 }
 
@@ -148,7 +128,7 @@ export interface ScheduleToAdd {
 
 export interface UpdateActivityRequest {
   title: string;
-  category: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
+  category: Category;
   description: string;
   price: number;
   address: string;
@@ -159,35 +139,7 @@ export interface UpdateActivityRequest {
   schedulesToAdd: ScheduleToAdd[];
 }
 
-export interface ActivitySubImage {
-  imageUrl: string;
-  id: number;
-}
-
-export interface ScheduleTime {
-  id: number;
-  startTime: string;
-  endTime: string;
-}
-
-export interface ActivityScheduleWithTime {
-  date: string;
-  times: ScheduleTime[];
-}
-
-export interface UpdateActivityResponse {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  rating: number;
-  reviewCount: number;
-  createdAt: string;
-  updatedAt: string;
+export interface UpdateActivityResponse extends ActivityBase {
   subImages: ActivitySubImage[];
   schedules: ActivityScheduleWithTime[];
 }
