@@ -9,7 +9,7 @@ import type {
 
 /*GET my-activities, 내 체험 리스트 조회*/
 export interface MyActivitiesParams {
-  teamId: string;
+  teamId?: string;
   cursorId?: number;
   size?: number;
 }

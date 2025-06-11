@@ -1,3 +1,7 @@
+import { ErrorBoundary } from 'react-error-boundary';
+import { Suspense } from 'react';
+import ErrorUI from './pages/my-experiences/components/error/ErrorUI';
+
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout';
 
@@ -16,6 +20,9 @@ import ReservationStatus from './pages/reservation-status/ReservationStatus';
 import OAuthKakaoCallback from './pages/oauthkakaocallback/OAuthKakaoCallback';
 
 
+import LoadingUI from './pages/my-experiences/components/loading/Loading';
+
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,7 +39,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/my-experiences',
-        element: <MyExperiencesPage />,
+        element: (
+          <ErrorBoundary FallbackComponent={ErrorUI}>
+            <Suspense
+              fallback={
+                <div>
+                  <LoadingUI />
+                </div>
+              }
+            >
+              <MyExperiencesPage />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
         path: 'add-experiences',
@@ -47,10 +66,6 @@ const router = createBrowserRouter([
         element: <ReservationStatus />,
       },
     ],
-  },
-  {
-    path: '/reservation-list',
-    element: <ReservationList />,
   },
   {
     path: '/login',

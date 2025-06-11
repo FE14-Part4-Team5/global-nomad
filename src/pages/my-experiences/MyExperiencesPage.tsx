@@ -4,29 +4,31 @@ import { Link } from 'react-router-dom';
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
 import MyExperiencesCardList from './components/my-experiences-card-list/MyExperiencesCardList';
-import ExampleLogin from './example/ExampleLogin';
 import Modal from './example/Modal';
+import MyExperiencesButton from './components/my-experiences-button/MyExperiencesButton';
 
 import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
-import { useMyProfile } from '@/hooks/useMyProfile';
-import { deleteActivity } from './example/example';
-import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
+import { myActivitiesService } from '@/apis/myActivities';
+
+import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
 
 import styles from './MyExperiencesPage.module.css';
+import { LoadingSideNavigation } from './components/loading/Loading';
 
 const MyExperiences = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [targetId, setTargetId] = useState<number | null>(null);
+  const [activityId, setActivityId] = useState<number | null>(null);
 
   const handleOpen = (id: number) => {
-    setTargetId(id);
+    setActivityId(id);
     setIsModalOpen(true);
   };
 
   const handleConfirmDelete = async () => {
     try {
-      if (targetId === null) return;
-      await deleteActivity(teamId, targetId);
+      if (activityId === null) return;
+      await myActivitiesService.deleteActivity({ teamId: '14-5', activityId });
       refetch();
       //토스트 띄우기 고려
     } catch (error) {
@@ -37,33 +39,34 @@ const MyExperiences = () => {
     }
   };
 
-  const teamId = 'team5';
-  const {
-    data: userData,
-    isLoading: isProfileLoading,
-    isError: isProfileError,
-  } = useMyProfile(teamId);
+  const { data: userData } = useMyProfileQuery();
 
-  const {
-    data,
-    isLoading: isCardLoading,
-    isError: isCardError,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    refetch,
-  } = useInfiniteMyActivities(teamId);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useInfiniteMyActivities(
+    { size: 5 }
+  );
 
-  const pages = (data as { pages: ActivitiesResponse[] } | undefined)?.pages;
-  const allActivities = pages?.flatMap(page => page.activities) ?? [];
-
-  if (isProfileLoading || isCardLoading) return <ExampleLogin />;
-  if (isProfileError || isCardError) return <ExampleLogin />;
+  const activities = data?.pages.flatMap(page => page.activities) ?? [];
+  const cardItems: MyExperienceCardProps[] = activities.map(activity => ({
+    id: activity.id,
+    title: activity.title,
+    rating: activity.rating,
+    reviewCount: activity.reviewCount,
+    price: activity.price,
+    bannerImageUrl: activity.bannerImageUrl,
+    priceUnit: '/인',
+    currencySymbol: '₩',
+    editButton: <MyExperiencesButton variant="edit">수정하기</MyExperiencesButton>,
+    deleteButton: <MyExperiencesButton variant="delete">삭제하기</MyExperiencesButton>,
+  }));
 
   return (
     <div className={styles.myExperiences}>
       <div className={styles.sideNavigation}>
-        {userData && <SideNavigation defaultImage={userData.profileImageUrl} />}
+        {userData ? (
+          <SideNavigation defaultImage={userData.profileImageUrl as string} />
+        ) : (
+          <LoadingSideNavigation />
+        )}
       </div>
       <div>
         <MyExperiencesHeader
@@ -71,25 +74,25 @@ const MyExperiences = () => {
           subTitle="체험을 등록하거나 수정 및 삭제가 가능합니다."
           className="columnRowContents"
         >
-          <Link to={'/add'}>
+          <Link to={'/add-experiences'}>
             <button className={styles.button}>체험 등록하기</button>
           </Link>
         </MyExperiencesHeader>
         <MyExperiencesCardList
-          userActivities={{ activities: allActivities }}
+          userActivities={{ activities: cardItems }}
           onLoadMore={fetchNextPage}
           hasMore={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
           onDeleteClick={handleOpen}
         />
       </div>
-      {isModalOpen && targetId !== null && (
+      {isModalOpen && activityId !== null && (
         <Modal
           onConfirm={handleConfirmDelete}
           onClose={() => setIsModalOpen(false)}
           text="등록한 체험을 삭제하시겠어요?"
           cancelText="아니오"
-          confirmText="취소하기"
+          confirmText="삭제하기"
         />
       )}
     </div>
