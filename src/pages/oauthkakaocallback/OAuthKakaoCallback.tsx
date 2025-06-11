@@ -16,53 +16,41 @@ const OAuthKakaoCallback = () => {
       calledOnce.current = true;
 
       const code = new URL(window.location.href).searchParams.get('code');
+      console.log('인가 코드:', code);
 
-      console.log('✅ doLogin 함수 진입됨');
-      console.log('[카카오 인가코드]', code);
-
-      console.log('[카카오 토큰 요청 데이터]', {
-        grant_type: 'authorization_code',
-        client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-        redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
-        code,
-      });
-
-      console.log('REST API KEY', import.meta.env.VITE_KAKAO_REST_API_KEY);
-      console.log('REDIRECT URI', import.meta.env.VITE_KAKAO_REDIRECT_URI);
-
-      console.log(import.meta.env);
-
-      if (!code) return;
+      if (!code) {
+        console.error('❌ 인가 코드가 없습니다.');
+        navigate('/login');
+        return;
+      }
 
       try {
-        // 1. Kakao access token 발급
-        const tokenResponse = await axios.post(
-          'https://kauth.kakao.com/oauth/token',
-          new URLSearchParams({
-            grant_type: 'authorization_code',
-            client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-            redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
-            code,
-          }),
-          {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          }
-        );
+        // const tokenResponse = await axios.post(
+        //   'https://kauth.kakao.com/oauth/token',
+        //   new URLSearchParams({
+        //     grant_type: 'authorization_code',
+        //     client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
+        //     redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
+        //     code,
+        //   }),
+        //   {
+        //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //   }
+        // );
 
-        console.log('카카오 토큰 응답:', tokenResponse.data);
-        const kakaoAccessToken = tokenResponse.data.access_token;
+        // console.log('카카오 토큰 응답:', tokenResponse.data);
+        // const kakaoAccessToken = tokenResponse.data.access_token;
 
         await oauthService.OAuthApps({
           provider: 'kakao',
           appKey: import.meta.env.VITE_KAKAO_REST_API_KEY,
         });
 
-        // 2. 백엔드 로그인 시도
         try {
           const response = await oauthService.OAuthSignIn(
             { provider: 'kakao' },
             {
-              token: kakaoAccessToken,
+              token: code,
               redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
             }
           );
@@ -71,21 +59,22 @@ const OAuthKakaoCallback = () => {
           setTokens(accessToken, refreshToken);
           navigate('/');
         } catch (loginError: any) {
-          if (loginError.response?.status === 404) {
+          console.error(loginError);
+          if (loginError.response?.status === 403) {
             try {
               // Kakao 사용자 정보 요청 (닉네임 등)
-              const profileResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
-                headers: { Authorization: `Bearer ${kakaoAccessToken}` },
-              });
+              //   const profileResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
+              //     headers: { Authorization: `Bearer ${kakaoAccessToken}` },
+              //   });
 
-              const nickname = profileResponse.data?.properties?.nickname || '카카오유저';
+              //   const nickname = profileResponse.data?.properties?.nickname || '카카오유저';
 
               const signupResponse = await oauthService.OAuthSignUp(
                 { provider: 'kakao' },
                 {
-                  token: kakaoAccessToken,
+                  token: code,
                   redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
-                  nickname,
+                  nickname: '카카오유저',
                 }
               );
 
