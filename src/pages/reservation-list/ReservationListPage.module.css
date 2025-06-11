@@ -1,6 +1,6 @@
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .container {
-    flex-direction: column;
+    flex-direction: row;
     padding: 0;
     justify-content: center;
     gap: 3rem;
@@ -10,19 +10,27 @@
     margin-left: 0;
     padding: 1.6rem;
     box-shadow: none;
+    justify-content: center;
   }
 }
 
-.titleSection {
-  position: absolute;
-  left: calc(47rem + 33.1rem);
-  top: 13rem;
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 3rem auto;
+}
+
+.sideNavigation {
+  display: flex;
 }
 
 .title {
+  position: flex;
+  padding-left: 2.4rem;
   font-size: var(--fs-18);
   font-weight: var(--font-weight-bold);
   color: var(--gray-900);
+  gap: 2rem;
 }
 
 .subtitle {
@@ -30,6 +38,32 @@
   font-weight: var(--font-weight-medium);
   color: var(--gray-600);
   margin-top: 1rem;
+  padding-left: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  .title {
+    padding-left: 0;
+    font-size: var(--fs-20);
+  }
+  .subtitle {
+    padding-left: 0;
+    font-size: var(--fs-16);
+  }
+}
+
+@media (min-width: 768px) {
+  .titleSection {
+    position: flex;
+    gap: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .titleSection {
+    position: flex;
+    gap: 1.6rem;
+  }
 }
 
 .badgeCommon {
@@ -42,8 +76,28 @@
   justify-content: center;
   border: 0.1rem solid var(--gray-200);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
+.badgeWrapper {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 2.4rem;
+  padding-left: 2.4rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
+  scrollbar-width: none; /* Firefox 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE/Edge 스크롤바 숨기기 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  padding-bottom: 1rem; /* 스크롤바 공간 확보 */
+}
+
+@media (min-width: 768px) {
+  .badgeWrapper {
+    padding-left: 0;
+    overflow-x: visible; /* 태블릿 이상에서는 스크롤바 제거 */
+  }
+}
 .active {
   background-color: var(--gray-900);
 }
@@ -96,36 +150,104 @@
   background-color: var(--color-white);
 }
 
-.badgeWrapper {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 2.4rem;
-}
-
 .cardContainer {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  width: 120rem;
+  gap: 10rem;
+  padding-left: 2.4rem;
   margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .cardContainer {
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  .cardContainer > * {
+    position: relative;
+    padding-bottom: 7rem; /* 버튼 + 구분선을 위한 여백 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardContainer {
+    gap: 0;
+    padding-left: 0;
+  }
+
+  .cardContainer > * {
+    padding: 1.2rem 0; /* 카드 위아래 패딩 추가 */
+  }
+
+  .cardContainer > *::after {
+    width: 64rem; /* PC에서의 카드 너비 */
+  }
 }
 
 .emptyState {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6rem;
-  margin-top: 2rem; /* badge와의 간격 */
+  gap: 2rem;
+  padding-top: 7rem;
 }
 
 .emptyState img {
-  width: 12rem;
-  height: 12rem;
+  width: 12.2rem;
+  height: 12.2rem;
 }
 
 .emptyState p {
   color: var(--gray-600);
-  font-size: var(--fs-14);
+  font-size: var(--fs-20);
+}
+
+.exploreButton {
+  width: 18.2rem;
+  height: 5.4rem;
+  gap: 3rem;
+  border-radius: 0.8rem;
+  font-size: var(--fs-16);
+  color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .emptyState img {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .emptyState p {
+    color: var(--gray-600);
+    font-size: var(--fs-20);
+  }
+}
+
+@media (min-width: 1024px) {
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .emptyState img {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .emptyState p {
+    color: var(--gray-600);
+    font-size: var(--fs-18);
+  }
 }
 
 .modalHeader {
@@ -154,13 +276,92 @@
 .buttonContainer {
   display: flex;
   gap: 0.8rem;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
 }
 
 .editButton,
-.cancelButton,
+.cancelButton {
+  width: 15.75rem;
+  height: 3.7rem;
+  border-radius: 0.1rem;
+  font-size: var(--fs-14);
+}
 .reviewButton {
-  width: 7.1rem;
-  height: 2.9rem;
-  border-radius: 0.4rem;
+  width: 30.9rem;
+  height: 3.7rem;
+  border-radius: 0.1rem;
+  font-size: var(--fs-14);
+}
+
+@media (min-width: 768px) {
+  .editButton,
+  .cancelButton {
+    width: 23.2rem;
+    height: 3.7rem;
+    border-radius: 0.1rem;
+    font-size: var(--fs-14);
+  }
+  .reviewButton {
+    width: 47.6rem;
+    height: 3.7rem;
+    border-radius: 0.1rem;
+    font-size: var(--fs-14);
+  }
+}
+
+@media (min-width: 1024px) {
+  .editButton,
+  .cancelButton,
+  .reviewButton {
+    width: 7.1rem;
+    height: 2.9rem;
+    border-radius: 0.4rem;
+    font-size: var(--fs-14);
+  }
+}
+
+.navigationWrapper {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .navigationWrapper {
+    display: block;
+  }
+}
+
+.contentWrapper {
+  max-width: 37.5rem;
+  width: 100%;
+  gap: 12rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    gap: 3rem;
+  }
+  .navigationWrapper {
+    display: block;
+  }
+  .contentWrapper {
+    max-width: 47.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    gap: 5rem;
+    margin: 4rem auto;
+  }
+  .contentWrapper {
+    max-width: 64rem;
+  }
+}
+
+.loadingMore {
+  width: 100%;
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--gray-600);
+  font-size: var(--fs-14);
 }

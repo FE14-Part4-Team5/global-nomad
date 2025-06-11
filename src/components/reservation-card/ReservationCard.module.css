@@ -1,3 +1,4 @@
+
 .title {
   font-size: var(--fs-14);
   font-weight: var(--font-weight-bold);
@@ -96,7 +97,7 @@
   margin-top: 0.8rem;
 }
 
-.editCancleButton {
+.editCancelButton {
   display: flex;
 }
 
@@ -116,6 +117,9 @@
 }
 
 @media (min-width: 768px) {
+
+
+
   .contents {
     width: 36rem;
   }
