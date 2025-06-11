@@ -1,6 +1,8 @@
 .mainCard {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-bottom-left-radius: 1.8rem;
+  border-bottom-right-radius: 1.8rem;
 }
 
 .img {
@@ -14,7 +16,6 @@
 .contentBox {
   width: 15.5rem;
   background-color: var(--color-white);
-  border-radius: 1.8rem;
   position: relative;
   bottom: 4rem;
   padding: 1.6rem 1.6rem;
@@ -64,8 +65,14 @@
 }
 
 @media (min-width: 768px) {
+  .mainCard {
+    border-bottom-left-radius: 3.2rem;
+    border-bottom-right-radius: 3.2rem;
+  }
+
   .contentBox {
     width: 33.1rem;
+    padding: 2rem 3rem;
   }
 
   .img {
@@ -73,11 +80,6 @@
     height: 34.7rem;
     border-top-left-radius: 3.2rem;
     border-top-right-radius: 3.2rem;
-  }
-
-  .contentBox {
-    padding: 2rem 3rem;
-    border-radius: 3.2rem;
   }
 
   .title {
