@@ -40,13 +40,13 @@ const MainCard = ({
 
 export default MainCard;
 
-type MainCardProps = Activity & {
+export type MainCardProps = Activity & {
   onClick: () => void;
   priceUnit: string;
   currencySymbol: string;
 };
 
-type Activity = {
+export type Activity = {
   id?: number;
   userId?: number;
   title: string;
