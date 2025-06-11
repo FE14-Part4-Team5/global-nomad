@@ -1,18 +1,18 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { getMyActivities } from '@/pages/my-experiences/example/example';
-import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { myActivitiesService } from '@/apis/myActivities';
+import type { MyActivitiesResponse } from '@/types/api/myActivitiesType';
 
-export const useInfiniteMyActivities = (teamId: string) => {
-  return useInfiniteQuery<ActivitiesResponse, Error, ActivitiesResponse, [string, string]>({
-    queryKey: ['myActivity', teamId],
-    queryFn: ({ pageParam }) => getMyActivities(teamId, pageParam as number),
+export const useInfiniteMyActivities = ({ size = 5 }: { size?: number }) => {
+  return useSuspenseInfiniteQuery<MyActivitiesResponse, Error>({
+    queryKey: ['myActivities', size],
+    queryFn: async ({ pageParam }) => {
+      const params: { size: number; cursorId?: number } = { size };
+      if (typeof pageParam === 'number' && pageParam > 0) {
+        params.cursorId = pageParam;
+      }
+      return myActivitiesService.getMyActivities(params);
+    },
     getNextPageParam: lastPage => (lastPage.activities.length > 0 ? lastPage.cursorId : undefined),
     initialPageParam: 0,
   });
-};
-
-export type ActivitiesResponse = {
-  cursorId: number;
-  totalCount: number;
-  activities: MyExperienceCardProps[];
 };
