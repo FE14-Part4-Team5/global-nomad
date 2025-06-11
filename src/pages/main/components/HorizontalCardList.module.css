@@ -6,7 +6,9 @@
 .scrollContainer {
   display: flex;
   gap: 1.2rem;
+  padding-bottom: 1rem;
   overflow-x: auto;
+  overflow-y: visible;
   scrollbar-width: none;
   background-color: white;
 }
