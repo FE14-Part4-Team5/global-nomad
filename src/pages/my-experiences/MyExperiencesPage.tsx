@@ -50,7 +50,7 @@ const MyExperiences = () => {
     <div className={styles.myExperiences}>
       <div className={styles.sideNavigation}>
         {userData ? (
-          <SideNavigation defaultImage={userData.profileImageUrl} />
+          <SideNavigation defaultImage={userData.profileImageUrl as string} />
         ) : (
           <LoadingSideNavigation />
         )}
