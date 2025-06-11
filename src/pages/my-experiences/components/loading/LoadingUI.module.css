@@ -1,0 +1,184 @@
+.loading {
+  width: 32.7rem;
+  display: flex;
+  gap: 3rem;
+  margin: 3rem auto 0;
+}
+
+.mockSideNavigationWrapper {
+  display: none;
+}
+
+.mockHeaderContents {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  width: 32.7rem;
+  height: 4.8rem;
+  background-color: var(--primary-500);
+  color: var(--color-white);
+  border-radius: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+.mockContentsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.mockContents {
+  display: flex;
+  justify-content: space-between;
+  width: 32.7rem;
+  height: 14.7rem;
+  background-color: var(--gray-50);
+  border-radius: 2.4rem;
+  padding: 2.5rem;
+}
+
+.mockTitle {
+  width: 17rem;
+  height: 1.5rem;
+  background-color: var(--gray-200);
+  margin-bottom: 0.6rem;
+}
+
+.mockRating {
+  width: 6rem;
+  height: 1.5rem;
+  background-color: var(--gray-200);
+  margin-bottom: 1rem;
+}
+
+.mockPay {
+  width: 10rem;
+  height: 1.5rem;
+  background-color: var(--gray-200);
+  margin-bottom: 1rem;
+}
+
+.mockButton {
+  width: 14.5rem;
+  height: 2.5rem;
+  background-color: var(--gray-200);
+}
+
+.mockImage {
+  width: 8.2rem;
+  height: 8.2rem;
+  border-radius: 2rem;
+  background-color: var(--gray-200);
+}
+
+@media (min-width: 768px) {
+  .mockContentsWrapper {
+    gap: 2rem;
+  }
+
+  .loading {
+    width: 68.4rem;
+    margin: 0 auto;
+    margin-top: 4rem;
+    gap: 4rem;
+  }
+
+  .mockSideNavigationWrapper {
+    display: block;
+  }
+
+  .mockSideNavigation {
+    width: 17.8rem;
+    height: 34.2rem;
+    background-color: var(--gray-50);
+    border-radius: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem;
+    align-items: center;
+    padding: 2.4rem 1.4rem;
+  }
+
+  .mockSideNavigationImage {
+    width: 7rem;
+    height: 7rem;
+    background-color: var(--gray-200);
+    border-radius: 10rem;
+  }
+
+  .mockSideNavigationContents {
+    width: 12rem;
+    height: 2rem;
+    background-color: var(--gray-200);
+  }
+
+  .mockTitle {
+    width: 30rem;
+  }
+
+  .button {
+    width: 13.8rem;
+    height: 4.8rem;
+    background-color: var(--primary-500);
+    color: var(--color-white);
+    border-radius: 1.4rem;
+  }
+
+  .mockContents {
+    width: 47.6rem;
+    height: 15.9rem;
+    background-color: var(--gray-50);
+    border-radius: 2.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .loading {
+    width: 98rem;
+    gap: 5rem;
+  }
+
+  .mockSideNavigation {
+    width: 29rem;
+    height: 45rem;
+    gap: 3.65rem;
+  }
+
+  .mockSideNavigationImage {
+    width: 12rem;
+    height: 12rem;
+    background-color: var(--gray-200);
+    border-radius: 10rem;
+  }
+
+  .mockSideNavigationContents {
+    width: 22rem;
+  }
+
+  .mockContents {
+    width: 64rem;
+    height: 21.55rem;
+    padding: 3.6rem;
+  }
+
+  .mockImage {
+    width: 14.2rem;
+    height: 14.2rem;
+    border-radius: 3.2rem;
+  }
+
+  .mockTitle {
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .mockRating {
+    margin-bottom: 1.2rem;
+  }
+
+  .mockPay {
+    margin-bottom: 2.5rem;
+  }
+}
