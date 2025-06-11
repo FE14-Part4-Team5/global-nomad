@@ -22,3 +22,5 @@ export const useAuthStore = create(
     }
   )
 );
+
+/*user ID도 넣기기*/
