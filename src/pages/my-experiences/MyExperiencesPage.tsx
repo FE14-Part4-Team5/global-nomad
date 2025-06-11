@@ -5,11 +5,13 @@ import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
 import MyExperiencesCardList from './components/my-experiences-card-list/MyExperiencesCardList';
 import Modal from './example/Modal';
+import MyExperiencesButton from './components/my-experiences-button/MyExperiencesButton';
 
 import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
 import { useMyProfileQuery } from '@/hooks/useMyProfile';
 import { myActivitiesService } from '@/apis/myActivities';
-import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
+
+import type { MyExperienceCardProps } from '@/components/my-experience-card/MyExperienceCard';
 
 import styles from './MyExperiencesPage.module.css';
 import { LoadingSideNavigation } from './components/loading/Loading';
@@ -39,11 +41,23 @@ const MyExperiences = () => {
 
   const { data: userData } = useMyProfileQuery();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
-    useInfiniteMyActivities();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useInfiniteMyActivities(
+    { size: 5 }
+  );
 
-  const pages = (data as { pages: ActivitiesResponse[] } | undefined)?.pages;
-  const allActivities = pages?.flatMap(page => page.activities) ?? [];
+  const activities = data?.pages.flatMap(page => page.activities) ?? [];
+  const cardItems: MyExperienceCardProps[] = activities.map(activity => ({
+    id: activity.id,
+    title: activity.title,
+    rating: activity.rating,
+    reviewCount: activity.reviewCount,
+    price: activity.price,
+    bannerImageUrl: activity.bannerImageUrl,
+    priceUnit: '/인',
+    currencySymbol: '₩',
+    editButton: <MyExperiencesButton variant="edit">수정하기</MyExperiencesButton>,
+    deleteButton: <MyExperiencesButton variant="delete">삭제하기</MyExperiencesButton>,
+  }));
 
   return (
     <div className={styles.myExperiences}>
@@ -65,7 +79,7 @@ const MyExperiences = () => {
           </Link>
         </MyExperiencesHeader>
         <MyExperiencesCardList
-          userActivities={{ activities: allActivities }}
+          userActivities={{ activities: cardItems }}
           onLoadMore={fetchNextPage}
           hasMore={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
