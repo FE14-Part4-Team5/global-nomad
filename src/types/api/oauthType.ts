@@ -1,3 +1,5 @@
+import type { OAuthApp, TokenPair, UserSummary } from './sharedType';
+
 /*POST oauth apps, OAuth 앱 등록*/
 export interface OAuthParams {
   teamId: string;
@@ -8,18 +10,11 @@ export interface OAuthRequest {
   provider: 'google' | 'kakao';
 }
 
-export interface OAuthResponse {
-  id: number;
-  teamId: string;
-  appKey: string;
-  provider: string;
-  createdAt: string;
-  updatedAt: string;
-}
+export type OAuthResponse = OAuthApp;
 
 /*POST oauth signup provider, 간편 회원가입*/
 export interface OAuthSignupProviderParams {
-  teamId: string;
+  teamId?: string;
   provider: 'google' | 'kakao';
 }
 
@@ -29,24 +24,13 @@ export interface OAuthSignupProviderRequest {
   token: string;
 }
 
-export interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface OAuthSignupProviderResponse {
-  user: User;
-  refreshToken: string;
-  accessToken: string;
+export interface OAuthSignupProviderResponse extends TokenPair {
+  user: UserSummary;
 }
 
 /*POST oauth signin provider, 간편 로그인*/
 export interface OAuthSigninProviderParams {
-  teamId: string;
+  teamId?: string;
   provider: 'google' | 'kakao';
 }
 
@@ -55,8 +39,6 @@ export interface OAuthSigninProviderRequest {
   token: string;
 }
 
-export interface OAuthSigninProviderResponse {
-  user: User;
-  refreshToken: string;
-  accessToken: string;
+export interface OAuthSigninProviderResponse extends TokenPair {
+  user: UserSummary;
 }

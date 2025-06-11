@@ -7,7 +7,7 @@ import MyExperiencesCardList from './components/my-experiences-card-list/MyExper
 import Modal from './example/Modal';
 
 import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
-import { useMyProfile } from '@/hooks/useMyProfile';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
 import { deleteActivity } from './example/example';
 import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
@@ -38,7 +38,7 @@ const MyExperiences = () => {
   };
 
   const teamId = 'team5';
-  const { data: userData } = useMyProfile(teamId);
+  const { data: userData } = useMyProfileQuery();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useInfiniteMyActivities(teamId);
