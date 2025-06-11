@@ -16,6 +16,20 @@ import ReservationStatus from './pages/reservation-status/ReservationStatus';
 import OAuthKakaoCallback from './pages/oauthkakaocallback/OAuthKakaoCallback';
 
 import LoadingUI from './pages/my-experiences/components/loading/Loading';
+import MainCard from './components/main-card/MainCard';
+
+import image from '@/assets/images/unsplash_0yUw1_FEFO0.png';
+
+const mockActivity = {
+  bannerImageUrl: image,
+  title: '제목입니다.',
+  rating: 0,
+  reviewCount: 0,
+  currencySymbol: '₩',
+  price: 10000,
+  priceUnit: '/인',
+  onClick: () => console.log('상세페이지로ㅓ 이동함'),
+};
 
 const router = createBrowserRouter([
   {
@@ -45,6 +59,23 @@ const router = createBrowserRouter([
               <MyExperiencesPage />
             </Suspense>
           </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'card',
+        element: (
+          <div style={{ margin: '100px', display: 'flex', gap: '10px' }}>
+            <MainCard
+              bannerImageUrl={mockActivity.bannerImageUrl}
+              title={mockActivity.title}
+              rating={mockActivity.rating}
+              reviewCount={mockActivity.reviewCount}
+              currencySymbol={mockActivity.currencySymbol}
+              price={mockActivity.price}
+              priceUnit={mockActivity.priceUnit}
+              onClick={mockActivity.onClick}
+            />
+          </div>
         ),
       },
       {
