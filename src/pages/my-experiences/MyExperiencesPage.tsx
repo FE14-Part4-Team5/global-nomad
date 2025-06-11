@@ -7,8 +7,8 @@ import MyExperiencesCardList from './components/my-experiences-card-list/MyExper
 import Modal from './example/Modal';
 
 import { useInfiniteMyActivities } from '@/hooks/useInfiniteMyActivities';
-import { useMyProfile } from '@/hooks/useMyProfile';
-import { deleteActivity } from './example/example';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
+import { myActivitiesService } from '@/apis/myActivities';
 import type { ActivitiesResponse } from '@/hooks/useInfiniteMyActivities';
 
 import styles from './MyExperiencesPage.module.css';
@@ -16,17 +16,17 @@ import { LoadingSideNavigation } from './components/loading/Loading';
 
 const MyExperiences = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [targetId, setTargetId] = useState<number | null>(null);
+  const [activityId, setActivityId] = useState<number | null>(null);
 
   const handleOpen = (id: number) => {
-    setTargetId(id);
+    setActivityId(id);
     setIsModalOpen(true);
   };
 
   const handleConfirmDelete = async () => {
     try {
-      if (targetId === null) return;
-      await deleteActivity(teamId, targetId);
+      if (activityId === null) return;
+      await myActivitiesService.deleteActivity({ teamId: '14-5', activityId });
       refetch();
       //토스트 띄우기 고려
     } catch (error) {
@@ -37,11 +37,10 @@ const MyExperiences = () => {
     }
   };
 
-  const teamId = 'team5';
-  const { data: userData } = useMyProfile(teamId);
+  const { data: userData } = useMyProfileQuery();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
-    useInfiniteMyActivities(teamId);
+    useInfiniteMyActivities();
 
   const pages = (data as { pages: ActivitiesResponse[] } | undefined)?.pages;
   const allActivities = pages?.flatMap(page => page.activities) ?? [];
@@ -73,13 +72,13 @@ const MyExperiences = () => {
           onDeleteClick={handleOpen}
         />
       </div>
-      {isModalOpen && targetId !== null && (
+      {isModalOpen && activityId !== null && (
         <Modal
           onConfirm={handleConfirmDelete}
           onClose={() => setIsModalOpen(false)}
           text="등록한 체험을 삭제하시겠어요?"
           cancelText="아니오"
-          confirmText="취소하기"
+          confirmText="삭제하기"
         />
       )}
     </div>
