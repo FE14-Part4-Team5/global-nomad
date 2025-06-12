@@ -4,9 +4,9 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
-  userId?: string | null;
+  userId?: number | null;
   setTokens: (access: string, refresh: string) => void;
-  setUserId: (userId: string) => void;
+  setUserId: (userId: number) => void;
   clearUserId: () => void;
   clearTokens: () => void;
 }
