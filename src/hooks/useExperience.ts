@@ -1,11 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-import {
-  getExperienceDetail,
-  getExperienceReviews,
-  reserveExperience,
-  deleteExperience,
-} from '@/pages/detail/example/example';
+import { activitiesService } from '@/apis/activities';
+import { myActivitiesService } from '@/apis/myActivities';
 
 export interface SubImage {
   id: number;
@@ -19,7 +15,7 @@ export interface Schedule {
   endTime: string;
 }
 
-export interface ExperienceDetailProps {
+export interface ExperienceResponse {
   id: number;
   userId: number;
   title: string;
@@ -60,29 +56,31 @@ export interface ReviewResponse {
   totalCount: number;
   reviews: Review[];
 }
+
 export const useExperienceDetail = (teamId: string, activityId: number) => {
-  return useQuery<ExperienceDetailProps>({
+  return useQuery<ExperienceResponse>({
     queryKey: ['experienceDetail', teamId, activityId],
-    queryFn: () => getExperienceDetail(teamId, activityId),
+    queryFn: () => activitiesService.getActivityId({ teamId, activityId }),
   });
 };
 
 export const useReserveExperience = (teamId: string, activityId: number) => {
   return useMutation({
     mutationFn: (payload: ReserveExperiencePayload) =>
-      reserveExperience(teamId, activityId, payload),
+      activitiesService.createReservations({ teamId, activityId }, payload),
   });
 };
 
 export const useDeleteExperience = (teamId: string, activityId: number) => {
   return useMutation({
-    mutationFn: () => deleteExperience(teamId, activityId),
+    mutationFn: () => myActivitiesService.deleteActivity({ teamId, activityId }),
   });
 };
 
 export const useExperienceReviews = (teamId: string, activityId: number, page = 1, size = 3) => {
   return useQuery<ReviewResponse>({
     queryKey: ['experienceReviews', teamId, activityId, page, size],
-    queryFn: () => getExperienceReviews(teamId, activityId, page, size),
+    queryFn: () => activitiesService.getReviews({ teamId, activityId, page, size }),
+    placeholderData: keepPreviousData,
   });
 };
