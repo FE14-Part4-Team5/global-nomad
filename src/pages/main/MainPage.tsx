@@ -54,11 +54,13 @@ const MainPage = () => {
             <div className={styles.titleAndFilter}>
               {/* 카테고리에 따라 title 이름 바뀌어야 함 - 추후 변경 사항*/}
               <div className={styles.title}>🛼 모든 체험</div>
-              <Dropdown
-                label="가격"
-                options={['가격 낮은순', '가격 높은순']}
-                onSelect={handleSelect}
-              />
+              <div className={styles.dropdownWrapper}>
+                <Dropdown
+                  label="가격"
+                  options={['가격 낮은순', '가격 높은순']}
+                  onSelect={handleSelect}
+                />
+              </div>
             </div>
             <ActivityCategory />
           </div>

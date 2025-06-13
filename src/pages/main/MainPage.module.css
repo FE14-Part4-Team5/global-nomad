@@ -71,6 +71,11 @@
   margin-bottom: 4rem;
 }
 
+.experiencesCardListContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .activities {
   display: flex;
   flex-direction: column;
@@ -84,10 +89,10 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.experiencesCardListContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+.dropdownWrapper {
+  width: 10rem;
+  text-align: center;
 }
 .paginationWrapper {
   display: flex;
@@ -166,5 +171,13 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
+    position: relative;
+  }
+  .dropdownWrapper {
+    position: absolute;
+    width: 10rem;
+    text-align: center;
+    bottom: 1.1rem;
+    right: 2rem;
   }
 }
