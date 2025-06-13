@@ -1,7 +1,9 @@
+import { useRef, useState } from 'react';
+
 import PlusIcon from '@/assets/icons/icon_plus.svg?react';
+import DeleteIcon from '@/assets/icons/icon_delete.svg?react';
 
 import styles from './ImageUploadSection.module.css';
-import { useRef, useState } from 'react';
 
 interface Preview {
   id: string;
@@ -55,7 +57,9 @@ const ImageUploadSection = ({
         {previews.map(({ id, url }, i) => (
           <div key={id} className={styles.bannerImagePreviewWrapper}>
             <img src={url} alt={`미리보기 이미지 ${i + 1}`} className={styles.bannerImagePreview} />
-            <button onClick={() => handleRemoveImage(id)}>삭제</button>
+            <button onClick={() => handleRemoveImage(id)} className={styles.imageDeleteButton}>
+              <DeleteIcon className={styles.imageDeleteButtonIcon} />
+            </button>
           </div>
         ))}
       </div>

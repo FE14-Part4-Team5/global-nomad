@@ -13,6 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .plusIcon {
@@ -36,6 +37,7 @@
   height: 8rem;
   border: 1px solid var(--gray-100);
   border-radius: 0.8rem;
+  position: relative;
 }
 
 .bannerImagePreview {
@@ -44,6 +46,24 @@
   display: block;
   object-fit: cover;
   border-radius: 0.8rem;
+}
+
+.imageDeleteButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10rem;
+  background-color: var(--gray-950);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageDeleteButtonIcon {
+  color: var(--color-white);
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -66,6 +86,11 @@
 
   .bannerImagePreview {
     border-radius: 1.6rem;
+  }
+
+  .imageDeleteButton {
+    width: 2.6rem;
+    height: 2.6rem;
   }
 }
 
