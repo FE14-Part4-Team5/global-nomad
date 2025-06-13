@@ -14,6 +14,7 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,7 +56,7 @@ const Header = () => {
         </Link>
       </div>
 
-      {auth ? (
+      {!auth ? (
         <div className={styles.authWrapper}>
           <Link to="/login" className={styles.authButton}>
             로그인

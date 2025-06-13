@@ -1,11 +1,8 @@
 import MainCard from '@/components/main-card/MainCard';
-
 import useViewPortSize from '@/hooks/useViewPortSize';
 import useHorizontalScroll from '@/hooks/useHorizontalScroll';
-
 import IconRight from '@/assets/icons/icon_arrow_right.svg?react';
 import IconLeft from '@/assets/icons/icon_back.svg?react';
-
 import styles from './HorizontalCardList.module.css';
 
 import type { MainCardProps } from '@/components/main-card/MainCard';
@@ -18,10 +15,14 @@ const HorizontalCardList = ({ cardList }: HorizontalCardListProps) => {
   const { viewportSize } = useViewPortSize();
   const { scrollRef, scroll } = useHorizontalScroll<HTMLDivElement>();
 
+  const visibleCardCount = viewportSize === 'desktop' ? 3 : 2;
   return (
     <div className={styles.wrapper}>
       {viewportSize !== 'mobile' && (
-        <button className={`${styles.arrowButton} ${styles.left}`} onClick={() => scroll('left')}>
+        <button
+          className={`${styles.arrowButton} ${styles.left}`}
+          onClick={() => scroll('left', visibleCardCount)}
+        >
           <IconLeft />
         </button>
       )}
@@ -31,7 +32,10 @@ const HorizontalCardList = ({ cardList }: HorizontalCardListProps) => {
         ))}
       </div>
       {viewportSize !== 'mobile' && (
-        <button className={`${styles.arrowButton} ${styles.right}`} onClick={() => scroll('right')}>
+        <button
+          className={`${styles.arrowButton} ${styles.right}`}
+          onClick={() => scroll('right', visibleCardCount)}
+        >
           <IconRight />
         </button>
       )}

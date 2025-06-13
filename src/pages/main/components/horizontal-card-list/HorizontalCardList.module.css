@@ -1,16 +1,18 @@
 .wrapper {
   position: relative;
+  margin-top: 1.4rem;
   max-width: 1120px;
 }
 
 .scrollContainer {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 13.23rem;
   gap: 1.2rem;
   padding-bottom: 1rem;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
-  background-color: white;
 }
 
 .arrowButton {
@@ -31,9 +33,13 @@
 }
 
 @media (min-width: 768px) {
+  .wrapper {
+    padding-top: 1.6rem;
+  }
   .scrollContainer {
+    grid-auto-columns: 33.18rem;
     gap: 2rem;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
   }
   .arrowButton.left {
     left: -1.5rem;
@@ -45,7 +51,12 @@
 }
 
 @media (min-width: 1024px) {
+  .wrapper {
+    padding-top: 2rem;
+  }
   .scrollContainer {
+    grid-auto-columns: 26.2rem;
+
     gap: 2.4rem;
   }
   .arrowButton.left {
