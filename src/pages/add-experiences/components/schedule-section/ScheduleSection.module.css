@@ -101,6 +101,7 @@
   align-items: center;
   min-width: 3rem;
   min-height: 3rem;
+  width: 3rem;
   background-color: var(--primary-500);
   border-radius: 10rem;
   cursor: pointer;
@@ -127,14 +128,6 @@
   position: relative;
 }
 
-.placehilder {
-  color: var(--gray-400);
-}
-
-.selected {
-  color: var(--gray-950);
-}
-
 .selectTimeDash {
   font-size: 3rem;
   display: flex;
@@ -151,6 +144,12 @@
   font-size: var(--fs-16);
   color: var(--gray-400);
   color: var(--gray-950);
+}
+
+.hr {
+  color: var(--gray-100);
+  margin-bottom: 1.8rem;
+  height: 1px;
 }
 
 @media (min-width: 768px) {
@@ -179,11 +178,13 @@
   .dateWrapper {
     display: flex;
     gap: 1rem;
+    margin-bottom: 1.8rem;
   }
 
   .selectTimeButton {
     min-width: 4.2rem;
     min-height: 4.2rem;
+    width: 4.2rem;
   }
 }
 

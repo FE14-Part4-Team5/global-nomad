@@ -8,6 +8,7 @@ import Dropdown from '../dropdown/Dropdown';
 import ArrowDownIcon from '@/assets/icons/icon_alt arrow_down.svg?react';
 import CalendarIcon from '@/assets/icons/icon_calendar.svg?react';
 import PlusIcon from '@/assets/icons/icon_plus.svg?react';
+import MinusIcon from '@/assets/icons/icon_minus.svg?react';
 import ArrowLeft from '@/assets/icons/icon_alt arrow_left.svg?react';
 import ArrowRight from '@/assets/icons/icon_alt arrow_right.svg?react';
 
@@ -22,6 +23,14 @@ const ScheduleSection = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`);
+
+  const [schedules, setSchedules] = useState<
+    { date: string; startTime: string; endTime: string }[]
+  >([]);
+
+  const removeSchedule = (indexToRemove: number) => {
+    setSchedules(prev => prev.filter((_, index) => index !== indexToRemove));
+  };
 
   const handleClickCalendar = () => {
     setShowCalendar(prev => !prev);
@@ -53,6 +62,7 @@ const ScheduleSection = () => {
           />
           <CalendarIcon className={styles.calendarIcon} />
         </div>
+        <input type="hidden" name="date" value={formattedDate} />
         <div className={styles.selectTime}>
           <div
             onClick={() => setShowDropdownFor(prev => (prev === 'start' ? null : 'start'))}
@@ -75,6 +85,7 @@ const ScheduleSection = () => {
               />
             )}
           </div>
+          <input type="hidden" name="startTime" value={startTime} />
           <div className={styles.selectTimeDash}>-</div>
           <div
             onClick={() => {
@@ -99,10 +110,53 @@ const ScheduleSection = () => {
               />
             )}
           </div>
-          <div role="button" className={styles.selectTimeButton}>
+          <input type="hidden" name="endTime" value={endTime} />
+          <div
+            onClick={() => {
+              if (!startTime || !endTime || startTime === '23:00') return;
+
+              const newSchedule = {
+                date: formattedDate,
+                startTime,
+                endTime,
+              };
+
+              setSchedules(prev => [...prev, newSchedule]);
+              setStartTime('');
+              setEndTime('');
+            }}
+            role="button"
+            className={styles.selectTimeButton}
+          >
             <PlusIcon className={styles.selectTimeButtonIcon} />
           </div>
         </div>
+      </div>
+
+      {schedules.length > 0 && <hr className={styles.hr} />}
+
+      <div className={styles.schedulesWrapper}>
+        {schedules.map((s, idx) => (
+          <div key={idx} className={styles.scheduleTag}>
+            <div className={styles.dateWrapper}>
+              <div className={styles.calendarInputWrapper}>
+                <div className={styles.dateInput}>{s.date}</div>
+              </div>
+              <div className={styles.selectTime}>
+                <div className={styles.selectTimeWrapper}>
+                  <div className={styles.selectStartTime}>{s.startTime}</div>
+                </div>
+                <div className={styles.selectTimeDash}>-</div>
+                <div className={styles.selectTimeWrapper}>
+                  <div className={styles.selectEndTime}>{s.endTime}</div>
+                </div>
+                <div className={styles.selectTimeButton} onClick={() => removeSchedule(idx)}>
+                  <MinusIcon className={styles.selectTimeButtonIcon} />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
       {showCalendar && (
         <div className={styles.modalOverlay} onClick={() => setShowCalendar(false)}>
