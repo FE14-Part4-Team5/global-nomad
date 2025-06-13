@@ -21,6 +21,31 @@
   color: var(--gray-400);
 }
 
+.bannerDescription {
+  margin-top: 1rem;
+}
+
+.bannerImageAddWrapper {
+  display: flex;
+  gap: 1.4rem;
+  border-radius: 1.6rem;
+}
+
+.bannerImagePreviewWrapper {
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid var(--gray-100);
+  border-radius: 0.8rem;
+}
+
+.bannerImagePreview {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 0.8rem;
+}
+
 @media (min-width: 768px) {
   .bannerImageAdd {
     width: 12.6rem;
@@ -31,6 +56,16 @@
   .plusIcon {
     width: 8rem;
     height: 8rem;
+  }
+
+  .bannerImagePreviewWrapper {
+    width: 12.6rem;
+    height: 12.6rem;
+    border-radius: 1.6rem;
+  }
+
+  .bannerImagePreview {
+    border-radius: 1.6rem;
   }
 }
 

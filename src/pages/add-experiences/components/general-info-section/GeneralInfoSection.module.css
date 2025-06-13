@@ -37,6 +37,14 @@
   color: var(--gray-400);
 }
 
+.categoriPlaceholder.selected {
+  color: var(--gray-950);
+}
+
+.selected {
+  color: var(--gray-950);
+}
+
 .descriptionLabel {
   margin-bottom: 1rem;
   font-size: var(--fs-16);
@@ -58,6 +66,7 @@
   padding-top: 1.6rem;
   padding-left: 2rem;
   font-family: inherit;
+  color: var(--gray-950);
 }
 
 .description::placeholder {

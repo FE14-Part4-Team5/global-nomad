@@ -2,18 +2,27 @@ import Button from '@/components/Button/Button';
 
 import GeneralInfoSection from './\bcomponents/general-info-section/GeneralInfoSection';
 import ScheduleSection from './\bcomponents/schedule-section/ScheduleSection';
-import BannerUploadSection from './\bcomponents/banner-upload-section/BannerUploadSection';
-import IntroUploadSection from './\bcomponents/intro-upload-section/IntroUploadSection';
 
 import styles from './AddExperiences.module.css';
+import ImageUploadSection from './\bcomponents/image-upload-section/ImageUploadSection';
 
 const AddExperiences = () => {
   return (
     <form className={styles.root}>
       <GeneralInfoSection />
       <ScheduleSection />
-      <BannerUploadSection />
-      <IntroUploadSection />
+      <ImageUploadSection
+        title="배너이미지"
+        description="* 배너이미지는 최대 1개 등록할 수 있습니다."
+        inputName="banner"
+        maxCount={1}
+      />
+      <ImageUploadSection
+        title="소개이미지"
+        description="* 소개이미지는 최대 4개 등록할 수 있습니다."
+        inputName="introImages[]"
+        maxCount={4}
+      />
       <div className={styles.buttonWrapper}>
         <Button
           type="submit"

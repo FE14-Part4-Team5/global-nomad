@@ -147,9 +147,9 @@
 }
 
 .hr {
-  color: var(--gray-100);
   margin-bottom: 1.8rem;
-  height: 1px;
+  border: none;
+  border-top: 1px solid var(--gray-100);
 }
 
 @media (min-width: 768px) {

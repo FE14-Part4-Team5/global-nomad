@@ -6,11 +6,12 @@ import ArrowDownIcon from '@/assets/icons/icon_alt arrow_down.svg?react';
 import styles from './GeneralInfoSection.module.css';
 import { useState } from 'react';
 import Dropdown from '../dropdown/Dropdown';
+import clsx from 'clsx';
 
 const GeneralInfoSection = () => {
   const CATEGORY_OPTIONS = ['문화·예술', '식음료', '스포츠', '투어', '관광'];
 
-  const [selectedCategory, setSelectedCategory] = useState('카테고리를 선택해 주세요');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -27,8 +28,10 @@ const GeneralInfoSection = () => {
       <div>
         <div className={styles.categoriLable}>카테고리</div>
         <div role="button" className={styles.categori} onClick={handleClickDropdown}>
-          <div className={styles.categoriPlaceholder}>
-            {selectedCategory ? selectedCategory : '카테고리를 선택해 주세요'}
+          <div
+            className={clsx(styles.categoriPlaceholder, { [styles.selected]: !!selectedCategory })}
+          >
+            {selectedCategory || '카테고리를 선택해 주세요'}
           </div>
           <ArrowDownIcon />
           {showDropdown && (
