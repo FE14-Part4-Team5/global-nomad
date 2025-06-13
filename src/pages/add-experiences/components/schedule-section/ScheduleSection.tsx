@@ -6,8 +6,8 @@ import { formatDate } from '@/utils/date';
 import ArrowDownIcon from '@/assets/icons/icon_alt arrow_down.svg?react';
 import CalendarIcon from '@/assets/icons/icon_calendar.svg?react';
 import PlusIcon from '@/assets/icons/icon_plus.svg?react';
-import ArrowLeft from '@/assets/icons/icon_alt arrow_left.svg';
-import ArrowRight from '@/assets/icons/icon_alt arrow_right.svg';
+import ArrowLeft from '@/assets/icons/icon_alt arrow_left.svg?react';
+import ArrowRight from '@/assets/icons/icon_alt arrow_right.svg?react';
 
 import styles from './ScheduleSection.module.css';
 
@@ -79,11 +79,12 @@ const ScheduleSection = () => {
                 }
               }}
               value={date}
-              prevLabel={<img src={ArrowLeft} alt="이전" style={{ width: 24, height: 24 }} />}
-              nextLabel={<img src={ArrowRight} alt="다음" style={{ width: 24, height: 24 }} />}
+              prevLabel={<ArrowLeft style={{ width: 24, height: 24 }} />}
+              nextLabel={<ArrowRight style={{ width: 24, height: 24 }} />}
               prev2Label={null}
               next2Label={null}
               locale="ko-KR"
+              className={styles.calendar}
             />
           </div>
         </div>

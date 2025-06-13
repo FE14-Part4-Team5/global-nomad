@@ -54,6 +54,9 @@
 }
 
 .modalContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -63,6 +66,10 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   padding: 2rem;
   z-index: 1001;
+}
+
+.calendar {
+  min-height: 34rem;
 }
 
 .calendarInputWrapper {
