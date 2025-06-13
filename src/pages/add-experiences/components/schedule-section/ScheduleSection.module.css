@@ -37,7 +37,7 @@
   justify-content: space-between;
   cursor: pointer;
   font-size: var(--fs-16);
-  /* font-weight: var(--font-weight-bold); */
+  color: var(--gray-950);
 }
 
 .dateInput::placeholder {
@@ -45,10 +45,9 @@
   color: var(--gray-400);
 }
 
-/* ScheduleSection.module.css에 추가 */
 .modalOverlay {
   position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1000;
 }
@@ -115,6 +114,7 @@
 
 .selectTimeWrapper {
   min-width: 12.2rem;
+  width: 100%;
   flex: 1;
   border-radius: var(--fs-16);
   border: 0.1rem solid var(--gray-100);
@@ -124,6 +124,15 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  position: relative;
+}
+
+.placehilder {
+  color: var(--gray-400);
+}
+
+.selected {
+  color: var(--gray-950);
 }
 
 .selectTimeDash {
@@ -135,12 +144,13 @@
 
 .selectStartTime {
   font-size: var(--fs-16);
-  color: var(--gray-400);
+  color: var(--gray-950);
 }
 
 .selectEndTime {
   font-size: var(--fs-16);
   color: var(--gray-400);
+  color: var(--gray-950);
 }
 
 @media (min-width: 768px) {

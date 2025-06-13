@@ -1,10 +1,11 @@
 .root {
   background-color: white;
   border-radius: 1.6rem;
-
   padding: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 101%;
+  width: 100.3%;
+  max-height: 25.5rem;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
@@ -12,6 +13,16 @@
   top: 5.5rem;
   left: -1px;
   z-index: 10;
+}
+
+.root::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.root::-webkit-scrollbar-thumb {
+  background-color: var(--gray-100);
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .item {

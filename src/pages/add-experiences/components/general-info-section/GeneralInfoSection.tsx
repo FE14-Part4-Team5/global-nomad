@@ -25,9 +25,7 @@ const GeneralInfoSection = () => {
         <Input type="text" name="title" title="제목" placeholder="제목을 입력해 주세요" />
       </div>
       <div>
-        <label htmlFor="categori" className={styles.categoriLable}>
-          카테고리
-        </label>
+        <div className={styles.categoriLable}>카테고리</div>
         <div role="button" className={styles.categori} onClick={handleClickDropdown}>
           <div className={styles.categoriPlaceholder}>
             {selectedCategory ? selectedCategory : '카테고리를 선택해 주세요'}

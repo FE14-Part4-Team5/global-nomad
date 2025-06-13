@@ -3,6 +3,8 @@ import Calendar from 'react-calendar';
 
 import { formatDate } from '@/utils/date';
 
+import Dropdown from '../dropdown/Dropdown';
+
 import ArrowDownIcon from '@/assets/icons/icon_alt arrow_down.svg?react';
 import CalendarIcon from '@/assets/icons/icon_calendar.svg?react';
 import PlusIcon from '@/assets/icons/icon_plus.svg?react';
@@ -15,6 +17,11 @@ const ScheduleSection = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const formattedDate = formatDate(date);
+
+  const [showDropdownFor, setShowDropdownFor] = useState<'start' | 'end' | null>(null);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`);
 
   const handleClickCalendar = () => {
     setShowCalendar(prev => !prev);
@@ -47,18 +54,50 @@ const ScheduleSection = () => {
           <CalendarIcon className={styles.calendarIcon} />
         </div>
         <div className={styles.selectTime}>
-          <div role="button" className={styles.selectTimeWrapper}>
+          <div
+            onClick={() => setShowDropdownFor(prev => (prev === 'start' ? null : 'start'))}
+            role="button"
+            className={styles.selectTimeWrapper}
+          >
             <div role="button" id="startTime" className={styles.selectStartTime}>
-              0:00
+              {startTime || '0:00'}
             </div>
             <ArrowDownIcon />
+            {showDropdownFor === 'start' && (
+              <Dropdown
+                options={hours} // 0:00 ~ 23:00
+                selected={startTime}
+                onSelect={value => {
+                  setStartTime(value);
+                  setEndTime('');
+                  setShowDropdownFor(null);
+                }}
+              />
+            )}
           </div>
           <div className={styles.selectTimeDash}>-</div>
-          <div role="button" className={styles.selectTimeWrapper}>
+          <div
+            onClick={() => {
+              if (!startTime || startTime === '23:00') return;
+              setShowDropdownFor(prev => (prev === 'end' ? null : 'end'));
+            }}
+            role="button"
+            className={styles.selectTimeWrapper}
+          >
             <div role="button" id="endTime" className={styles.selectEndTime}>
-              0:00
+              {endTime || '0:00'}
             </div>
             <ArrowDownIcon />
+            {showDropdownFor === 'end' && (
+              <Dropdown
+                options={hours.filter(h => parseInt(h) > parseInt(startTime))} // startTime 이후만
+                selected={endTime}
+                onSelect={value => {
+                  setEndTime(value);
+                  setShowDropdownFor(null);
+                }}
+              />
+            )}
           </div>
           <div role="button" className={styles.selectTimeButton}>
             <PlusIcon className={styles.selectTimeButtonIcon} />
@@ -67,10 +106,7 @@ const ScheduleSection = () => {
       </div>
       {showCalendar && (
         <div className={styles.modalOverlay} onClick={() => setShowCalendar(false)}>
-          <div
-            className={styles.modalContent}
-            onClick={e => e.stopPropagation()} // overlay 클릭 시 닫히게, 모달 자체는 클릭 무시
-          >
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
             <Calendar
               onChange={value => {
                 if (value instanceof Date) {
