@@ -1,0 +1,70 @@
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.input {
+  min-width: 32.7rem;
+  max-width: 70rem;
+}
+
+.categoriLable {
+  margin-bottom: 1rem;
+  font-size: var(--fs-16);
+  display: block;
+  color: var(--gray-950);
+  font-weight: var(--font-weight-bold);
+}
+
+.categori {
+  width: 100%;
+  min-width: 32.7rem;
+  max-width: 70rem;
+  border-radius: var(--fs-16);
+  border: 0.1rem solid var(--gray-100);
+  height: 5.4rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.categoriPlaceholder {
+  font-size: var(--fs-16);
+  color: var(--gray-400);
+}
+
+.descriptionLabel {
+  margin-bottom: 1rem;
+  font-size: var(--fs-16);
+  display: block;
+  color: var(--gray-950);
+  font-weight: var(--font-weight-bold);
+}
+
+.description {
+  min-width: 32.7rem;
+  max-width: 70rem;
+  width: 100%;
+  height: 14rem;
+  display: block;
+  resize: none;
+  border: 1px solid var(--gray-100);
+  font-size: var(--fs-16);
+  border-radius: 1.6rem;
+  padding-top: 1.6rem;
+  padding-left: 2rem;
+  font-family: inherit;
+}
+
+.description::placeholder {
+  color: var(--gray-400);
+}
+
+@media (min-width: 768px) {
+  .description {
+    height: 20rem;
+  }
+}
