@@ -13,6 +13,8 @@ import Pagination from '@/components/Pagination/Pagination';
 import Modal from '@/components/modal/modal';
 import DetailSkeleton from './components/loading/DetailSkeleton';
 
+import { useAuthStore } from '@/stores/useAuthStore';
+
 import {
   useExperienceDetail,
   useReserveExperience,
@@ -36,6 +38,10 @@ const DetailPage = () => {
 
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
+
+  const userId = useAuthStore(state => state.userId);
+
+  const KAKAO_MAP_KEY = import.meta.env.VITE_KAKAO_MAP_KEY;
 
   const {
     data: experience,
@@ -104,7 +110,7 @@ const DetailPage = () => {
     } else {
       if (!document.querySelector(`script[src*="dapi.kakao.com"]`)) {
         const script = document.createElement('script');
-        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=6e287159105f0af608f766ff304b9d17&libraries=services&autoload=false`;
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_KEY}&libraries=services&autoload=false`;
         script.onload = () => {
           if (window.kakao?.maps?.load) {
             window.kakao.maps.load(loadMap);
@@ -150,7 +156,7 @@ const DetailPage = () => {
           <div className={styles.category}>{experience.category}</div>
           <div className={styles.titleRow}>
             <h3 className={styles.title}>{experience.title}</h3>
-            {true && (
+            {userId === experience.userId && (
               <div className={styles.menu}>
                 <IconMore
                   width={28}
@@ -223,7 +229,7 @@ const DetailPage = () => {
           </div>
         </section>
         <section className={styles.calendarWrapper}>
-          <div className={false ? styles.invisibleBox : ''}>
+          <div className={userId === experience.userId ? styles.invisibleBox : ''}>
             <Reservation
               price={experience.price}
               schedules={experience.schedules}
