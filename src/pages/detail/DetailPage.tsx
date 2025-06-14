@@ -32,7 +32,6 @@ const DetailPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const teamId = '14-5';
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -47,15 +46,15 @@ const DetailPage = () => {
     data: experience,
     isLoading: isDetailLoading,
     isError: isDetailError,
-  } = useExperienceDetail(teamId, Number(id));
+  } = useExperienceDetail(Number(id));
   const {
     data: reviews,
     isLoading: isReviewLoading,
     isError: isReviewError,
-  } = useExperienceReviews(teamId, Number(id), currentPage, 3);
+  } = useExperienceReviews(Number(id), currentPage, 3);
 
-  const { mutate: reserveExperience } = useReserveExperience(teamId, Number(id));
-  const { mutate: deleteExperience } = useDeleteExperience(teamId, Number(id));
+  const { mutate: reserveExperience } = useReserveExperience(Number(id));
+  const { mutate: deleteExperience } = useDeleteExperience(Number(id));
 
   const handleReserve = ({ scheduleId, headCount }: { scheduleId: number; headCount: number }) => {
     reserveExperience(

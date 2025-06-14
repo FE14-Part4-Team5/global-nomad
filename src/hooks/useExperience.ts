@@ -57,30 +57,30 @@ export interface ReviewResponse {
   reviews: Review[];
 }
 
-export const useExperienceDetail = (teamId: string, activityId: number) => {
+export const useExperienceDetail = (activityId: number) => {
   return useQuery<ExperienceResponse>({
-    queryKey: ['experienceDetail', teamId, activityId],
-    queryFn: () => activitiesService.getActivityId({ teamId, activityId }),
+    queryKey: ['experienceDetail', activityId],
+    queryFn: () => activitiesService.getActivityId({ activityId }),
   });
 };
 
-export const useReserveExperience = (teamId: string, activityId: number) => {
+export const useReserveExperience = (activityId: number) => {
   return useMutation({
     mutationFn: (payload: ReserveExperiencePayload) =>
-      activitiesService.createReservations({ teamId, activityId }, payload),
+      activitiesService.createReservations({ activityId }, payload),
   });
 };
 
-export const useDeleteExperience = (teamId: string, activityId: number) => {
+export const useDeleteExperience = (activityId: number) => {
   return useMutation({
-    mutationFn: () => myActivitiesService.deleteActivity({ teamId, activityId }),
+    mutationFn: () => myActivitiesService.deleteActivity({ activityId }),
   });
 };
 
-export const useExperienceReviews = (teamId: string, activityId: number, page = 1, size = 3) => {
+export const useExperienceReviews = (activityId: number, page = 1, size = 3) => {
   return useQuery<ReviewResponse>({
-    queryKey: ['experienceReviews', teamId, activityId, page, size],
-    queryFn: () => activitiesService.getReviews({ teamId, activityId, page, size }),
+    queryKey: ['experienceReviews', activityId, page, size],
+    queryFn: () => activitiesService.getReviews({ activityId, page, size }),
     placeholderData: keepPreviousData,
   });
 };
