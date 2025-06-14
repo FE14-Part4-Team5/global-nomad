@@ -1,29 +1,32 @@
 import styles from './MainPage.module.css';
+import { useState } from 'react';
 import bannerImg from '@/assets/images/img_rectangle2.png';
 import Search from '@/components/Search/Search';
-import Dropdown from '@/components/dropdown/Dropdown';
+import Pagination from '@/components/Pagination/Pagination';
 import ExperiencesCardList from './components/experience-card-list/ExperiencesCardList';
 import HorizontalCardList from './components/horizontal-card-list/HorizontalCardList';
-import ActivityCategory from './components/category/ActivityCategory';
-
-import { mockCardData } from './example/MockCardData';
-import Pagination from '@/components/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import useViewPortSize from '@/hooks/useViewPortSize';
+import Dropdown from '@/components/dropdown/Dropdown';
+import ActivityCategory from './components/category/ActivityCategory';
+import { CATEGORY_LIST } from './components/category/CategoryList';
+import type { Category } from '@/types/api/sharedType';
+
+import { mockCardData } from './example/MockCardData';
 
 const MainPage = () => {
   const [searchParams] = useSearchParams();
   const { viewportSize } = useViewPortSize();
-
   const currentPage = Number(searchParams.get('page')) || 1;
   const itemsPerPage = viewportSize === 'mobile' ? 6 : viewportSize === 'tablet' ? 4 : 8;
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
   const pagedCardData = mockCardData.slice(startIndex, endIndex);
+  const [isSelectedCategory, setIsSelectedCategory] = useState<Category | null>(null);
+  const currentTitle =
+    CATEGORY_LIST.find(item => item.key === isSelectedCategory)?.title ?? '🛼 모든 체험';
 
-  const handleSelect = (value: string) => {
+  const handleDropdownSelect = (value: string) => {
     console.log(`${value}`);
   };
 
@@ -52,20 +55,18 @@ const MainPage = () => {
         <div className={styles.experiencesCardListContainer}>
           <div className={styles.activities}>
             <div className={styles.titleAndFilter}>
-              {/* 카테고리에 따라 title 이름 바뀌어야 함 - 추후 변경 사항*/}
-              <div className={styles.title}>🛼 모든 체험</div>
+              <div className={styles.title}>{currentTitle}</div>
               <div className={styles.dropdownWrapper}>
                 <Dropdown
                   label="가격"
                   options={['가격 낮은순', '가격 높은순']}
-                  onSelect={handleSelect}
+                  onSelect={handleDropdownSelect}
                 />
               </div>
             </div>
-            <ActivityCategory />
+            <ActivityCategory onSelectCategory={setIsSelectedCategory} />
           </div>
           <ExperiencesCardList cardList={pagedCardData} />
-
           <div className={styles.paginationWrapper}>
             <Pagination totalItems={mockCardData.length} itemsPerPage={itemsPerPage} />
           </div>
