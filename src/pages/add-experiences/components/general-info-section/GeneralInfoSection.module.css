@@ -73,6 +73,17 @@
   color: var(--gray-400);
 }
 
+.error {
+  border: 1px solid var(--alert-error);
+}
+
+.errorMessage {
+  font-size: var(--fs-12);
+  color: var(--alert-error);
+  margin-top: 0.6rem;
+  margin-left: 0.8rem;
+}
+
 .sdkWrapper {
   position: fixed;
   top: 0;

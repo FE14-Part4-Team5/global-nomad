@@ -1,3 +1,5 @@
+import { useFormContext, Controller } from 'react-hook-form';
+
 import MyExperiencesHeader from '@/components/my-experiences-header/MyExperiencesHeader';
 import Input from '@/components/input/Input';
 
@@ -8,11 +10,16 @@ import { useRef, useState } from 'react';
 import Dropdown from '../dropdown/Dropdown';
 import clsx from 'clsx';
 import useDaumPostcode from '@/hooks/useDaumPostcode';
+import type { GeneralInfoFormValues } from '../../\bschema/schema';
 
 const GeneralInfoSection = () => {
-  const CATEGORY_OPTIONS = ['문화·예술', '식음료', '스포츠', '투어', '관광'];
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<GeneralInfoFormValues>();
 
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const CATEGORY_OPTIONS = ['문화·예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -49,46 +56,92 @@ const GeneralInfoSection = () => {
     <div className={styles.formFields}>
       <MyExperiencesHeader title="내 체험 등록" />
       <div className={styles.input}>
-        <Input type="text" name="title" title="제목" placeholder="제목을 입력해 주세요" />
+        <Input
+          {...register('title')}
+          type="text"
+          name="title"
+          title="제목"
+          placeholder="제목을 입력해 주세요"
+          isError={!!errors.title}
+          errorMessage={errors.title?.message}
+        />
       </div>
-      <div>
-        <div className={styles.categoryLable}>카테고리</div>
-        <div role="button" className={styles.category} onClick={handleClickDropdown}>
-          <div
-            className={clsx(styles.categoryPlaceholder, { [styles.selected]: !!selectedCategory })}
-          >
-            {selectedCategory || '카테고리를 선택해 주세요'}
+      <Controller
+        name="category"
+        control={control}
+        render={({ field }) => (
+          <div>
+            <div className={styles.categoryLable}>카테고리</div>
+            <div
+              role="button"
+              aria-invalid={!!errors.category}
+              className={clsx(
+                styles.category,
+                field.value && styles.selected,
+                errors.category && styles.error
+              )}
+              onClick={handleClickDropdown}
+            >
+              <div
+                className={clsx(styles.categoryPlaceholder, {
+                  [styles.selected]: !!field.value,
+                })}
+              >
+                {field.value || '카테고리를 선택해 주세요'}
+              </div>
+              <ArrowDownIcon />
+              {showDropdown && (
+                <Dropdown
+                  options={CATEGORY_OPTIONS}
+                  selected={field.value}
+                  onSelect={option => {
+                    field.onChange(option);
+                    setShowDropdown(false);
+                  }}
+                />
+              )}
+            </div>
+            {errors.category && (
+              <div className={styles.errorMessage}>{errors.category.message}</div>
+            )}
           </div>
-          <ArrowDownIcon />
-          {showDropdown && (
-            <Dropdown
-              options={CATEGORY_OPTIONS}
-              selected={selectedCategory}
-              onSelect={option => {
-                setSelectedCategory(option);
-                setShowDropdown(false);
-              }}
-            />
-          )}
-        </div>
-      </div>
-      <input type="hidden" name="category" value={selectedCategory} />
+        )}
+      />
       <div>
         <label htmlFor="description" className={styles.descriptionLabel}>
           설명
         </label>
         <textarea
+          {...register('description')}
           name="description"
           id="description"
           placeholder="체험에 대한 설명을 입력해 주세요"
-          className={styles.description}
+          className={clsx(styles.description, errors.description && styles.error)}
         />
-      </div>
-      <div className={styles.input}>
-        <Input name="price" title="가격" placeholder="체험 금액을 입력해 주세요" />
+        {errors.description && (
+          <div className={styles.errorMessage}>{errors.description?.message}</div>
+        )}
       </div>
       <div className={styles.input}>
         <Input
+          {...register('price')}
+          isError={!!errors.price}
+          errorMessage={errors.price?.message}
+          name="price"
+          title="가격"
+          placeholder="체험 금액을 입력해 주세요"
+          onChange={e => {
+            // 비숫자 제거
+            const digitsOnly = e.target.value.replace(/\D/g, '');
+            e.target.value = digitsOnly;
+          }}
+        />
+      </div>
+      <div className={styles.input}>
+        <Input
+          {...register('address')}
+          isError={!!errors.address}
+          errorMessage={errors.address?.message}
           name="address"
           title="주소"
           placeholder="주소를 입력해 주세요"
