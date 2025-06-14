@@ -15,14 +15,10 @@ const HorizontalCardList = ({ cardList }: HorizontalCardListProps) => {
   const { viewportSize } = useViewPortSize();
   const { scrollRef, scroll } = useHorizontalScroll<HTMLDivElement>();
 
-  const visibleCardCount = viewportSize === 'desktop' ? 4 : 2;
   return (
     <div className={styles.wrapper}>
       {viewportSize !== 'mobile' && (
-        <button
-          className={`${styles.arrowButton} ${styles.left}`}
-          onClick={() => scroll('left', visibleCardCount)}
-        >
+        <button className={`${styles.arrowButton} ${styles.left}`} onClick={() => scroll('left')}>
           <IconLeft />
         </button>
       )}
@@ -32,10 +28,7 @@ const HorizontalCardList = ({ cardList }: HorizontalCardListProps) => {
         ))}
       </div>
       {viewportSize !== 'mobile' && (
-        <button
-          className={`${styles.arrowButton} ${styles.right}`}
-          onClick={() => scroll('right', visibleCardCount)}
-        >
+        <button className={`${styles.arrowButton} ${styles.right}`} onClick={() => scroll('right')}>
           <IconRight />
         </button>
       )}
