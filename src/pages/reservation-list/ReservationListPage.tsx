@@ -2,6 +2,7 @@ import SideNavigation from '../../components/side-navigation/SideNavigation.tsx'
 import styles from './ReservationListPage.module.css';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReservationCard from '../../components/reservation-card/ReservationCard';
 import Modal from '../../components/modal/modal';
 import WarningIcon from '../../assets/icons/modalwarning.svg';
@@ -17,6 +18,11 @@ const ReservationList: React.FC = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState<MyReservation | null>(null);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleExploreClick = () => {
+    navigate('/');
+  };
 
   const handleBadgeClick = (state: string) => {
     // 현재 선택된 상태와 동일한 배지를 클릭하면 선택 해제
@@ -29,36 +35,6 @@ const ReservationList: React.FC = () => {
 
   const reservations: MyReservation[] = [
     // 체험 완료 카드 추가(테스트용)
-    {
-      activity: {
-        id: 2,
-        bannerImageUrl: '이미지URL2',
-        title: '맛있는 김치 만들기 체험',
-      },
-      status: 'completed',
-      date: '2024.06.01',
-      startTime: '10:00',
-      endTime: '12:00',
-      totalPrice: 45000,
-      headCount: 3,
-      headCountUnit: '명',
-      reviewSubmitted: false,
-    },
-    {
-      activity: {
-        id: 2,
-        bannerImageUrl: '이미지URL2',
-        title: '맛있는 김치 만들기 체험',
-      },
-      status: 'pending',
-      date: '2024.06.01',
-      startTime: '10:00',
-      endTime: '12:00',
-      totalPrice: 45000,
-      headCount: 3,
-      headCountUnit: '명',
-      reviewSubmitted: false,
-    },
   ];
 
   return (
@@ -175,7 +151,12 @@ const ReservationList: React.FC = () => {
             <div className={styles.emptyState}>
               <img src={emptyImg} alt="아직 예약한 체험이 없어요" />
               <p>아직 예약한 체험이 없어요</p>
-              <Button variant="primary" isActive={true} className={styles.exploreButton}>
+              <Button
+                variant="primary"
+                isActive={true}
+                className={styles.exploreButton}
+                onClick={handleExploreClick}
+              >
                 둘러보기
               </Button>
             </div>
