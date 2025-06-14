@@ -16,6 +16,7 @@ const GeneralInfoSection = () => {
   const {
     register,
     control,
+    setValue,
     formState: { errors },
   } = useFormContext<GeneralInfoFormValues>();
 
@@ -43,7 +44,9 @@ const GeneralInfoSection = () => {
 
     new window.daum.Postcode({
       oncomplete: data => {
-        setAddr(data.roadAddress || data.jibunAddress);
+        const selected = data.roadAddress || data.jibunAddress;
+        setAddr(selected);
+        setValue('address', selected, { shouldValidate: true });
         detailRef.current?.focus();
         setSdkOpen(false);
       },
@@ -74,6 +77,7 @@ const GeneralInfoSection = () => {
             <div className={styles.categoryLable}>카테고리</div>
             <div
               role="button"
+              tabIndex={-1}
               aria-invalid={!!errors.category}
               className={clsx(
                 styles.category,
@@ -81,6 +85,7 @@ const GeneralInfoSection = () => {
                 errors.category && styles.error
               )}
               onClick={handleClickDropdown}
+              {...field}
             >
               <div
                 className={clsx(styles.categoryPlaceholder, {

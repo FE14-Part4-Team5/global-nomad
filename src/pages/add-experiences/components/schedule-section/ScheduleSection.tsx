@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 
 import { formatDate } from '@/utils/date';
@@ -13,6 +13,9 @@ import ArrowLeft from '@/assets/icons/icon_alt arrow_left.svg?react';
 import ArrowRight from '@/assets/icons/icon_alt arrow_right.svg?react';
 
 import styles from './ScheduleSection.module.css';
+import { useFormContext } from 'react-hook-form';
+import type { GeneralInfoFormValues } from '../../\bschema/schema';
+import clsx from 'clsx';
 
 const ScheduleSection = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -28,6 +31,8 @@ const ScheduleSection = () => {
     { date: string; startTime: string; endTime: string }[]
   >([]);
 
+  const isFirstRender = useRef(true);
+
   const removeSchedule = (indexToRemove: number) => {
     setSchedules(prev => prev.filter((_, index) => index !== indexToRemove));
   };
@@ -35,6 +40,24 @@ const ScheduleSection = () => {
   const handleClickCalendar = () => {
     setShowCalendar(prev => !prev);
   };
+
+  const {
+    register,
+    setValue,
+    formState: { errors, isSubmitted, submitCount },
+  } = useFormContext<GeneralInfoFormValues>();
+
+  useEffect(() => {
+    register('schedules');
+  }, [register]);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    setValue('schedules', schedules);
+  }, [schedules, setValue]);
 
   return (
     <div className={styles.scheduleSection}>
@@ -58,7 +81,10 @@ const ScheduleSection = () => {
             value={formattedDate}
             placeholder="yy/mm/dd"
             readOnly
-            className={styles.dateInput}
+            className={clsx(
+              styles.dateInput,
+              errors.schedules && !schedules.length && styles.error
+            )}
           />
           <CalendarIcon className={styles.calendarIcon} />
         </div>
@@ -67,7 +93,10 @@ const ScheduleSection = () => {
           <div
             onClick={() => setShowDropdownFor(prev => (prev === 'start' ? null : 'start'))}
             role="button"
-            className={styles.selectTimeWrapper}
+            className={clsx(
+              styles.selectTimeWrapper,
+              errors.schedules && !schedules.length && styles.error
+            )}
           >
             <div role="button" id="startTime" className={styles.selectStartTime}>
               {startTime || '0:00'}
@@ -75,7 +104,7 @@ const ScheduleSection = () => {
             <ArrowDownIcon />
             {showDropdownFor === 'start' && (
               <Dropdown
-                options={hours} // 0:00 ~ 23:00
+                options={hours}
                 selected={startTime}
                 onSelect={value => {
                   setStartTime(value);
@@ -93,7 +122,10 @@ const ScheduleSection = () => {
               setShowDropdownFor(prev => (prev === 'end' ? null : 'end'));
             }}
             role="button"
-            className={styles.selectTimeWrapper}
+            className={clsx(
+              styles.selectTimeWrapper,
+              errors.schedules && !schedules.length && styles.error
+            )}
           >
             <div role="button" id="endTime" className={styles.selectEndTime}>
               {endTime || '0:00'}
@@ -101,7 +133,7 @@ const ScheduleSection = () => {
             <ArrowDownIcon />
             {showDropdownFor === 'end' && (
               <Dropdown
-                options={hours.filter(h => parseInt(h) > parseInt(startTime))} // startTime 이후만
+                options={hours.filter(h => parseInt(h) > parseInt(startTime))}
                 selected={endTime}
                 onSelect={value => {
                   setEndTime(value);
@@ -132,6 +164,9 @@ const ScheduleSection = () => {
           </div>
         </div>
       </div>
+      {(isSubmitted || submitCount > 0) && errors.schedules && (
+        <p className={styles.errorMessage}>{errors.schedules?.message}</p>
+      )}
 
       {schedules.length > 0 && <hr className={styles.hr} />}
 

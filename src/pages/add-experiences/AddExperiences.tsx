@@ -19,17 +19,23 @@ const AddExperiences = () => {
       title: '',
       category: '',
       description: '',
-      price: '',
+      price: undefined,
       address: '',
+      schedules: [] as { date: string; startTime: string; endTime: string }[],
     },
   });
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // TODO: 서버로 데이터 전송 로직 추가
+  const { handleSubmit, setFocus } = methods;
+  const onValid = data => {
+    /* 정상 처리 */
+  };
+  const onError = errors => {
+    if (errors.category) {
+      setFocus('category'); // 스크롤·포커스 이동
+    }
   };
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.root}>
+      <form onSubmit={handleSubmit(onValid, onError)} className={styles.root}>
         <GeneralInfoSection />
         <ScheduleSection />
         <ImageUploadSection
