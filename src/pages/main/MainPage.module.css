@@ -27,37 +27,6 @@
   margin-bottom: 1.7rem;
 }
 
-.banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  z-index: 1;
-}
-
-.bannerTextWrapper {
-  position: absolute;
-  top: 62%;
-  color: var(--color-white);
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  align-items: center;
-  z-index: 2;
-}
-.bannerTitle {
-  font-size: var(--fs-18);
-  font-weight: var(--font-weight-bold);
-}
-.bannerDescription {
-  font-size: var(--fs-14);
-  font-weight: var(--font-weight-medium);
-}
-
 .title {
   font-size: var(--fs-18);
   font-weight: var(--font-weight-bold);
@@ -112,16 +81,6 @@
     border-radius: 1.8rem;
     margin: 0 auto 3rem;
   }
-  .bannerTextWrapper {
-    gap: 1.4rem;
-  }
-  .bannerTitle {
-    font-size: var(--fs-24);
-  }
-  .bannerDescription {
-    font-size: var(--fs-16);
-    font-weight: var(--font-weight-bold);
-  }
 
   .title {
     font-size: var(--fs-32);
@@ -156,15 +115,6 @@
     height: 50rem;
     border-radius: 1.8rem;
     margin-bottom: 5rem;
-  }
-  .bannerTextWrapper {
-    gap: 1.9rem;
-  }
-  .bannerTitle {
-    font-size: var(--fs-32);
-  }
-  .bannerDescription {
-    font-size: var(--fs-18);
   }
 
   .activities {

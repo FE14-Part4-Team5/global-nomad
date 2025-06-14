@@ -1,6 +1,6 @@
 import styles from './MainPage.module.css';
 import { useState } from 'react';
-import bannerImg from '@/assets/images/img_rectangle2.png';
+import defaultBannerImg from '@/assets/images/img_rectangle2.png';
 import Search from '@/components/Search/Search';
 import Pagination from '@/components/Pagination/Pagination';
 import ExperiencesCardList from './components/experience-card-list/ExperiencesCardList';
@@ -13,6 +13,7 @@ import { CATEGORY_LIST } from './components/category/CategoryList';
 import type { Category } from '@/types/api/sharedType';
 
 import { mockCardData } from './example/MockCardData';
+import Banner from './components/banner/Banner';
 
 const MainPage = () => {
   const [searchParams] = useSearchParams();
@@ -34,12 +35,11 @@ const MainPage = () => {
     <div className={styles.mainWrapper}>
       <div className={styles.container}>
         <div className={styles.bannerWrapper}>
-          <img src={bannerImg} alt="배너 이미지" className={styles.banner} />
-          <div className={styles.overlay}></div>
-          <div className={styles.bannerTextWrapper}>
-            <p className={styles.bannerTitle}>함께 배우면 즐거운 스트릿 댄스</p>
-            <p className={styles.bannerDescription}>1월의 인기 체험 BSET 🔥</p>
-          </div>
+          <Banner
+            bannerImg={defaultBannerImg}
+            bannerTitle="함께 배우면 즐거운 스트릿 댄스"
+            bannerDescription="1월의 인기 체험 BSET 🔥"
+          />
         </div>
         <div className={styles.searchContainer}>
           <Search
