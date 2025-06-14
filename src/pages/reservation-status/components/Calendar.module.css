@@ -67,7 +67,8 @@
     font-size: var(--fs-20);
   }
 
-  .dateCell {
+  .dateCell,
+  .adjacentMonthCell {
     padding: 1.8rem 3rem 8.7rem;
   }
 }

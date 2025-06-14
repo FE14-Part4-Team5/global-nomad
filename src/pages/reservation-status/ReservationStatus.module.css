@@ -1,7 +1,6 @@
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .calendarWrapper {
@@ -11,6 +10,7 @@
 
 .navContainer {
   display: none;
+  margin-top: 4.8rem;
 }
 
 .header {

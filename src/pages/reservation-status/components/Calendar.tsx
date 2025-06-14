@@ -5,6 +5,7 @@ const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 export const Calendar = () => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
 
@@ -35,7 +36,7 @@ export const Calendar = () => {
 
   for (let i = 1; i <= daysInMonth; i++) {
     dateCells.push(
-      <div key={i} className={styles.dateCell}>
+      <div key={i} className={styles.dateCell} onClick={() => setSelectedDate(i)}>
         {i}
       </div>
     );
@@ -69,6 +70,35 @@ export const Calendar = () => {
 
         {dateCells}
       </div>
+
+      {selectedDate && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <button className={styles.closeBtn} onClick={() => setSelectedDate(null)}>
+              ×
+            </button>
+            <h3>
+              {year}년 {month}월 {selectedDate}일
+            </h3>
+
+            <div className={styles.modalSection}>
+              <strong>예약 시간</strong>
+              <select>
+                <option>14:00 - 15:00</option>
+              </select>
+            </div>
+
+            <div className={styles.modalSection}>
+              <strong>예약 내역</strong>
+              <div className={styles.reservationItem}>
+                <div>정만철 (10명)</div>
+                <button>승인</button>
+                <button>거절</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
