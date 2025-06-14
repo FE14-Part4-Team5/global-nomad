@@ -1,50 +1,26 @@
-// import { useRef } from 'react';
-
-// export type ScrollDirection = 'left' | 'right';
-
-// export default function useHorizontalScroll<T extends HTMLElement>() {
-//   const scrollRef = useRef<T>(null);
-
-//   const scroll = (direction: ScrollDirection) => {
-//     const container = scrollRef.current;
-//     if (!container) return;
-
-//     const scrollAmount = container.clientWidth * 1;
-//     container.scrollBy({
-//       left: direction === 'left' ? -scrollAmount : scrollAmount,
-//       behavior: 'smooth',
-//     });
-//   };
-
-//   return { scrollRef, scroll };
-// }
 import { useRef } from 'react';
 
-const useHorizontalScroll = <T extends HTMLElement>() => {
+export type ScrollDirection = 'left' | 'right';
+
+export default function useHorizontalScroll<T extends HTMLElement>() {
   const scrollRef = useRef<T>(null);
 
-  const scroll = (direction: 'left' | 'right', visibleCardCount: number) => {
-    if (!scrollRef.current) return;
+  const scroll = (direction: ScrollDirection) => {
+    const container = scrollRef.current;
+    if (!container) return;
 
-    const card = scrollRef.current.querySelector(':scope > *') as HTMLElement;
-    if (!card) return;
+    const cardElement = container.querySelector<HTMLElement>('*');
+    if (!cardElement) return;
 
-    const cardRect = card.getBoundingClientRect();
-    const gap = parseFloat(
-      getComputedStyle(scrollRef.current).columnGap ||
-        getComputedStyle(scrollRef.current).gap ||
-        '0'
-    );
+    const cardWidth = cardElement.offsetWidth;
+    const gap = parseFloat(getComputedStyle(container).columnGap || '0');
 
-    const offset = visibleCardCount * (cardRect.width + gap);
-
-    scrollRef.current.scrollBy({
-      left: direction === 'left' ? -offset : offset,
+    const scrollAmount = cardWidth + gap;
+    container.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
       behavior: 'smooth',
     });
   };
 
   return { scrollRef, scroll };
-};
-
-export default useHorizontalScroll;
+}

@@ -15,7 +15,7 @@ const HorizontalCardList = ({ cardList }: HorizontalCardListProps) => {
   const { viewportSize } = useViewPortSize();
   const { scrollRef, scroll } = useHorizontalScroll<HTMLDivElement>();
 
-  const visibleCardCount = viewportSize === 'desktop' ? 3 : 2;
+  const visibleCardCount = viewportSize === 'desktop' ? 4 : 2;
   return (
     <div className={styles.wrapper}>
       {viewportSize !== 'mobile' && (

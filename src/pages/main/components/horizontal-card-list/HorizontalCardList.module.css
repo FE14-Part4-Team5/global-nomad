@@ -13,6 +13,11 @@
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.scrollContainer > * {
+  scroll-snap-align: start;
 }
 
 .arrowButton {
