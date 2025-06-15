@@ -10,7 +10,7 @@ import { useRef, useState } from 'react';
 import Dropdown from '../dropdown/Dropdown';
 import clsx from 'clsx';
 import useDaumPostcode from '@/hooks/useDaumPostcode';
-import type { GeneralInfoFormValues } from '../../\bschema/schema';
+import type { GeneralInfoFormValues } from '../../schema/schema';
 
 const GeneralInfoSection = () => {
   const {

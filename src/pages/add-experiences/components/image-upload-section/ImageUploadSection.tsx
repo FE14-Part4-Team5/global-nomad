@@ -7,7 +7,7 @@ import DeleteIcon from '@/assets/icons/icon_delete.svg?react';
 
 import styles from './ImageUploadSection.module.css';
 import { useFormContext } from 'react-hook-form';
-import type { GeneralInfoFormValues } from '../../\bschema/schema';
+import type { GeneralInfoFormValues } from '../../schema/schema';
 import clsx from 'clsx';
 
 interface Preview {

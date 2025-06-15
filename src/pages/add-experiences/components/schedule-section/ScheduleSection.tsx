@@ -14,7 +14,7 @@ import ArrowRight from '@/assets/icons/icon_alt arrow_right.svg?react';
 
 import styles from './ScheduleSection.module.css';
 import { useFormContext } from 'react-hook-form';
-import type { GeneralInfoFormValues } from '../../\bschema/schema';
+import type { GeneralInfoFormValues } from '../../schema/schema';
 import clsx from 'clsx';
 
 const ScheduleSection = () => {
