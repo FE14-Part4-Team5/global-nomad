@@ -1,4 +1,6 @@
-import SideNavigation from '../../components/side-navigation/SideNavigation.tsx';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
+import SideNavigation from '@/components/side-navigation/SideNavigation';
+import { LoadingSideNavigation } from '../my-experiences/components/loading/Loading';
 import styles from './ReservationListPage.module.css';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
 import { useState } from 'react';
@@ -19,6 +21,7 @@ const ReservationList: React.FC = () => {
   const [selectedReservation, setSelectedReservation] = useState<MyReservation | null>(null);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { data: userData } = useMyProfileQuery();
 
   const handleExploreClick = () => {
     navigate('/');
@@ -40,8 +43,13 @@ const ReservationList: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.navigationWrapper}>
-        <SideNavigation defaultImage={profileImg} />
+        {userData ? (
+          <SideNavigation defaultImage={userData.profileImageUrl as string} />
+        ) : (
+          <LoadingSideNavigation />
+        )}
       </div>
+
       <div className={styles.contentWrapper}>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>예약 내역</h1>
