@@ -3,13 +3,14 @@ import SideNavigation from '@/components/side-navigation/SideNavigation';
 import { LoadingSideNavigation } from '../my-experiences/components/loading/Loading';
 import styles from './ReservationListPage.module.css';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReservationCard from '../../components/reservation-card/ReservationCard';
 import Modal from '../../components/modal/modal';
 import WarningIcon from '../../assets/icons/modalwarning.svg';
 import Button from '../../components/Button/Button';
 import emptyImg from '@/assets/images/img_empty.png';
+import { getReservations, cancelReservation } from './reservationList';
 
 const handleProfileImageUpload = (file: File) => {
   console.log('이미지 업로드:', file);
@@ -20,8 +21,38 @@ const ReservationList: React.FC = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState<MyReservation | null>(null);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   const navigate = useNavigate();
   const { data: userData } = useMyProfileQuery();
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getReservations('14-5');
+        setReservations(response.reservations);
+      } catch (error) {
+        console.error('예약 목록 조회 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchReservations();
+  }, []);
+
+  const handleCancelReservation = async (reservationId: number) => {
+    try {
+      await cancelReservation('14-5', reservationId);
+      // 예약 목록 다시 불러오기
+      const response = await getReservations('14-5');
+      setReservations(response.reservations);
+      setIsCancelModalOpen(false);
+    } catch (error) {
+      console.error('예약 취소 실패:', error);
+    }
+  };
 
   const handleExploreClick = () => {
     navigate('/');
@@ -35,10 +66,6 @@ const ReservationList: React.FC = () => {
       setActiveState(state);
     }
   };
-
-  const reservations: MyReservation[] = [
-    // 체험 완료 카드 추가(테스트용)
-  ];
 
   return (
     <div className={styles.container}>
