@@ -1,12 +1,16 @@
-import SideNavigation from '../../components/side-navigation/SideNavigation.tsx';
+import { useMyProfileQuery } from '@/hooks/useMyProfile';
+import SideNavigation from '@/components/side-navigation/SideNavigation';
+import { LoadingSideNavigation } from '../my-experiences/components/loading/Loading';
 import styles from './ReservationListPage.module.css';
 import profileImg from '@/assets/icons/profile_size=lg.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReservationCard from '../../components/reservation-card/ReservationCard';
 import Modal from '../../components/modal/modal';
 import WarningIcon from '../../assets/icons/modalwarning.svg';
 import Button from '../../components/Button/Button';
 import emptyImg from '@/assets/images/img_empty.png';
+import { getReservations, cancelReservation } from './reservationList';
 
 const handleProfileImageUpload = (file: File) => {
   console.log('이미지 업로드:', file);
@@ -17,6 +21,42 @@ const ReservationList: React.FC = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState<MyReservation | null>(null);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const navigate = useNavigate();
+  const { data: userData } = useMyProfileQuery();
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getReservations('14-5');
+        setReservations(response.reservations);
+      } catch (error) {
+        console.error('예약 목록 조회 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchReservations();
+  }, []);
+
+  const handleCancelReservation = async (reservationId: number) => {
+    try {
+      await cancelReservation('14-5', reservationId);
+      // 예약 목록 다시 불러오기
+      const response = await getReservations('14-5');
+      setReservations(response.reservations);
+      setIsCancelModalOpen(false);
+    } catch (error) {
+      console.error('예약 취소 실패:', error);
+    }
+  };
+
+  const handleExploreClick = () => {
+    navigate('/');
+  };
 
   const handleBadgeClick = (state: string) => {
     // 현재 선택된 상태와 동일한 배지를 클릭하면 선택 해제
@@ -27,45 +67,16 @@ const ReservationList: React.FC = () => {
     }
   };
 
-  const reservations: MyReservation[] = [
-    // 체험 완료 카드 추가(테스트용)
-    {
-      activity: {
-        id: 2,
-        bannerImageUrl: '이미지URL2',
-        title: '맛있는 김치 만들기 체험',
-      },
-      status: 'completed',
-      date: '2024.06.01',
-      startTime: '10:00',
-      endTime: '12:00',
-      totalPrice: 45000,
-      headCount: 3,
-      headCountUnit: '명',
-      reviewSubmitted: false,
-    },
-    {
-      activity: {
-        id: 2,
-        bannerImageUrl: '이미지URL2',
-        title: '맛있는 김치 만들기 체험',
-      },
-      status: 'pending',
-      date: '2024.06.01',
-      startTime: '10:00',
-      endTime: '12:00',
-      totalPrice: 45000,
-      headCount: 3,
-      headCountUnit: '명',
-      reviewSubmitted: false,
-    },
-  ];
-
   return (
     <div className={styles.container}>
       <div className={styles.navigationWrapper}>
-        <SideNavigation defaultImage={profileImg} />
+        {userData ? (
+          <SideNavigation defaultImage={userData.profileImageUrl as string} />
+        ) : (
+          <LoadingSideNavigation />
+        )}
       </div>
+
       <div className={styles.contentWrapper}>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>예약 내역</h1>
@@ -175,7 +186,12 @@ const ReservationList: React.FC = () => {
             <div className={styles.emptyState}>
               <img src={emptyImg} alt="아직 예약한 체험이 없어요" />
               <p>아직 예약한 체험이 없어요</p>
-              <Button variant="primary" isActive={true} className={styles.exploreButton}>
+              <Button
+                variant="primary"
+                isActive={true}
+                className={styles.exploreButton}
+                onClick={handleExploreClick}
+              >
                 둘러보기
               </Button>
             </div>
