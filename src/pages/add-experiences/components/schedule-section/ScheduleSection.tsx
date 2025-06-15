@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 
-import { formatDate } from '@/utils/date';
+import { formatDateToYMD } from '@/utils/datetime';
 
 import Dropdown from '../dropdown/Dropdown';
 
@@ -20,7 +20,7 @@ import clsx from 'clsx';
 const ScheduleSection = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
-  const formattedDate = formatDate(date);
+  const formattedDate = formatDateToYMD(date);
 
   const [showDropdownFor, setShowDropdownFor] = useState<'start' | 'end' | null>(null);
   const [startTime, setStartTime] = useState('');
