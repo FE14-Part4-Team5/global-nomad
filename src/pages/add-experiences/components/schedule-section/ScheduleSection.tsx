@@ -44,6 +44,7 @@ const ScheduleSection = () => {
   const {
     register,
     setValue,
+
     formState: { errors, isSubmitted, submitCount },
   } = useFormContext<GeneralInfoFormValues>();
 
@@ -164,7 +165,7 @@ const ScheduleSection = () => {
           </div>
         </div>
       </div>
-      {(isSubmitted || submitCount > 0) && errors.schedules && (
+      {(isSubmitted || submitCount > 0) && errors.schedules && schedules.length === 0 && (
         <p className={styles.errorMessage}>{errors.schedules?.message}</p>
       )}
 

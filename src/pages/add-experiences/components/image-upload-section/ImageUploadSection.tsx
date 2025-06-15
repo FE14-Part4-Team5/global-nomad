@@ -1,9 +1,14 @@
 import { useRef, useState } from 'react';
 
+import { activitiesService } from '@/apis/activities';
+
 import PlusIcon from '@/assets/icons/icon_plus.svg?react';
 import DeleteIcon from '@/assets/icons/icon_delete.svg?react';
 
 import styles from './ImageUploadSection.module.css';
+import { useFormContext } from 'react-hook-form';
+import type { GeneralInfoFormValues } from '../../\bschema/schema';
+import clsx from 'clsx';
 
 interface Preview {
   id: string;
@@ -15,11 +20,17 @@ const ImageUploadSection = ({
   description,
   inputName,
   maxCount,
+  isRequired,
 }: ImageUploadSectionProps) => {
   const [previews, setPreviews] = useState<Preview[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const {
+    setValue,
+    formState: { errors },
+  } = useFormContext<GeneralInfoFormValues>();
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
 
@@ -27,13 +38,27 @@ const ImageUploadSection = ({
     const remainingSlots = maxCount - previews.length;
     const validFiles = fileArray.slice(0, remainingSlots);
 
-    const newPreviews = validFiles.map(file => {
-      const id = `${file.name}-${file.size}-${Date.now()}`;
-      const url = URL.createObjectURL(file);
-      return { id, file, url };
-    });
+    const newPreviews = await Promise.all(
+      validFiles.map(async file => {
+        const id = `${file.name}-${file.size}-${Date.now()}`;
+        const { activityImageUrl } = await activitiesService.getActivityImageUrl({ image: file });
+        return { id, file, url: activityImageUrl };
+      })
+    );
 
     setPreviews(prev => [...prev, ...newPreviews]);
+
+    if (inputName === 'bannerImageUrl') {
+      setValue(inputName, newPreviews[0]?.url ?? '', {
+        shouldValidate: true,
+      });
+    } else if (inputName === 'subImageUrls') {
+      const newFiles = newPreviews.map(p => p.file);
+      setValue(inputName, newFiles, {
+        shouldValidate: true,
+      });
+    }
+
     e.target.value = '';
   };
 
@@ -42,16 +67,26 @@ const ImageUploadSection = ({
   };
 
   const handleRemoveImage = (id: string) => {
-    const preview = previews.find(p => p.id === id);
-    if (preview) URL.revokeObjectURL(preview.url);
-    setPreviews(prev => prev.filter(p => p.id !== id));
+    const newPreviews = previews.filter(p => p.id !== id);
+    setPreviews(newPreviews);
+
+    const newFiles = newPreviews.map(p => p.file);
+    setValue(inputName as keyof GeneralInfoFormValues, newFiles, {
+      shouldValidate: true,
+    });
   };
 
   return (
     <div className={styles.bannerImageSection}>
       <div className={styles.bannerImageSectionTitle}>{title}</div>
       <div className={styles.bannerImageAddWrapper}>
-        <div onClick={handleIconClick} className={styles.bannerImageAdd}>
+        <div
+          onClick={handleIconClick}
+          className={clsx(
+            styles.bannerImageAdd,
+            isRequired && errors?.bannerImageUrl && styles.error
+          )}
+        >
           <PlusIcon className={styles.plusIcon} />
         </div>
         {previews.map(({ id, url }, i) => (
@@ -73,6 +108,9 @@ const ImageUploadSection = ({
         hidden
       />
       <div className={styles.bannerDescription}>{description}</div>
+      {isRequired && errors?.bannerImageUrl && (
+        <div className={styles.errorMessage}>{errors.bannerImageUrl.message}</div>
+      )}
     </div>
   );
 };
@@ -84,4 +122,5 @@ type ImageUploadSectionProps = {
   description: string;
   inputName: string;
   maxCount: number;
+  isRequired: boolean;
 };

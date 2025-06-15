@@ -66,6 +66,17 @@
   cursor: pointer;
 }
 
+.error {
+  border: 1px solid var(--alert-error);
+}
+
+.errorMessage {
+  font-size: var(--fs-12);
+  color: var(--alert-error);
+  margin-top: 0.6rem;
+  margin-left: 0.8rem;
+}
+
 @media (min-width: 768px) {
   .bannerImageAdd {
     width: 12.6rem;

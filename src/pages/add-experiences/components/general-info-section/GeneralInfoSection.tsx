@@ -20,7 +20,7 @@ const GeneralInfoSection = () => {
     formState: { errors },
   } = useFormContext<GeneralInfoFormValues>();
 
-  const CATEGORY_OPTIONS = ['문화·예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
+  const CATEGORY_OPTIONS = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -135,11 +135,6 @@ const GeneralInfoSection = () => {
           name="price"
           title="가격"
           placeholder="체험 금액을 입력해 주세요"
-          onChange={e => {
-            // 비숫자 제거
-            const digitsOnly = e.target.value.replace(/\D/g, '');
-            e.target.value = digitsOnly;
-          }}
         />
       </div>
       <div className={styles.input}>

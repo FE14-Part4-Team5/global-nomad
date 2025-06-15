@@ -7,5 +7,5 @@ export const formatDate = (date: Date): string => {
   const yy = pad2(fullYear); // 예: 2025 % 100 = 25 → '25'
   const mm = pad2(date.getMonth() + 1); // 월은 0부터 시작하므로 +1
   const dd = pad2(date.getDate());
-  return `${yy}년 ${mm}월 ${dd}일`;
+  return `${yy}-${mm}-${dd}`;
 };
