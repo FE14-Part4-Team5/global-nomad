@@ -25,7 +25,11 @@ const router = createBrowserRouter([
       { path: '/my-profile', element: <MyProfilePage /> },
       {
         path: 'detail/:id',
-        element: <DetailPage />,
+        element: (
+          <ErrorBoundary FallbackComponent={ErrorUI}>
+            <DetailPage />
+          </ErrorBoundary>
+        ),
       },
       {
         path: '/reservation-list',
