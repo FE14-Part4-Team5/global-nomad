@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import IconDelete from '@/assets/icons/icon_delete.svg?react';
 
@@ -6,40 +7,41 @@ import { getTimeAgo } from '@/utils/datetime';
 
 import styles from './NotificationModal.module.css';
 
-// [임시 데이터] 실제 API 연결 전까지 사용됨 - 이후 삭제 필요
-export const mockNotificationPages = [
-  {
-    cursorId: 1,
-    totalCount: 2,
-    notifications: [
-      {
-        id: 201,
-        teamId: '14-5',
-        userId: 1,
-        content: '함께하면 즐거운 스트릿 댄스 (2023-01-14 15:00~18:00) 예약이 승인되었습니다.',
-        createdAt: new Date(Date.now() - 1000 * 60 * 1).toISOString(),
-        updatedAt: new Date().toISOString(),
-        deletedAt: null,
-      },
-      {
-        id: 202,
-        teamId: '14-5',
-        userId: 1,
-        content: '함께하면 즐거운 스트릿 댄스 (2023-01-14 15:00~18:00) 예약이 거절되었습니다.',
-        createdAt: new Date(Date.now() - 1000 * 60 * 7).toISOString(),
-        updatedAt: new Date().toISOString(),
-        deletedAt: null,
-      },
-    ],
-  },
-];
+import { useInfiniteNotification, useDeleteNotification } from '@/hooks/useNotification';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 const NotificationModal = () => {
   const [visible, setVisible] = useState(true);
   if (!visible) return null;
 
-  const notificationList = mockNotificationPages?.flatMap(page => page.notifications) || [];
-  const totalCount = mockNotificationPages[0]?.totalCount ?? notificationList.length;
+  const queryClient = useQueryClient();
+  const { ref: loadMoreRef, inView } = useInView();
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+    useInfiniteNotification();
+  const { mutate: deleteNotification } = useDeleteNotification();
+
+  const notificationList = data?.pages.flatMap(page => page.notifications) || [];
+  const totalCount = data?.pages[0]?.totalCount ?? notificationList.length;
+
+  const handleDelete = (notificationId: number) => {
+    deleteNotification(notificationId, {
+      onSuccess: response => {
+        console.log('알림 삭제 성공:', response);
+        queryClient.invalidateQueries({ queryKey: ['notifications'] });
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage]);
+
+  if (isLoading) return null;
+  if (isError) throw new Error('알림을 불러오는 중 에러 발생');
 
   return (
     <div className={styles.wrapper}>
@@ -56,7 +58,11 @@ const NotificationModal = () => {
           const isRejected = noti.content.includes('거절');
 
           return (
-            <div key={noti.id} className={styles.notification}>
+            <div
+              key={noti.id}
+              className={styles.notification}
+              onClick={() => handleDelete(noti.id)}
+            >
               <div className={styles.topRow}>
                 <span>{isApproved ? '예약 승인' : isRejected ? '예약 거절' : '알림'}</span>
                 <span className={styles.timeAgo}>{getTimeAgo(noti.createdAt)}</span>
@@ -74,7 +80,7 @@ const NotificationModal = () => {
             </div>
           );
         })}
-        <div className={styles.loadMoreTrigger}></div>
+        <div ref={loadMoreRef} className={styles.loadMoreTrigger}></div>
       </div>
     </div>
   );
